@@ -1426,23 +1426,6 @@ definitions:
         $ref: '#/definitions/pay_later'
       totals:
         $ref: '#/definitions/totals'
-  vehicle:
-    title: Rental Vehicle Information
-    description: Identifying information about the vehicle, including vehicle category
-      (make/model), features, luggage capacity and the total cost.
-    type: object
-    properties:
-      category:
-        $ref: '#/definitions/vehical_category'
-      features:
-        $ref: '#/definitions/vehical_features'
-      capacity:
-        $ref: '#/definitions/vehical_capacity'
-      brand:
-        $ref: '#/definitions/brand'
-        example: Avis
-      rate_totals:
-        $ref: '#/definitions/rate_totals'
   fee:
     title: Fee
     description: Fees applied to the reservation. All available fees and surcharges
@@ -2163,31 +2146,6 @@ definitions:
           $ref: '#/definitions/product_code'
       meet_and_greet:
         title: Meet and Greet
-  offers:
-    description: The rental vehicle availability offerings including the rates, discounts
-      and benefits
-    type: array
-    items:
-      properties:
-        name:
-          title: Offer Name
-          description: Value proposition offering name.
-          type: string
-          example: Lead Recommendation
-        id:
-          title: Unique identifier of this offer
-          description: Unique identifier of this offer.
-          type: string
-          example: 39008e7c-5cf3-4411-a4da-ceb477c5ae4c
-        brand:
-          $ref: '#/definitions/brand'
-        terms:
-          $ref: '#/definitions/term'
-          description: Offer Terms and Conditions
-        vehicle:
-          $ref: '#/definitions/vehicle'
-        free_options:
-          $ref: '#/definitions/free_options'
   product:
     description: "The rental car product brand name information for the reservation.'\
       \      \r\n"
@@ -2720,6 +2678,31 @@ definitions:
           type: boolean
         driver:
           $ref: '#/definitions/driver'
+  offers:
+    description: The rental vehicle availability offerings including the rates, discounts
+      and benefits
+    type: array
+    items:
+      properties:
+        name:
+          title: Offer Name
+          description: Value proposition offering name.
+          type: string
+          example: Lead Recommendation
+        id:
+          title: Unique identifier of this offer
+          description: Unique identifier of this offer.
+          type: string
+          example: 39008e7c-5cf3-4411-a4da-ceb477c5ae4c
+        brand:
+          $ref: '#/definitions/brand'
+        terms:
+          $ref: '#/definitions/term'
+          description: Offer Terms and Conditions
+        vehicle:
+          $ref: '#/definitions/vehical'
+        free_options:
+          $ref: '#/definitions/free_options'
 responses:
   response_400:
     description: 400 Bad Request is returned when the request could not be understood
