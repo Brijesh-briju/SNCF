@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
-  schema: http
 paths:
   /v1: {}
 definitions:
@@ -19,12 +18,6 @@ definitions:
   code:
     description: ""
     type: string
-  airline_code:
-    $ref: '#/definitions/code'
-    description: 2-character IATA airline code.
-    maxLength: 2
-    minLength: 2
-    example: BA
   amount:
     description: ""
     type: number
@@ -58,302 +51,11 @@ definitions:
     - agent_tool
     type: string
     example: website
-  class_code:
-    $ref: '#/definitions/code'
-    title: Vehicle class code
-    description: The vehicle class code used to identify individual cars and trucks
-      according to size, axle numbers and type.
-    enum:
-    - A
-    - B
-    - C
-    - D
-    - E
-    - F
-    - G
-    - H
-    - I
-    - J
-    - K
-    - L
-    - M
-    - "N"
-    - O
-    - P
-    - S
-    - V
-    - W
-    - X
-    - Z
-    - XA
-    - XB
-    - XC
-    - XD
-    - XE
-    - XF
-    - XG
-    - XH
-    - XK
-    - XL
-    - XP
-    - XS
-    - XV
-    - XW
-    - XX
-    - XZ
-    example: E
   coordinate:
     description: Latitude and longitude values
     pattern: ^-?[0-9]{1,3}(?:\.[0-9]{1,10})?$
     type: string
     example: -74.187506
-  country_code:
-    $ref: '#/definitions/code'
-    title: Country Code
-    description: ' 2-character ISO 3166 country code that drives the rate, currency
-      and default language.'
-    maxLength: 2
-    minLength: 2
-    enum:
-    - AF
-    - AL
-    - DZ
-    - AS
-    - AD
-    - AO
-    - AI
-    - AG
-    - AR
-    - AM
-    - AW
-    - AU
-    - AT
-    - AZ
-    - BS
-    - BH
-    - BD
-    - BB
-    - BY
-    - BE
-    - BZ
-    - BJ
-    - BM
-    - BT
-    - BO
-    - AN
-    - BA
-    - BW
-    - BR
-    - BN
-    - BG
-    - BF
-    - BI
-    - KH
-    - CM
-    - CA
-    - CV
-    - KY
-    - CF
-    - TD
-    - CL
-    - CN
-    - CO
-    - KM
-    - CG
-    - CD
-    - CK
-    - CR
-    - HR
-    - CU
-    - AN
-    - CY
-    - CZ
-    - DK
-    - DJ
-    - DM
-    - DO
-    - EC
-    - EG
-    - SV
-    - GQ
-    - ER
-    - EE
-    - ET
-    - FO
-    - FJ
-    - FI
-    - FR
-    - GF
-    - PF
-    - GA
-    - GM
-    - GE
-    - DE
-    - GH
-    - GI
-    - KY
-    - GR
-    - GL
-    - GD
-    - GP
-    - GU
-    - GT
-    - GG
-    - GN
-    - GW
-    - GY
-    - HT
-    - VA
-    - HN
-    - HK
-    - HU
-    - IS
-    - IN
-    - ID
-    - IR
-    - IQ
-    - IE
-    - IM
-    - IL
-    - IT
-    - CI
-    - JM
-    - JP
-    - JE
-    - JO
-    - KZ
-    - KE
-    - KI
-    - KR
-    - XK
-    - KW
-    - KG
-    - LA
-    - LV
-    - LB
-    - LS
-    - LR
-    - LY
-    - LI
-    - LT
-    - LU
-    - MO
-    - MK
-    - MG
-    - MW
-    - MY
-    - MV
-    - ML
-    - MT
-    - MH
-    - MQ
-    - MR
-    - MU
-    - YT
-    - MX
-    - FM
-    - MD
-    - MC
-    - MN
-    - MS
-    - MA
-    - MZ
-    - MM
-    - NA
-    - NR
-    - NP
-    - NL
-    - NC
-    - NZ
-    - NI
-    - NE
-    - NG
-    - NF
-    - MP
-    - "NO"
-    - OM
-    - PK
-    - PA
-    - PG
-    - PY
-    - PE
-    - PH
-    - PL
-    - PT
-    - PR
-    - QA
-    - ME
-    - RS
-    - RE
-    - RO
-    - RU
-    - RW
-    - KN
-    - WS
-    - SM
-    - ST
-    - SA
-    - SN
-    - CS
-    - SC
-    - SL
-    - SG
-    - SK
-    - SI
-    - SB
-    - SO
-    - ZA
-    - ES
-    - LK
-    - AN
-    - AN
-    - MF
-    - AN
-    - VC
-    - LC
-    - SD
-    - SR
-    - SZ
-    - SE
-    - CH
-    - SY
-    - TW
-    - TZ
-    - TH
-    - TG
-    - TO
-    - VG
-    - TT
-    - TN
-    - TR
-    - TM
-    - TC
-    - UG
-    - UA
-    - AE
-    - GB
-    - US
-    - UY
-    - UZ
-    - VU
-    - VE
-    - VN
-    - VI
-    - WS
-    - YE
-    - ZM
-    - ZW
-    example: US
-  coupon_type:
-    $ref: '#/definitions/type'
-    title: Coupon type
-    description: The type of coupon that corresponds to the coupon code.
-    enum:
-    - MoneyOff
-    - GasOff
-    - DaysOff
-    - Upgrade
-    example: MoneyOff
   currency:
     description: Currency used for defining the amounts.
     maxLength: 3
@@ -361,30 +63,10 @@ definitions:
     pattern: ^[A-Z].*$
     type: string
     example: EUR
-  day_of_week:
-    title: Day of week
-    description: Day of week
-    enum:
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    - Sunday
-    type: string
-    example: Monday
   days:
     description: The number of days of the rental.
     type: number
     example: 2
-  discount_code:
-    $ref: '#/definitions/code'
-    title: Discount code
-    description: The rental vehicle brand discount code. This field can be an Avis
-      Worldwide Discount (AWD), Budget Car Discount (BCD), or a Payless Discount Number
-      (PDN) code.
-    example: R566100
   distance_unit:
     default: MLS
     enum:
@@ -409,11 +91,6 @@ definitions:
     - 4-wheel drive
     type: string
     example: 4-wheel drive
-  dropoff_date:
-    $ref: '#/definitions/date_time'
-    title: Dropoff date
-    description: ISO 8601 date and time of dropoff.
-    example: 2017-11-15T18:00:00.000Z
   dropoff_location:
     description: Rental car dropoff location code.
     type: string
@@ -454,28 +131,8 @@ definitions:
       agent a commission for the rental.
     type: string
     example: "91212019"
-  insurance_code:
-    $ref: '#/definitions/code'
-    description: 3-character code of the insurance coverage.
-    enum:
-    - CDW
-    - PAI
-    - PEP
-    - ALI
-    - PKG
-    example: CDW
   name:
     type: string
-  insurance_name:
-    $ref: '#/definitions/name'
-    description: Name of the insurance coverage code/type.
-    enum:
-    - Cover The Car (CDW)
-    - Cover My Liability (ALI)
-    - Cover Myself (PAI)
-    - Cover My Belongings (PEP)
-    - Package (PKG)
-    example: Cover The Car (CDW)
   insurance_selection_note:
     description: Indicates whether rental vehicle insurance coverage is included by
       DEFAULT (as applicable in select countries), or whether additional coverage
@@ -489,52 +146,11 @@ definitions:
     - DECLINED
     type: string
     example: DEFAULT
-  journey_type:
-    $ref: '#/definitions/type'
-    title: Travel journey type
-    description: Indicator to represent the one-way or return journey type.
-    enum:
-    - oneway
-    - return
-    example: oneway
-  language:
-    $ref: '#/definitions/code'
-    title: Language
-    description: 2-character ISO 639-1 Language Code. Default language will be picked
-      up based on the partner configuration when there is no language provided in
-      the request.
-    maxLength: 2
-    minLength: 2
-    enum:
-    - EN
-    - ES
-    - IT
-    - DE
-    - NL
-    - FR
-    example: EN
-  location_code:
-    $ref: '#/definitions/code'
-    description: location code
-    minLength: 3
-    example: LHR
   meet_and_greet:
     title: Meet and Greet
     description: Indicates the free meet and greet feature for the brand.
     type: boolean
     example: true
-  partner_code:
-    $ref: '#/definitions/code'
-    title: Partner code
-    description: The organization or entity code registered and obtained through partner
-      onboarding process.
-    example: SNCF
-  partner_name:
-    $ref: '#/definitions/name'
-    title: Partner name
-    description: The organization or entity name registered and obtained through partner
-      onboarding process.
-    example: SNCF
   partner_program:
     minLength: 1
     type: string
@@ -544,100 +160,16 @@ definitions:
     default: false
     type: boolean
     example: true
-  pickup_date:
-    $ref: '#/definitions/date_time'
-    title: Pickup date
-    description: ISO 8601 date and time of pickup.
-    example: 2017-11-15T18:00:00.000Z
   pickup_location:
     description: Rental car pickup location code.
     type: string
     example: EWR
-  product_code:
-    $ref: '#/definitions/code'
-    title: Extras code
-    description: The rental ancillary code used to identify and add rental vehicle
-      equipment and features to the reservation (such as GPS).
-    enum:
-    - ADD
-    - ADR
-    - AFO
-    - ATC
-    - BBS
-    - BKF
-    - BKR
-    - BXL
-    - BXM
-    - BXS
-    - CBS
-    - CCO
-    - CCP
-    - CFS
-    - CHG
-    - CIS
-    - CNP
-    - CSD
-    - CSS
-    - DCF
-    - DEC
-    - DIE
-    - DIS
-    - EPU
-    - ESP
-    - FRD
-    - FSK
-    - GEL
-    - GPS
-    - GSO
-    - HDL
-    - ICW
-    - INC
-    - IP5
-    - IXB
-    - MPG
-    - NAV
-    - NSF
-    - PAC
-    - RSN
-    - SKI
-    - SKR
-    - SNC
-    - SNW
-    - STA
-    - TAB
-    - TCT
-    - TPR
-    - TRO
-    - VCD
-    - WFI
-    - XMR
-    - BAT
-    - CSB
-    example: GPS
-  product_type:
-    $ref: '#/definitions/type'
-    title: Extras type
-    description: The type of ancillary product specified in the request. If a code
-      of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
-      will be returned in the response.
-    enum:
-    - COUNTER_PROD
-    - SPEC_EQUIP
-    - UPSELL
-    example: COUNTER_PROD
   program_id:
     type: string
     example: AD
   quantity:
     type: number
     example: 1
-  rate_code:
-    $ref: '#/definitions/code'
-    title: Vehicle Rate Code
-    description: The rental vehicle rate code used to determine the rate of the rental
-      vehicle reservation
-    minLength: 2
-    example: G3
   response_details:
     title: Response details
     description: Based on the kind of response this field contains either success
@@ -667,15 +199,6 @@ definitions:
     - DELETE
     type: string
     example: GET
-  sipp_code:
-    $ref: '#/definitions/code'
-    title: Vehicle SIPP Code
-    description: Standard Interline Passenger Procedure (SIPP) code of the vehicle.
-      A compact 4 door manual air conditioned car will have a SIPP Code CMDR.
-    maxLength: 4
-    minLength: 4
-    pattern: ^[A-Z]{4}$
-    example: CMDR
   success_details:
     title: Success details
     description: Success response metadata for all the rest APIs.
@@ -692,23 +215,6 @@ definitions:
         details:
           description: Description of the success status
           type: string
-  success_status:
-    title: Success status
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        $ref: '#/definitions/date_time'
-        description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
-  status:
-    $ref: '#/definitions/success_status'
-    title: Request Status
-    description: A container for the success/error details.
   transaction_id:
     title: Transaction identifier
     description: The transaction identifier used to identify and troubleshoot a given
@@ -739,63 +245,11 @@ definitions:
     properties:
       code:
         $ref: '#/definitions/discount_code'
-  loyalty:
-    title: Loyalty
-    description: Profile information of the user. The personal brand identification
-      information of the user for the Avis, Budget, or Payless user profile.
-    type: object
-    properties:
-      program:
-        title: Avis Budget Group loyalty program
-        description: The Avis Budget Group brand loyalty program name. The program
-          can be an Avis Preferred, Avis Preferred Plus, Avis Platinum for Avis brand.
-        type: string
-        example: Avis Preferred Plus
-      code:
-        $ref: '#/definitions/code'
-        title: Loyalty code
-        description: The brand loyalty program code. This can be an Avis wizard number,
-          Budget customer number, or Payless Perks number.
-        example: M2348934
-      brand:
-        title: Avis Budget Group brand
-        description: The brand associated with the loyalty program.
-        enum:
-        - Avis
-        - Budget
-        - Payless
-        type: string
-        example: Avis
   extra:
     description: ""
     type: object
   type:
     type: string
-  date_time:
-    description: ISO 8601 representation of the date time.
-    type: datetime
-    example: 2015-07-04T21:00:00.000Z
-  date:
-    description: ISO 8601 representation of the date.
-    type: date-only
-    example: 2015-05-23
-  tax_type:
-    $ref: '#/definitions/type'
-    description: The type of taxation to be applied.
-    enum:
-    - Standard
-    - GST
-    example: GST
-  term_type:
-    $ref: '#/definitions/type'
-    title: Terms type
-    description: This indicates the type of  Terms and conditions.
-    enum:
-    - Location
-    - Rental
-    - Reservation
-    - Offer
-    example: Location
   train_class:
     title: Fare Class
     description: Passenger chosen train class code.
@@ -805,9 +259,10 @@ definitions:
     type: string
     example: first
   train_code:
-    $ref: '#/definitions/code'
-    title: Train Code
-    description: Passenger chosen train code.
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Train Code
+    - description: Passenger chosen train code.
   transmission:
     title: Vehicle transmission
     description: The transmission of the vehicle.
@@ -851,8 +306,9 @@ definitions:
     type: object
     properties:
       request_time:
-        $ref: '#/definitions/date_time'
-        description: The time stamp of the request
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
       request_errors:
         description: The number of errors that occurred
         type: integer
@@ -864,8 +320,9 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/error_status'
-        description: A container for the error details
+        allOf:
+        - $ref: '#/definitions/error_status'
+        - description: A container for the error details
   success_response:
     title: Success response
     required:
@@ -873,8 +330,9 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/success_status'
-        description: A container for the success details
+        allOf:
+        - $ref: '#/definitions/success_status'
+        - description: A container for the success details
   partial_success_status:
     title: Partial Success status
     description: Partial Success Status object
@@ -885,8 +343,9 @@ definitions:
     type: object
     properties:
       request_time:
-        $ref: '#/definitions/date_time'
-        description: The time stamp of the request
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
       success:
         $ref: '#/definitions/success_details'
       request_errors:
@@ -912,84 +371,6 @@ definitions:
         $ref: '#/definitions/location_code'
       dropoff_location:
         $ref: '#/definitions/location_code'
-  address:
-    title: Address
-    description: Address information that you would like to associate to the user
-      that is requesting the rental vehicle reservation, including geographic coordinates
-      (if applicable)
-    required:
-    - city
-    - country_code
-    - lat
-    - long
-    type: object
-    properties:
-      address_line_1:
-        description: Address (line 1) of the user.
-        type: string
-      address_line_2:
-        description: Address (line 2) of the user.
-        type: string
-      address_line_3:
-        description: Address (line 3) of the user.
-        type: string
-      city:
-        $ref: '#/definitions/city'
-        description: City name of the user.
-      state_name:
-        description: State name of the user (if applicable).
-        type: string
-      postal_code:
-        description: Numeric or alphanumeric postal code of the user, which varies
-          by country (02128 or CT3).
-        type: string
-      country_code:
-        $ref: '#/definitions/country_code'
-        description: 2-letter ISO 3166 country code of the user.
-      lat:
-        $ref: '#/definitions/coordinate'
-        description: Geographic latitude of the location.
-      long:
-        $ref: '#/definitions/coordinate'
-        description: Geographic longitude of the location.
-  arrival_flight:
-    title: Arrival Flight
-    description: Arrival Flight information including the arrival datetime, location
-      and travel preference.
-    required:
-    - airport
-    - date
-    - code
-    - class
-    type: object
-    properties:
-      date:
-        $ref: '#/definitions/date_time'
-        title: Arrival date
-        description: ISO 8601 date and time of Flight arrival in UTC. This can be
-          used as the vehicle rental pickup date time.
-        example: 2019-05-04T20:14:45.000Z
-      airport:
-        $ref: '#/definitions/location_code'
-        title: Arrival airport code
-        description: Arrival airport code. This has to be a three-letter airport code
-          defined by the International Air Transport Association (IATA).
-        example: LHR
-      code:
-        $ref: '#/definitions/airline_code'
-        title: Airline Code
-        description: 2-character IATA airline code.
-        example: BA
-      number:
-        title: Airline Number
-        description: The number assigned to the airline carrier flight segment.
-        type: string
-        example: "001"
-      class:
-        $ref: '#/definitions/flight_class'
-        title: Fare Class
-        description: Booking Fare class.
-        example: business
   partner_location_codes:
     title: Partner Location
     description: 'A partner location object is specific to the partner domain. Ex:
@@ -1013,8 +394,9 @@ definitions:
     type: object
     properties:
       rate_qualifiers:
-        $ref: '#/definitions/rate_qualifiers'
-        title: Rate Qualifiers
+        allOf:
+        - $ref: '#/definitions/rate_qualifiers'
+        - title: Rate Qualifiers
       driver:
         $ref: '#/definitions/driver'
   coupon:
@@ -1028,9 +410,10 @@ definitions:
     type: object
     properties:
       code:
-        $ref: '#/definitions/code'
-        title: Coupon code
-        description: The coupon code to be applied to the reservation rate.
+        allOf:
+        - $ref: '#/definitions/code'
+        - title: Coupon code
+        - description: The coupon code to be applied to the reservation rate.
         example: MUZZ014
       type:
         $ref: '#/definitions/coupon_type'
@@ -1040,9 +423,10 @@ definitions:
         type: string
         example: 25USD Off with Rental of CSS/Paperless Coupon
       quantity:
-        $ref: '#/definitions/quantity'
-        title: Quantity
-        description: The number of coupon codes to apply to the reservation.
+        allOf:
+        - $ref: '#/definitions/quantity'
+        - title: Quantity
+        - description: The number of coupon codes to apply to the reservation.
         example: 1
       coupon_applied:
         title: Coupon applied flag
@@ -1051,10 +435,11 @@ definitions:
         type: boolean
         example: false
       coupon_amount:
-        $ref: '#/definitions/amount'
-        title: Coupon amount
-        description: The amount of the coupon discount applied to the cost of the
-          reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Coupon amount
+        - description: The amount of the coupon discount applied to the cost of the
+            reservation.
         example: 0
       coupon_extras:
         title: Coupon extras
@@ -1118,11 +503,12 @@ definitions:
       age:
         $ref: '#/definitions/age'
       date_of_birth:
-        $ref: '#/definitions/date'
-        title: Date of Birth
-        description: Driver’s date of birth. This might influence the rates. Will
-          be superseded by “age” parameter or date of birth found in the profile provided
-          in “membership_code”
+        allOf:
+        - $ref: '#/definitions/date'
+        - title: Date of Birth
+        - description: Driver’s date of birth. This might influence the rates. Will
+            be superseded by “age” parameter or date of birth found in the profile
+            provided in “membership_code”
       partner_loyalty:
         $ref: '#/definitions/partner_loyalty'
       partner_discount:
@@ -1137,15 +523,17 @@ definitions:
     type: object
     properties:
       period_amount:
-        $ref: '#/definitions/amount'
-        title: Rental period amount
-        description: Vehicle cost for the rental period.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Rental period amount
+        - description: Vehicle cost for the rental period.
         example: 176
       estimated_amount:
-        $ref: '#/definitions/amount'
-        title: Estimated rental amount
-        description: Estimated rental cost for the period inclusive of all taxes and
-          fees.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Estimated rental amount
+        - description: Estimated rental cost for the period inclusive of all taxes
+            and fees.
         example: 238.86
   pay_now:
     title: Pay Now amounts
@@ -1157,24 +545,27 @@ definitions:
     type: object
     properties:
       period_amount:
-        $ref: '#/definitions/amount'
-        title: Rental period amount
-        description: Vehicle cost for the rental period.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Rental period amount
+        - description: Vehicle cost for the rental period.
         example: 176
       estimated_amount:
-        $ref: '#/definitions/amount'
-        title: Estimated rental amount
-        description: Estimated rental cost for the period inclusive of all taxes and
-          fees.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Estimated rental amount
+        - description: Estimated rental cost for the period inclusive of all taxes
+            and fees.
         example: 238.86
   rate_type:
-    $ref: '#/definitions/type'
-    title: Rate Type
-    description: The type of rates applied for the reservation.
-    enum:
-    - contextual
-    - promotional
-    - strikethrough
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Rate Type
+    - description: The type of rates applied for the reservation.
+    - enum:
+      - contextual
+      - promotional
+      - strikethrough
     example: contextual
   rate:
     title: Rate
@@ -1186,21 +577,24 @@ definitions:
     type: object
     properties:
       type:
-        $ref: '#/definitions/rate_type'
-        title: Rate Type
-        description: The type of rates applied for the reservation.
+        allOf:
+        - $ref: '#/definitions/rate_type'
+        - title: Rate Type
+        - description: The type of rates applied for the reservation.
         example: contextual
       currency:
-        $ref: '#/definitions/currency'
-        title: Currency
-        description: The currency to be applied to the rate code. Currency is generally
-          based on the rental vehicle pick-up/drop-off location.
+        allOf:
+        - $ref: '#/definitions/currency'
+        - title: Currency
+        - description: The currency to be applied to the rate code. Currency is generally
+            based on the rental vehicle pick-up/drop-off location.
         example: EUR
       rate_code:
-        $ref: '#/definitions/rate_code'
-        title: Rate Code
-        description: The rental vehicle rate code used to determine the rate of the
-          rental vehicle reservation.
+        allOf:
+        - $ref: '#/definitions/rate_code'
+        - title: Rate Code
+        - description: The rental vehicle rate code used to determine the rate of
+            the rental vehicle reservation.
         example: XR
       coupon_applied:
         description: Indicates that a coupon discount was successfully applied for
@@ -1208,10 +602,11 @@ definitions:
         type: boolean
         example: true
       coupon_amount:
-        $ref: '#/definitions/amount'
-        title: Coupon Discount Amount
-        description: The amount of the coupon discount applied to the cost of the
-          reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Coupon Discount Amount
+        - description: The amount of the coupon discount applied to the cost of the
+            reservation.
         example: 15
       discount_applied:
         title: Discount Applied
@@ -1219,18 +614,21 @@ definitions:
         type: boolean
         example: true
       discount_amount:
-        $ref: '#/definitions/amount'
-        title: Discount Amount
-        description: The amount of the discount applied to the cost of the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Discount Amount
+        - description: The amount of the discount applied to the cost of the reservation.
         example: 15
       pay_now:
-        $ref: '#/definitions/pay_now'
-        title: Pay Now'
-        description: The Pay Now cost for the entirety of the rental.
+        allOf:
+        - $ref: '#/definitions/pay_now'
+        - title: Pay Now'
+        - description: The Pay Now cost for the entirety of the rental.
       pay_later:
-        $ref: '#/definitions/pay_later'
-        title: Pay Later
-        description: The Pay Later cost for the entirety of the rental.
+        allOf:
+        - $ref: '#/definitions/pay_later'
+        - title: Pay Later
+        - description: The Pay Later cost for the entirety of the rental.
   vehical_features:
     title: Vehicle Features
     description: Vehicle equipment and available features (such as bluetooth connectivity).
@@ -1330,10 +728,11 @@ definitions:
       vehicle_transmission:
         $ref: '#/definitions/transmission'
       image_url:
-        $ref: '#/definitions/url'
-        title: Image url
-        description: Image URL of vehicle.
-        example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
+        allOf:
+        - $ref: '#/definitions/url'
+        - title: Image url
+        - description: Image URL of vehicle.
+        - example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
   luggage_capacity:
     type: object
     properties:
@@ -1373,42 +772,53 @@ definitions:
     type: object
     properties:
       vehicle_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of the rental vehicle.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of the rental vehicle.
       reservation_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of the reservation.
       rate_plan:
         description: Rate plan for the reservation.
         type: string
         example: W
       rate_amount:
-        $ref: '#/definitions/amount'
-        description: Rate amount for the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Rate amount for the reservation.
       original_vehicle_total:
-        $ref: '#/definitions/amount'
-        description: Original total cost of the rental vehicle.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Original total cost of the rental vehicle.
       original_reservation_total:
-        $ref: '#/definitions/amount'
-        description: Original total cost of the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Original total cost of the reservation.
       taxes_fees_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of the combined taxes and fees for the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of the combined taxes and fees for the reservation.
       taxes_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of taxes.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of taxes.
       fees_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of fees.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of fees.
       extras_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of the specified ancillary products (such as GPS).
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of the specified ancillary products (such as GPS).
       insurance_total:
-        $ref: '#/definitions/amount'
-        description: Total cost of the specified rental insurance coverage.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total cost of the specified rental insurance coverage.
       discount_total:
-        $ref: '#/definitions/amount'
-        description: Total discount to be applied to the total cost in reservation_total.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total discount to be applied to the total cost in reservation_total.
         example: 7
   rate_totals:
     title: Rates and Totals
@@ -1435,8 +845,9 @@ definitions:
     type: object
     properties:
       amount:
-        $ref: '#/definitions/amount'
-        description: The cost of fees applied.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: The cost of fees applied.
       name:
         description: The name of the type of fee(s) applied.
         type: string
@@ -1447,15 +858,14 @@ definitions:
     type: object
     properties:
       type:
-        $ref: '#/definitions/tax_type'
-        description: The type of taxation to be applied.
+        allOf:
+        - $ref: '#/definitions/tax_type'
+        - description: The type of taxation to be applied.
         example: GST
       amount:
-        $ref: '#/definitions/amount'
-        description: The cost of taxes for the reservation.
-  error_response_400:
-    description: ""
-    type: string
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: The cost of taxes for the reservation.
   arrival_train:
     title: Arrival Train
     description: Arrival Train information including the arrival datetime, location
@@ -1466,22 +876,25 @@ definitions:
     type: object
     properties:
       date:
-        $ref: '#/definitions/date_time'
-        title: Arrival date
-        description: ISO 8601 date and time of Train arrival in UTC. This can be used
-          as the vehicle rental pickup date time.
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: Arrival date
+        - description: ISO 8601 date and time of Train arrival in UTC. This can be
+            used as the vehicle rental pickup date time.
         example: 2019-05-04T20:14:45.000Z
       location:
-        $ref: '#/definitions/location_code'
-        title: Arrival airport code
-        description: Valid train station codes from the request, as agreed by partner
-          integration. This is used to map the vehicle rental pickup location.
+        allOf:
+        - $ref: '#/definitions/location_code'
+        - title: Arrival airport code
+        - description: Valid train station codes from the request, as agreed by partner
+            integration. This is used to map the vehicle rental pickup location.
         example: LHR
       code:
-        $ref: '#/definitions/train_code'
-        title: Train Code
-        description: Valid train operator codes from the request, as agreed by partner
-          integration.
+        allOf:
+        - $ref: '#/definitions/train_code'
+        - title: Train Code
+        - description: Valid train operator codes from the request, as agreed by partner
+            integration.
         example: TGV
       number:
         title: Train Number
@@ -1489,9 +902,10 @@ definitions:
         type: number
         example: 82739
       class:
-        $ref: '#/definitions/train_class'
-        title: Fare Class
-        description: Booking Fare class.
+        allOf:
+        - $ref: '#/definitions/train_class'
+        - title: Fare Class
+        - description: Booking Fare class.
         example: first
   insurance:
     title: Rental Insurance Coverage
@@ -1505,31 +919,36 @@ definitions:
     type: object
     properties:
       code:
-        $ref: '#/definitions/insurance_code'
-        description: 3-character code of the insurance coverage.
+        allOf:
+        - $ref: '#/definitions/insurance_code'
+        - description: 3-character code of the insurance coverage.
         example: CDW
       name:
-        $ref: '#/definitions/insurance_name'
-        description: Name of the insurance coverage code/type.
+        allOf:
+        - $ref: '#/definitions/insurance_name'
+        - description: Name of the insurance coverage code/type.
         example: Cover The Car (CDW)
       amount:
-        $ref: '#/definitions/amount'
-        description: The daily cost of the specified insurance coverage.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: The daily cost of the specified insurance coverage.
         example: 15
       total_owed:
-        $ref: '#/definitions/amount'
-        description: Total owed of the specified insurance coverage for the entirety
-          of the reservation.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: Total owed of the specified insurance coverage for the entirety
+            of the reservation.
         example: 75
       selection_note:
-        $ref: '#/definitions/insurance_selection_note'
-        description: Indicates whether rental vehicle insurance coverage is included
-          by DEFAULT (as applicable in select countries), or whether additional coverage
-          specified by the user has been ACCEPTED, or DECLINED. There may be some
-          countries that include the cost of insurance by DEFAULT. If a value of DEFAULT
-          is returned, then the value in total_owed will be 0. If the user specifies
-          additional insurance coverage, then the value in this field will be returned
-          as ACCEPTED or DECLINED.
+        allOf:
+        - $ref: '#/definitions/insurance_selection_note'
+        - description: Indicates whether rental vehicle insurance coverage is included
+            by DEFAULT (as applicable in select countries), or whether additional
+            coverage specified by the user has been ACCEPTED, or DECLINED. There may
+            be some countries that include the cost of insurance by DEFAULT. If a
+            value of DEFAULT is returned, then the value in total_owed will be 0.
+            If the user specifies additional insurance coverage, then the value in
+            this field will be returned as ACCEPTED or DECLINED.
         example: DEFAULT
       selected:
         description: Indicates whether insurance coverage has been selected by the
@@ -1552,15 +971,16 @@ definitions:
         type: boolean
         example: true
       revised:
-        $ref: '#/definitions/revised'
-        title: Revised booking dates
-        description: This object contains the revised pickup and dropoff dates of
-          reservation.
-        properties:
-          pickup_date: {}
-          dropoff_date: {}
-          pickup_address: {}
-          dropoff_address: {}
+        allOf:
+        - $ref: '#/definitions/revised'
+        - title: Revised booking dates
+        - description: This object contains the revised pickup and dropoff dates of
+            reservation.
+        - properties:
+            pickup_date: {}
+            dropoff_date: {}
+            pickup_address: {}
+            dropoff_address: {}
       reservation_lead_time:
         description: Advance time in hour required for meet and greet.
         type: string
@@ -1590,16 +1010,12 @@ definitions:
     properties:
       pickup_date:
         $ref: '#/definitions/pickup_date'
-        description: ""
       dropoff_date:
         $ref: '#/definitions/dropoff_date'
-        description: ""
       pickup_address:
         $ref: '#/definitions/address'
-        description: ""
       dropoff_address:
         $ref: '#/definitions/address'
-        description: ""
   location:
     title: Location Details
     description: Rental car address information of the product location.
@@ -1610,9 +1026,10 @@ definitions:
       code:
         $ref: '#/definitions/location_code'
       name:
-        $ref: '#/definitions/name'
-        title: Location name
-        description: Name of the location.
+        allOf:
+        - $ref: '#/definitions/name'
+        - title: Location name
+        - description: Name of the location.
         example: Boston Logan Intl Airport
       hours:
         title: Operation hours
@@ -1630,9 +1047,10 @@ definitions:
         type: boolean
         example: true
       type:
-        $ref: '#/definitions/type'
-        title: Location type
-        description: Type of location
+        allOf:
+        - $ref: '#/definitions/type'
+        - title: Location type
+        - description: Type of location
         example: Train Station/Airport/etc. - TO BE VERIFIED AGAINST LDB/OMEGA/ECOM
           SERVICE
       calendar:
@@ -1674,13 +1092,15 @@ definitions:
         description: Holiday description
         type: string
       start_date:
-        $ref: '#/definitions/date'
-        title: Holiday start date
-        description: Holiday start date
+        allOf:
+        - $ref: '#/definitions/date'
+        - title: Holiday start date
+        - description: Holiday start date
       end_date:
-        $ref: '#/definitions/date'
-        title: Holiday end date
-        description: Holiday end date
+        allOf:
+        - $ref: '#/definitions/date'
+        - title: Holiday end date
+        - description: Holiday end date
       hours:
         title: Working hours
         description: This field indicates the working hours for the partner station.
@@ -1689,14 +1109,16 @@ definitions:
           type: object
           properties:
             open:
-              $ref: '#/definitions/hour'
-              title: Opening hour
-              description: Opening hour slot in ISO 8601 format.
+              allOf:
+              - $ref: '#/definitions/hour'
+              - title: Opening hour
+              - description: Opening hour slot in ISO 8601 format.
               example: 09:00
             close:
-              $ref: '#/definitions/hour'
-              title: Closing hour
-              description: Closing hour slot in ISO 8601 format.
+              allOf:
+              - $ref: '#/definitions/hour'
+              - title: Closing hour
+              - description: Closing hour slot in ISO 8601 format.
               example: 780
   departure_flight:
     title: Departure Flight
@@ -1708,16 +1130,18 @@ definitions:
     type: object
     properties:
       date:
-        $ref: '#/definitions/date_time'
-        title: Departure date
-        description: Flight journey departure ISO 8601 date and time in UTC. This
-          can be used as the vehicle rental dropoff date time.
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: Departure date
+        - description: Flight journey departure ISO 8601 date and time in UTC. This
+            can be used as the vehicle rental dropoff date time.
         example: 2019-05-15T10:00:00.000Z
       airport:
-        $ref: '#/definitions/location_code'
-        title: Departure airport code
-        description: Departure airport code. This has to be a three-letter airport codes
-          defined by International Air Transport Association (IATA).
+        allOf:
+        - $ref: '#/definitions/location_code'
+        - title: Departure airport code
+        - description: Departure airport code. This has to be a three-letter airport codes
+            defined by International Air Transport Association (IATA).
         example: LHR
       number:
         title: Airline Number
@@ -1725,12 +1149,14 @@ definitions:
         type: string
         example: "001"
       code:
-        $ref: '#/definitions/airline_code'
-        title: Airline Code
-        description: 2-character IATA airline code.
+        allOf:
+        - $ref: '#/definitions/airline_code'
+        - title: Airline Code
+        - description: 2-character IATA airline code.
         example: BA
       class:
-        $ref: '#/definitions/flight_class'
+        allOf:
+        - $ref: '#/definitions/flight_class'
         example: business
   vehical:
     title: Rental Vehicle Information
@@ -1745,7 +1171,8 @@ definitions:
       capacity:
         $ref: '#/definitions/vehical_capacity'
       brand:
-        $ref: '#/definitions/brand'
+        allOf:
+        - $ref: '#/definitions/brand'
         example: Avis
       rate_totals:
         $ref: '#/definitions/rate_totals'
@@ -1759,8 +1186,9 @@ definitions:
       day_of_week:
         $ref: '#/definitions/week_day'
       hours:
-        $ref: '#/definitions/hours'
-        description: working hours.
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
   car_rental:
     title: Car Rental Journey
     description: Car rental information including the pickup, dropoff and journey
@@ -1773,35 +1201,38 @@ definitions:
     type: object
     properties:
       pickup_date:
-        $ref: '#/definitions/pickup_date'
-        title: Rental Car Pickup Date
-        description: ISO 8601 date and time of pickup in UTC.
+        allOf:
+        - $ref: '#/definitions/pickup_date'
+        - title: Rental Car Pickup Date
+        - description: ISO 8601 date and time of pickup in UTC.
       pickup_location:
-        $ref: '#/definitions/pickup_location'
-        title: Pickup Location
-        description: Rental car pickup location code. These are specific to ABG location
-          codes.
+        allOf:
+        - $ref: '#/definitions/pickup_location'
+        - title: Pickup Location
+        - description: Rental car pickup location code. These are specific to ABG
+            location codes.
         example: UX9
       dropoff_date:
-        $ref: '#/definitions/dropoff_date'
-        title: Rental Car Dropoff Date
-        description: ISO 8601 date and time of drop-off in UTC.
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
+        - title: Rental Car Dropoff Date
+        - description: ISO 8601 date and time of drop-off in UTC.
       dropoff_location:
-        $ref: '#/definitions/dropoff_location'
-        title: Dropoff Location
-        description: Rental car dropoff location code. These are specific to ABG location
-          codes.
+        allOf:
+        - $ref: '#/definitions/dropoff_location'
+        - title: Dropoff Location
+        - description: Rental car dropoff location code. These are specific to ABG
+            location codes.
       point_of_sale:
-        $ref: '#/definitions/country_code'
-        title: Point of Sale
-        description: 2-character ISO 3166 country code that drives the rate, currency
-          and default language.
+        allOf:
+        - $ref: '#/definitions/country_code'
+        - title: Point of Sale
+        - description: 2-character ISO 3166 country code that drives the rate, currency
+            and default language.
       age:
         $ref: '#/definitions/age'
-        description: ""
       membership:
         $ref: '#/definitions/membership'
-        description: ""
   train_journey:
     title: Train journey
     description: Train journey information including the arrival, departure and journey
@@ -1811,17 +1242,18 @@ definitions:
     type: object
     properties:
       arrival:
-        $ref: '#/definitions/arrival_train'
-        title: Arrival Train information
-        description: ""
+        allOf:
+        - $ref: '#/definitions/arrival_train'
+        - title: Arrival Train information
       departure:
-        $ref: '#/definitions/departure_train'
-        title: Departure Train information
-        description: ""
+        allOf:
+        - $ref: '#/definitions/departure_train'
+        - title: Departure Train information
       journey_type:
-        $ref: '#/definitions/journey_type'
-        title: Travel journey type
-        description: Indicator to represent the one-way or return journey type.
+        allOf:
+        - $ref: '#/definitions/journey_type'
+        - title: Travel journey type
+        - description: Indicator to represent the one-way or return journey type.
         example: oneway
       order_id:
         title: Order Identifier
@@ -1842,16 +1274,18 @@ definitions:
     type: object
     properties:
       date:
-        $ref: '#/definitions/date_time'
-        title: Departure date
-        description: Train journey departure ISO 8601 date and time in UTC. This is
-          used as the vehicle rental dropoff date time.
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: Departure date
+        - description: Train journey departure ISO 8601 date and time UTC. This is
+            used as the vehicle rental  dropoff date time.
         example: 2019-05-15T10:00:00.000Z
       location:
-        $ref: '#/definitions/location_code'
-        title: Departure location
-        description: Valid train station codes from the request, as agreed by partner
-          integration. This is used to map the vehicle rental dropoff location.
+        allOf:
+        - $ref: '#/definitions/location_code'
+        - title: Departure location
+        - description: Valid train station codes from the request, as agreed by partner
+            integration. This is used to map the vehicle rental dropoff location.
         example: FRLYS
       number:
         title: Train code
@@ -1859,26 +1293,28 @@ definitions:
         type: number
         example: 82739
       code:
-        $ref: '#/definitions/train_code'
-        title: Train code
-        description: Valid train operator codes from the request, as agreed by partner
-          integration.
+        allOf:
+        - $ref: '#/definitions/train_code'
+        - title: Train code
+        - description: Valid train operator codes from the request, as agreed by partner
+            integration.
         example: TGV
       class:
-        $ref: '#/definitions/train_class'
-        title: Fare Class
-        description: Booking Fare class
+        allOf:
+        - $ref: '#/definitions/train_class'
+        - title: Fare Class
+        - description: Booking Fare class
         example: first
   transport_mode:
     properties:
       car_rental:
-        $ref: '#/definitions/car_rental'
-        title: Vehicle rental
-        description: ""
+        allOf:
+        - $ref: '#/definitions/car_rental'
+        - title: Vehicle rental
       train_journey:
-        $ref: '#/definitions/train_journey'
-        title: Train journey preference
-        description: ""
+        allOf:
+        - $ref: '#/definitions/train_journey'
+        - title: Train journey preference
       flight_journey:
         title: Flight journey
   hours:
@@ -1889,14 +1325,16 @@ definitions:
       type: object
       properties:
         open:
-          $ref: '#/definitions/hour'
-          title: Opening hour
-          description: Opening hour slot in ISO 8601 format.
+          allOf:
+          - $ref: '#/definitions/hour'
+          - title: Opening hour
+          - description: Opening hour slot in ISO 8601 format.
           example: 09:00
         close:
-          $ref: '#/definitions/hour'
-          title: Closing hour
-          description: Closing hour slot in ISO 8601 format.
+          allOf:
+          - $ref: '#/definitions/hour'
+          - title: Closing hour
+          - description: Closing hour slot in ISO 8601 format.
           example: 780
   context:
     title: Transaction Context
@@ -1911,25 +1349,27 @@ definitions:
         type: string
         example: c9332ffa-5250-11e9-8647-d663bd873d93
   journey_preference:
-    $ref: '#/definitions/transport_mode'
-    description: User journey preference information that includes either vehicle
-      rental or train journey or flight journey information to request offers and
-      availability.
-    maxProperties: 3
-    required:
-    - point_of_sale
-    - brand
-    properties:
-      point_of_sale:
-        $ref: '#/definitions/country_code'
-        title: Point of Sale
-        description: 2-character ISO 3166 country code that drives the rate, currency
-          and default language.
-      brand:
-        description: ""
-        minItems: 1
-        type: array
-        items: {}
+    allOf:
+    - $ref: '#/definitions/transport_mode'
+    - description: User journey preference information that includes either vehicle
+        rental or train journey or flight journey information to request offers and
+        availability.
+    - maxProperties: 3
+    - required:
+      - point_of_sale
+      - brand
+    - properties:
+        point_of_sale:
+          allOf:
+          - $ref: '#/definitions/country_code'
+          - title: Point of Sale
+          - description: 2-character ISO 3166 country code that drives the rate, currency
+              and default language.
+        brand:
+          description: ""
+          minItems: 1
+          type: array
+          items: {}
   confirmation:
     title: Reservation confirmation object
     description: ""
@@ -1940,15 +1380,14 @@ definitions:
     type: object
     properties:
       number:
-        $ref: '#/definitions/code'
-        title: Confirmation number
-        description: Confirmation number
+        allOf:
+        - $ref: '#/definitions/code'
+        - title: Confirmation number
+        - description: Confirmation number
       pickup_date:
         $ref: '#/definitions/pickup_date'
-        description: ""
       dropoff_date:
         $ref: '#/definitions/dropoff_date'
-        description: ""
   distance:
     title: Reservation Distance Limitations
     description: Information about rental vehicle reservation distance options and
@@ -1969,13 +1408,15 @@ definitions:
         type: number
         example: 500
       distance_unit:
-        $ref: '#/definitions/distance_unit'
-        description: The unit of distance.
+        allOf:
+        - $ref: '#/definitions/distance_unit'
+        - description: The unit of distance.
         example: MLS
       distance_overage:
-        $ref: '#/definitions/amount'
-        description: The cost per distance unit if the free distance in distance_covered
-          is exceeded.
+        allOf:
+        - $ref: '#/definitions/amount'
+        - description: The cost per distance unit if the free distance in distance_covered
+            is exceeded.
         example: 0.15
   term:
     title: Terms and Condition
@@ -1987,17 +1428,15 @@ definitions:
     properties:
       type:
         $ref: '#/definitions/term_type'
-        description: ""
       method:
         $ref: '#/definitions/rest_method'
-        description: ""
       brand:
         $ref: '#/definitions/brand'
-        description: ""
       endpoint:
-        $ref: '#/definitions/url'
-        title: Endpoint
-        description: Endpoint to obtain the terms and condition.
+        allOf:
+        - $ref: '#/definitions/url'
+        - title: Endpoint
+        - description: Endpoint to obtain the terms and condition.
         example: https://stage.abgapiservices.com/terms/v1/location/avis/US/EWR/en_US
   disclaimer:
     title: Disclaimer
@@ -2009,14 +1448,15 @@ definitions:
     type: object
     properties:
       type:
-        $ref: '#/definitions/type'
-        description: ""
-        enum:
-        - Fuel Policy
-        - Underage surcharge
+        allOf:
+        - $ref: '#/definitions/type'
+        - enum:
+          - Fuel Policy
+          - Underage surcharge
       description:
-        $ref: '#/definitions/code'
-        description: This contains the detailed description of the disclaimer.
+        allOf:
+        - $ref: '#/definitions/code'
+        - description: This contains the detailed description of the disclaimer.
   reservation:
     description: Confirmation information of the availability request for the rental
       vehicle reservation, including the rate, distance limitations, and rental extras
@@ -2030,24 +1470,17 @@ definitions:
     properties:
       brand:
         $ref: '#/definitions/brand'
-        description: ""
       confirmation:
         $ref: '#/definitions/confirmation'
-        description: ""
       distance:
         $ref: '#/definitions/distance'
-        description: ""
       pickup_location:
         $ref: '#/definitions/pickup_location'
-        description: ""
       dropoff_location:
         $ref: '#/definitions/dropoff_location'
-        description: ""
       rate_totals:
         $ref: '#/definitions/rate_totals'
-        description: ""
       insurance:
-        description: ""
         type: array
         items:
           $ref: '#/definitions/insurance'
@@ -2067,10 +1500,11 @@ definitions:
         items:
           $ref: '#/definitions/disclaimer'
       meet_and_greet:
-        $ref: '#/definitions/meet_and_greet'
-        description: Meet and Greet Details. This object will be present only in case
-          of reservation context like Creation, Modification or Viewing the meet_and_greet
-          reservations.
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - description: Meet and Greet Details. This object will be present only in
+            case of reservation context like Creation, Modification or Viewing the
+            meet_and_greet reservations.
       passenger:
         title: Rental Vehicle Reservation Passenger
         description: ' Passenger''s contact information. Here passenger refers to
@@ -2078,12 +1512,12 @@ definitions:
           only for the reservation context.'
         properties:
           contact:
-            $ref: '#/definitions/contact'
-            title: Contact details
-            description: Passenger's contact details
+            allOf:
+            - $ref: '#/definitions/contact'
+            - title: Contact details
+            - description: Passenger's contact details
       vehicle:
         $ref: '#/definitions/vehical'
-        description: ""
   contact:
     description: The personal and contact information of the reservation holder. Only
       7-bit ASCII characters are accepted for the first and last name.
@@ -2111,7 +1545,6 @@ definitions:
         type: string
       age:
         $ref: '#/definitions/age'
-        description: ""
   offer_preferences:
     description: Offer preferences that drives the recommendation engine to provide
       contextual offers.
@@ -2121,7 +1554,6 @@ definitions:
     properties:
       personalization:
         $ref: '#/definitions/personalization'
-        description: ""
   free_options:
     title: Free options
     description: Eligible free ancillary products and benefits offered.
@@ -2135,9 +1567,10 @@ definitions:
           $ref: '#/definitions/product_code'
         properties:
           quantity:
-            $ref: '#/definitions/quantity'
-            title: Eligible extras quantity
-            description: The total number of ancillary products.
+            allOf:
+            - $ref: '#/definitions/quantity'
+            - title: Eligible extras quantity
+            - description: The total number of ancillary products.
       eligible_codes:
         title: Extra codes
         description: Eligible ancillary product codes.
@@ -2155,23 +1588,17 @@ definitions:
     properties:
       brand:
         $ref: '#/definitions/brand'
-        description: ""
       iata_number:
         $ref: '#/definitions/iata_number'
-        description: ""
       rate_qualifiers:
         $ref: '#/definitions/rate_qualifiers'
-        description: ""
   domain:
-    description: ""
     type: object
     properties:
       language:
         $ref: '#/definitions/language'
-        description: ""
       channel:
         $ref: '#/definitions/channel'
-        description: ""
   date_range:
     title: Date Range
     description: Date Range Intervals.
@@ -2181,15 +1608,17 @@ definitions:
     type: object
     properties:
       from:
-        $ref: '#/definitions/date_time'
-        title: From date
-        description: Start date for the date range ISO 8601
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: From date
+        - description: Start date for the date range ISO 8601
         example: 2019-04-01T00:00:00.000Z
       to:
-        $ref: '#/definitions/date_time'
-        title: To date
-        description: "End date for the data range in ISO 8601 representation.\r\n\
-          \    "
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: To date
+        - description: "End date for the data range in ISO 8601 representation.\r\n\
+            \    "
         example: 2019-06-30T23:59:59.000Z
   commercial_discount:
     title: Commercial discount
@@ -2203,446 +1632,29 @@ definitions:
     properties:
       brand:
         $ref: '#/definitions/brand'
-        description: ""
       code:
         $ref: '#/definitions/code'
-        description: ""
       percent:
         title: Discount percentage
         description: The discount percentage applied to the reservation.
         type: integer
       free_options:
-        $ref: '#/definitions/free_options'
-        title: Free options
-        description: 'Eligible free ancillary products and benefits offered.  '
+        allOf:
+        - $ref: '#/definitions/free_options'
+        - title: Free options
+        - description: 'Eligible free ancillary products and benefits offered.  '
       pickup_date_range:
-        $ref: '#/definitions/date_range'
-        title: Pickup date range
-        description: ' Pickup date range for the eligibility of promotional discounts. '
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Pickup date range
+        - description: ' Pickup date range for the eligibility of promotional discounts. '
       dropoff_date_range:
-        $ref: '#/definitions/date_range'
-        title: Dropoff date range
-        description: 'Dropoff date range for eligibility of the promotional discounts. '
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Dropoff date range
+        - description: 'Dropoff date range for eligibility of the promotional discounts. '
       reservation_date_range:
         $ref: '#/definitions/date_range'
-        description: ""
-  error_400:
-    $ref: '#/definitions/error_response'
-    description: ' 400 Bad Request is returned when the request could not be understood
-      by the server. 400 includes missing required values, invalid data types, minimum/maximum
-      values, ranges and format.'
-    required:
-    - status
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: ""
-    example:
-      status:
-        request_time: 2019-01-04T15:15:30Z
-        request_errors: 1
-        errors:
-        - code: "400"
-          message: Bad Request
-          reason: invalid_request
-          details: '- Missing required field ''brand'''
-        - code: "400"
-          message: Bad Request
-          reason: invalid_request
-          details: '- Invalid element <AVIS>.'
-        - code: "14528"
-          message: Bad Request
-          reason: Invalid rate_code.
-          details: Rate Code entered is invalid.
-        - code: "14184"
-          message: Bad Request
-          reason: Last name and customer id combination is invalid.
-          details: 'Last name does not match the wizard number '
-        - code: "14441"
-          message: Bad Request
-          reason: Bad Request
-          details: Bad Request
-        - code: "1112"
-          message: Bad Request
-          reason: Invalid coupon_code and IATA number combination.
-          details: This coupon requires an IATA / ARC number.  Please enter your number
-            below or remove the coupon from this reservation.
-        - code: "14299"
-          message: Bad Request
-          reason: Bad Request
-          details: Invalid insurance details
-        - code: "13213"
-          message: Bad Request
-          reason: Country Code is invalid
-          details: Please enter a valid Country Code.
-        - code: "14442"
-          message: Bad Request
-          reason: RENTAL DURATION LESS THAN MINIMUM
-          details: RENTAL DURATION LESS THAN MINIMUM
-        - code: "1103"
-          message: Bad Request
-          reason: Invalid Country/Coupon Code
-          details: This station does not participate.  Valid at corporate/participating
-            licensees in the U.S. (excluding Alaska, Hawaii and the New York Metro),
-            Canada, Australia, New Zealand, France, Puerto Rico, United Kingdom and
-            U.S. Virgin Islands.
-        - code: "14372"
-          message: Bad Request
-          reason: Invalid coupon_code
-          details: The Coupon Number entered is invalid.
-        - code: "14374"
-          message: Bad Request
-          reason: coupon_code is invalid for the given time frame.
-          details: The Coupon Number entered does not meet the minimum days requirement.
-            Please check the terms and conditions or remove to continue this reservation.
-        - code: "19076"
-          message: Bad Request
-          reason: Invalid loyalty_code membership_code
-          details: Membership Number entered is invalid.
-        - code: "235"
-          message: Bad Request
-          reason: loyalty_code and loyalty_company_id are required parameters for
-            the selection of Frequent Travel Program.
-          details: If you have selected a Frequent Traveler Program, than you must
-            enter a Membership Number
-        - code: "14075"
-          message: Bad Request
-          reason: RateCode requires a valid discount number in the request.
-          details: ' The rate code you entered requires a discount number. Please
-            go back and enter your discount number or remove the rate code you entered.'
-        - code: "1798"
-          message: Bad Request
-          reason: Invalid discount_number.
-          details: Invalid AWD
-        - code: "14022"
-          message: Bad Request
-          reason: Invalid vehicle_class_code
-          details: Requested Car Group is invalid.
-        - code: "12012"
-          message: Bad Request
-          reason: Invalid city
-          details: MSGCD_E_WIZ_CITY_NAME_REQUIRED
-        - code: "14105"
-          message: Bad Request
-          reason: Invalid rate_code.
-          details: Invalid Vehicle rate code and class code combination for the provided
-            brand.
-        - code: "208"
-          message: Bad Request
-          reason: Invalid customer_id.
-          details: Invalid Wizard number for the customer.
-        - code: "205"
-          message: Bad Request
-          reason: Invalid dropoff_location.
-          details: Invalid Drop off location
-        - code: "203"
-          message: Bad Request
-          reason: Invalid pickup_location.
-          details: Invalid Pick up location
-        - code: "231"
-          message: Bad Request
-          reason: Invalid pickup_date.
-          details: You selected a date/time prior to the current time
-        - code: "232"
-          message: Bad Request
-          reason: dropoff_date is prior to pickup_date.
-          details: Return Date cannot be prior or same to the Pick-Up Date
-        - code: "237"
-          message: Bad Request
-          reason: Invalid flight carrier_name.
-          details: Please select valid Airline
-        - code: "239"
-          message: Bad Request
-          reason: Invalid filght carrier_code.
-          details: Please enter a valid flight number. Flight Number format is a maximum
-            4 numbers. Please omit letters from your flight number
-        - code: "234"
-          message: Bad Request
-          reason: Invalid frequent_flyer_number.
-          details: If you have entered a Membership Number, then you must select a
-            Frequent Traveler Program.
-        - code: "209"
-          message: Bad Request
-          reason: Invalid coupon_number.
-          details: Please enter a valid Coupon Number.
-        - code: "216"
-          message: Bad Request
-          reason: Invalid discount_number.
-          details: The discount number is invalid for the given Avis.
-        - code: "150004"
-          message: Bad Request
-          reason: last_name and confirmation_number combination is invalid.
-          details: Last name entered does not match with the confirmation number
-        - code: "19082"
-          message: Bad Request
-          reason: Bad Request
-          details: Bad Request from e-Com backend.
-        - code: "1122"
-          message: Bad Request
-          reason: Coupon_code is expired.
-          details: Coupon requires a minimum length of 3 days. Please select a rate
-            to continue (coupon will be removed).
-        - code: "300100"
-          message: Bad Request
-          reason: PrePayReservationCurrency must be required
-          details: PrePayReservationCurrency must be required
-        - code: "300101"
-          message: Bad Request
-          reason: PrePayReservationAmount must be required
-          details: PrePayReservationAmount must be required
-        - code: "300111"
-          message: Bad Request
-          reason: Prepay information details are required for the Prepay type.
-          details: Prepay Information must be required.
-        - code: "900909"
-          message: Bad Request
-          reason: cvv is invalid for the provided Credit Card.
-          details: cvv is invalid for the provided Credit Card.
-        - code: "300102"
-          message: Bad Request
-          reason: Credit Card details are mandatory.
-          details: Valid Credit Card Details must be required
-        - code: "14220"
-          message: Bad Request
-          reason: Payment details are invalid.
-          details: The number either doesn't match the card type or is the wrong length.
-            Please check your entries and try again
-        - code: "215"
-          message: Bad Request
-          reason: Invalid email.
-          details: Invalid email address
-        - code: "14025"
-          message: Bad Request
-          reason: Bad Request.
-          details: Bad Request from e-Com backend.
-        - code: "19001"
-          message: Bad Request
-          reason: country_code,state_name and postal_code combination is invalid.
-          details: Invalid zip code.
-        - code: "212"
-          message: Bad Request
-          reason: last_name is required.
-          details: Last Name is required
-        - code: "210"
-          message: Bad Request
-          reason: first_name is mandatory.
-          details: First Name is required
-        - code: "14126"
-          message: Bad Request
-          reason: dropoff_date and pickup_date combination is invalid.
-          details: Pick-up Date can not be after Return Date.
-        - code: "14129"
-          message: Bad Request
-          reason: Invalid pickup_date.
-          details: pickup_date is less than the current date.
-        - code: "226"
-          message: Bad Request
-          reason: Invalid dropoff_location.
-          details: There are no locations available for your Return address.
-        - code: "225"
-          message: Bad Request
-          reason: Invalid pickup_location.
-          details: There are no locations available for your Pick-up address.
-        - code: "227"
-          message: Bad Request
-          reason: Invalid pickup_location and dropoff_location.
-          details: Sorry! No Avis locations are available in address provided.
-        - code: "219"
-          message: Bad Request
-          reason: Missing partner_country_code.
-          details: Country of residence is required.
-        - code: "19074"
-          message: Bad Request
-          reason: Invalid Vehicle rate code and class code combination for the provided
-            brand.
-          details: ' Rate Code entered is invalid.'
-        - code: "1005"
-          message: Bad Request
-          reason: 'e-Com rejected the request due to data issue. '
-          details: Request is invalid.
-        - code: "1109"
-          message: Bad Request
-          reason: Coupon is applicable only for certain discount types.
-          details: 'This coupon requires one of the following discount number types:
-            {0}.'
-        - code: "1203"
-          message: Bad Request
-          reason: Invalid coupon and discount combination.
-          details: This coupon {0} may only be used with a specific AWD number (see
-            offer terms). Please enter this AWD number to continue or select from
-            available cars to continue without the coupon.
-        - code: "1124"
-          message: Bad Request
-          reason: Invalid coupon and brand combination.
-          details: This coupon may only be used on  W G car groups. Please select
-            from one of these groups or select a different one to proceed without
-            the coupon.
-        - code: "200"
-          message: Bad Request
-          reason: Brand is a required field.
-          details: Brand is a required field.
-        - code: "202"
-          message: Bad Request
-          reason: pickup_location is a required field.
-          details: pickup_location is a required field.
-        - code: "206"
-          message: Bad Request
-          reason: pickup_location is a required field.
-          details: pickup_location is a required field.
-        - code: "204"
-          message: Bad Request
-          reason: dropoff_location is a required field.
-          details: dropoff_location is a required field.
-        - code: "207"
-          message: Bad Request
-          reason: dropoff_location is a required field.
-          details: dropoff_location is a required field.
-        - code: "217"
-          message: Bad Request
-          reason: vehicle_class_code is a required field.
-          details: vehicle_class_code is a required field and it is associated with
-            rate_code.
-        - code: "218"
-          message: Bad Request
-          reason: rate_code is a required field.
-          details: rate_code is a required field and it is associated with the vehicle_class_code.
-        - code: "220"
-          message: Bad Request
-          reason: Confirmation Number is required field.
-          details: Confirmation Number is required field.
-        - code: "22224"
-          message: Bad Request
-          reason: A One-Way Rental between given pickup_location and dropoff_location
-            is not available
-          details: A One-Way Rental between these 2  locations cannot be booked online.
-  error_404:
-    $ref: '#/definitions/error_response'
-    description: "404 Not Found is returned when server cannot find the matching request\
-      \ URI (either due to no results, or because of a non-existent endpoint or resource).\
-      \ Server may also respond with this status code when there is 401 or 403, which\
-      \ the service wants to mask for security reasons.\r\n\r\n"
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: A container for the error details
-    example:
-      status:
-        request_time: 2019-01-04T15:15:30Z
-        request_errors: 1
-        errors:
-        - code: "404"
-          message: Resource Not Found
-          reason: resource_failure
-          details: Server cannot find the requested resource. This may be due to incorrect
-            URI or a resource that is not available.
-        - code: "223"
-          message: Not Found
-          reason: Invalid pickup_location.
-          details: The pick-up location entered is Sold Out for the dates you have
-            entered
-        - code: "14036"
-          message: Not Found
-          reason: Reservation already cancelled
-          details: Reservation is already cancelled for the given confirmation_number.
-        - code: "14381"
-          message: Not Found
-          reason: 'A One-Way Rental between given pickup_location and dropoff_location
-            is not available '
-          details: 'A One-Way Rental between given pickup_location and dropoff_location
-            is not available '
-  error_405:
-    $ref: '#/definitions/error_response'
-    description: A request method is not supported for the requested resource; for
-      example, a GET request on a form that requires data to be presented via POST,
-      or a PUT request on a read-only resource.
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: A container for the error details
-    example:
-      status:
-        request_time: 2019-01-04T15:15:30Z
-        request_errors: 1
-        errors:
-        - code: "405"
-          message: Method Not Allowed
-          reason: Method Not Allowed
-          details: org.mule.module.apikit.exception.MethodNotAllowedException
-  error_406:
-    $ref: '#/definitions/error_response'
-    description: A request method is not supported for the requested resource; for
-      example, a GET request on a form that requires data to be presented via POST,
-      or a PUT request on a read-only resource.
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: A container for the error details
-    example:
-      status:
-        request_time: 2019-01-04T15:15:30Z
-        request_errors: 1
-        errors:
-        - code: "406"
-          message: Not Accecptable
-          reason: Not Accecptable
-          details: org.mule.module.apikit.exception.NotAcceptableException
-  error_415:
-    $ref: '#/definitions/error_response'
-    description: The request entity has a media type which the server or resource
-      does not support. For example, the client uploads an image as image/svg+xml,
-      but the server requires that images use a different format.
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: A container for the error details
-    example:
-      status:
-        request_time: 2018-10-17T13:05:10Z
-        request_errors: 1
-        errors:
-        - code: "415"
-          message: Unsupported Media Type
-          reason: Unsupported Media Type
-          details: org.mule.module.apikit.exception.UnsupportedMediaTypeException
-  error_500:
-    $ref: '#/definitions/error_response'
-    description: 500 Internal Server Error is returned when a system or application
-      error has occurred. It generally indicates that something unexpected has gone
-      wrong on the server. This is used for a standard server side exception for a
-      persistent error on the server side.
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-        description: A container for the error details
-    example:
-      status:
-        request_time: 2019-01-04T15:15:30Z
-        request_errors: 1
-        errors:
-        - code: "40018"
-          message: Service exception
-          reason: Service exception
-          details: Socket timeout from IMS Connect
-        - code: "610"
-          message: Service exception
-          reason: System exception from e-com backend.
-          details: System Exception occurred during location search.Please check the
-            log for details.
   partner:
     title: Partner information
     description: Travel partner information.
@@ -2652,32 +1664,10 @@ definitions:
     properties:
       code:
         $ref: '#/definitions/partner_code'
-        description: ""
       name:
         $ref: '#/definitions/partner_name'
-        description: ""
       iata_number:
         $ref: '#/definitions/iata_number'
-        description: ""
-  loyalty_discounts:
-    title: Loyalty lookup
-    description: General loyalty lookup information. Acts as a passenger context on
-      request. The response includes Mapped ABG discounts and best discount.
-    type: array
-    items:
-      properties:
-        rate_qualifiers:
-          $ref: '#/definitions/brand'
-        mapped_discounts:
-          $ref: '#/definitions/commercial_discount'
-          description: Mapped Avis Budget Group discounts along with their free options.
-          type: array
-        best_discount:
-          description: Represent the best discount with the provided passenger(s)
-            information when there is more than one passenger.
-          type: boolean
-        driver:
-          $ref: '#/definitions/driver'
   offers:
     description: The rental vehicle availability offerings including the rates, discounts
       and benefits
@@ -2703,12 +1693,759 @@ definitions:
           $ref: '#/definitions/vehical'
         free_options:
           $ref: '#/definitions/free_options'
-responses:
-  response_400:
-    description: 400 Bad Request is returned when the request could not be understood
-      by the server. 400 includes missing required values, invalid data types, minimum/maximum
-      values, ranges and format.
-    schema:
-      $ref: '#/definitions/error_response'
-    examples:
-      application/json: '$ref: ''#/definitions/error_status'''
+  loyalty_discounts:
+    title: Loyalty lookup
+    description: General loyalty lookup information. Acts as a passenger context on
+      request. The response includes Mapped ABG discounts and best discount.
+    type: array
+    items:
+      properties:
+        rate_qualifiers:
+          $ref: '#/definitions/brand'
+        mapped_discounts:
+          title: Mapped discounts
+          description: Mapped Avis Budget Group discounts along with their free options.
+          type: array
+          items:
+            $ref: '#/definitions/commercial_discount'
+        best_discount:
+          title: Best discoun
+          description: Represent the best discount with the provided passenger(s)
+            information when there is more than one passenger.
+          type: boolean
+        driver:
+          $ref: '#/definitions/driver'
+  class_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Vehicle class code
+      description: The vehicle class code used to identify individual cars and trucks
+        according to size, axle numbers and type.
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+      - G
+      - H
+      - I
+      - J
+      - K
+      - L
+      - M
+      - "N"
+      - O
+      - P
+      - S
+      - V
+      - W
+      - X
+      - Z
+      - XA
+      - XB
+      - XC
+      - XD
+      - XE
+      - XF
+      - XG
+      - XH
+      - XK
+      - XL
+      - XP
+      - XS
+      - XV
+      - XW
+      - XX
+      - XZ
+      example: E
+  address:
+    title: Address
+    description: Address information that you would like to associate to the user
+      that is requesting the rental vehicle reservation, including geographic coordinates
+      (if applicable)
+    required:
+    - city
+    - country_code
+    - lat
+    - long
+    type: object
+    properties:
+      address_line_1:
+        description: Address (line 1) of the user.
+        type: string
+      address_line_2:
+        description: Address (line 2) of the user.
+        type: string
+      address_line_3:
+        description: Address (line 3) of the user.
+        type: string
+      city:
+        allOf:
+        - $ref: '#/definitions/city'
+        - description: City name of the user.
+      state_name:
+        description: State name of the user (if applicable).
+        type: string
+      postal_code:
+        description: Numeric or alphanumeric postal code of the user, which varies
+          by country (02128 or CT3).
+        type: string
+      country_code:
+        allOf:
+        - $ref: '#/definitions/country_code'
+        - description: 2-letter ISO 3166 country code of the user.
+      lat:
+        allOf:
+        - $ref: '#/definitions/coordinate'
+        - description: Geographic latitude of the location.
+      long:
+        allOf:
+        - $ref: '#/definitions/coordinate'
+        - description: Geographic longitude of the location.
+  airline_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - description: 2-character IATA airline code.
+      maxLength: 2
+      minLength: 2
+    example: BA
+  arrival_flight:
+    title: Arrival Flight
+    description: Arrival Flight information including the arrival datetime, location
+      and travel preference.
+    required:
+    - airport
+    - date
+    - code
+    - class
+    type: object
+    properties:
+      date:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - title: Arrival date
+          description: ISO 8601 date and time of Flight arrival in UTC. This can be
+            used as the vehicle rental pickup date time.
+          example: 2019-05-04T20:14:45.000Z
+      airport:
+        allOf:
+        - $ref: '#/definitions/location_code'
+        - title: Arrival airport code
+          description: Arrival airport code. This has to be a three-letter airport
+            code defined by the International Air Transport Association (IATA).
+        example: LHR
+      code:
+        allOf:
+        - $ref: '#/definitions/airline_code'
+        - title: Airline Code
+          description: 2-character IATA airline code.
+        example: BA
+      number:
+        title: Airline Number
+        description: The number assigned to the airline carrier flight segment.
+        type: string
+        example: "001"
+      class:
+        allOf:
+        - $ref: '#/definitions/flight_class'
+        - title: Fare Class
+          description: Booking Fare class.
+        example: business
+  coupon_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Coupon type
+      description: The type of coupon that corresponds to the coupon code.
+      enum:
+      - MoneyOff
+      - GasOff
+      - DaysOff
+      - Upgrade
+      example: MoneyOff
+  day_of_week:
+    allOf:
+    - title: Day of week
+    - description: Day of week
+    - enum:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    - type: string
+    example: Monday
+  discount_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Discount code
+      description: The rental vehicle brand discount code. This field can be an Avis
+        Worldwide Discount (AWD), Budget Car Discount (BCD), or a Payless Discount
+        Number (PDN) code.
+      example: R566100
+  dropoff_date:
+    allOf:
+    - $ref: '#/definitions/date_time'
+    - title: Dropoff date
+    - description: ISO 8601 date and time of dropoff.
+    example: 2017-11-15T18:00:00.000Z
+  insurance_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - description: 3-character code of the insurance coverage.
+      enum:
+      - CDW
+      - PAI
+      - PEP
+      - ALI
+      - PKG
+      example: CDW
+  insurance_name:
+    allOf:
+    - $ref: '#/definitions/name'
+    - description: Name of the insurance coverage code/type.
+      enum:
+      - Cover The Car (CDW)
+      - Cover My Liability (ALI)
+      - Cover Myself (PAI)
+      - Cover My Belongings (PEP)
+      - Package (PKG)
+    example: Cover The Car (CDW)
+  journey_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Travel journey type
+    - description: Indicator to represent the one-way or return journey type.
+    - enum:
+      - oneway
+      - return
+    example: oneway
+  language:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Language
+    - description: 2-character ISO 639-1 Language Code. Default language will be picked
+        up based on the partner configuration when there is no language provided in
+        the request.
+    - maxLength: 2
+    - minLength: 2
+    - enum:
+      - EN
+      - ES
+      - IT
+      - DE
+      - NL
+      - FR
+    example: EN
+  location_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - description: location code
+      minLength: 3
+    example: LHR
+  partner_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Partner code
+    - description: The organization or entity code registered and obtained through
+        partner onboarding process.
+    example: SNCF
+  partner_name:
+    allOf:
+    - $ref: '#/definitions/name'
+    - title: Partner name
+    - description: The organization or entity name registered and obtained through
+        partner onboarding process.
+    example: SNCF
+  product_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Extras code
+    - description: The rental ancillary code used to identify and add rental vehicle
+        equipment and features to the reservation (such as GPS).
+    - enum:
+      - ADD
+      - ADR
+      - AFO
+      - ATC
+      - BBS
+      - BKF
+      - BKR
+      - BXL
+      - BXM
+      - BXS
+      - CBS
+      - CCO
+      - CCP
+      - CFS
+      - CHG
+      - CIS
+      - CNP
+      - CSD
+      - CSS
+      - DCF
+      - DEC
+      - DIE
+      - DIS
+      - EPU
+      - ESP
+      - FRD
+      - FSK
+      - GEL
+      - GPS
+      - GSO
+      - HDL
+      - ICW
+      - INC
+      - IP5
+      - IXB
+      - MPG
+      - NAV
+      - NSF
+      - PAC
+      - RSN
+      - SKI
+      - SKR
+      - SNC
+      - SNW
+      - STA
+      - TAB
+      - TCT
+      - TPR
+      - TRO
+      - VCD
+      - WFI
+      - XMR
+      - BAT
+      - CSB
+    example: GPS
+  product_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Extras type
+    - description: The type of ancillary product specified in the request. If a code
+        of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
+        will be returned in the response.
+    - enum:
+      - COUNTER_PROD
+      - SPEC_EQUIP
+      - UPSELL
+    example: COUNTER_PROD
+  rate_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Vehicle Rate Code
+      description: The rental vehicle rate code used to determine the rate of the
+        rental vehicle reservation
+      minLength: 2
+      example: G3
+  sipp_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Vehicle SIPP Code
+      description: Standard Interline Passenger Procedure (SIPP) code of the vehicle.
+        A compact 4 door manual air conditioned car will have a SIPP Code CMDR.
+      maxLength: 4
+      minLength: 4
+      pattern: ^[A-Z]{4}$
+      example: CMDR
+  success_status:
+    title: Success status
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        $ref: '#/definitions/success_details'
+  status:
+    allOf:
+    - $ref: '#/definitions/success_status'
+    - title: Request Status
+      description: A container for the success/error details.
+  date_time:
+    format: date-time
+    description: ISO 8601 representation of the date time.
+    type: string
+    example: 2015-07-04T21:00:00.000Z
+  date:
+    format: date
+    description: ISO 8601 representation of the date.
+    type: string
+    example: 2015-05-23
+  pickup_date:
+    allOf:
+    - $ref: '#/definitions/date_time'
+    - title: Pickup date
+    - description: ISO 8601 date and time of pickup.
+    example: 2017-11-15T18:00:00.000Z
+  loyalty:
+    title: Loyalty
+    description: Profile information of the user. The personal brand identification
+      information of the user for the Avis, Budget, or Payless user profile.
+    type: object
+    properties:
+      program:
+        title: Avis Budget Group loyalty program
+        description: The Avis Budget Group brand loyalty program name. The program
+          can be an Avis Preferred, Avis Preferred Plus, Avis Platinum for Avis brand.
+        type: string
+        example: Avis Preferred Plus
+      code:
+        allOf:
+        - $ref: '#/definitions/code'
+        - title: Loyalty code
+          description: The brand loyalty program code. This can be an Avis wizard
+            number, Budget customer number, or Payless Perks number.
+        example: M2348934
+      brand:
+        title: Avis Budget Group brand
+        description: The brand associated with the loyalty program.
+        enum:
+        - Avis
+        - Budget
+        - Payless
+        type: string
+        example: Avis
+  country_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Country Code
+      description: ' 2-character ISO 3166 country code that drives the rate, currency
+        and default language.'
+      maxLength: 2
+      minLength: 2
+      enum:
+      - AF
+      - AL
+      - DZ
+      - AS
+      - AD
+      - AO
+      - AI
+      - AG
+      - AR
+      - AM
+      - AW
+      - AU
+      - AT
+      - AZ
+      - BS
+      - BH
+      - BD
+      - BB
+      - BY
+      - BE
+      - BZ
+      - BJ
+      - BM
+      - BT
+      - BO
+      - BA
+      - BW
+      - BR
+      - BN
+      - BG
+      - BF
+      - BI
+      - KH
+      - CM
+      - CA
+      - CV
+      - KY
+      - CF
+      - TD
+      - CL
+      - CN
+      - CO
+      - KM
+      - CG
+      - CD
+      - CK
+      - CR
+      - HR
+      - CU
+      - CY
+      - CZ
+      - DK
+      - DJ
+      - DM
+      - DO
+      - EC
+      - EG
+      - SV
+      - GQ
+      - ER
+      - EE
+      - ET
+      - FO
+      - FJ
+      - FI
+      - FR
+      - GF
+      - PF
+      - GA
+      - GM
+      - GE
+      - DE
+      - GH
+      - GI
+      - GR
+      - GL
+      - GD
+      - GP
+      - GU
+      - GT
+      - GG
+      - GN
+      - GW
+      - GY
+      - HT
+      - VA
+      - HN
+      - HK
+      - HU
+      - IS
+      - IN
+      - ID
+      - IR
+      - IQ
+      - IE
+      - IM
+      - IL
+      - IT
+      - CI
+      - JM
+      - JP
+      - JE
+      - JO
+      - KZ
+      - KE
+      - KI
+      - KR
+      - XK
+      - KW
+      - KG
+      - LA
+      - LV
+      - LB
+      - LS
+      - LR
+      - LY
+      - LI
+      - LT
+      - LU
+      - MO
+      - MK
+      - MG
+      - MW
+      - MY
+      - MV
+      - ML
+      - MT
+      - MH
+      - MQ
+      - MR
+      - MU
+      - YT
+      - MX
+      - FM
+      - MD
+      - MC
+      - MN
+      - MS
+      - MA
+      - MZ
+      - MM
+      - NA
+      - NR
+      - NP
+      - NL
+      - NC
+      - NZ
+      - NI
+      - NE
+      - NG
+      - NF
+      - MP
+      - "NO"
+      - OM
+      - PK
+      - PA
+      - PG
+      - PY
+      - PE
+      - PH
+      - PL
+      - PT
+      - PR
+      - QA
+      - ME
+      - RS
+      - RE
+      - RO
+      - RU
+      - RW
+      - KN
+      - WS
+      - SM
+      - ST
+      - SA
+      - SN
+      - CS
+      - SC
+      - SL
+      - SG
+      - SK
+      - SI
+      - SB
+      - SO
+      - ZA
+      - ES
+      - LK
+      - MF
+      - AN
+      - VC
+      - LC
+      - SD
+      - SR
+      - SZ
+      - SE
+      - CH
+      - SY
+      - TW
+      - TZ
+      - TH
+      - TG
+      - TO
+      - VG
+      - TT
+      - TN
+      - TR
+      - TM
+      - TC
+      - UG
+      - UA
+      - AE
+      - GB
+      - US
+      - UY
+      - UZ
+      - VU
+      - VE
+      - VN
+      - VI
+      - YE
+      - ZM
+      - ZW
+    example: US
+  tax_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - description: The type of taxation to be applied.
+    - enum:
+      - Standard
+      - GST
+    example: GST
+  term_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Terms type
+    - description: This indicates the type of  Terms and conditions.
+    - enum:
+      - Location
+      - Rental
+      - Reservation
+      - Offer
+    example: Location
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          $ref: '#/definitions/status'
+  error_404:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: "404 Not Found is returned when server cannot find the matching\
+        \ request URI (either due to no results, or because of a non-existent endpoint\
+        \ or resource). Server may also respond with this status code when there is\
+        \ 401 or 403, which the service wants to mask for security reasons.\r\n\r\n"
+    - required:
+      - status
+    - type: object
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+          - description: A container for the error details
+  error_405:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: A request method is not supported for the requested resource; for
+        example, a GET request on a form that requires data to be presented via POST,
+        or a PUT request on a read-only resource.
+    - required:
+      - status
+    - type: object
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+          - description: A container for the error details
+  error_406:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: A request method is not supported for the requested resource; for
+        example, a GET request on a form that requires data to be presented via POST,
+        or a PUT request on a read-only resource.
+    - required:
+      - status
+    - type: object
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+          - description: A container for the error details
+  error_415:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: The request entity has a media type which the server or resource
+        does not support. For example, the client uploads an image as image/svg+xml,
+        but the server requires that images use a different format.
+    - required:
+      - status
+    - type: object
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+          - description: A container for the error details
+  error_500:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: 500 Internal Server Error is returned when a system or application
+        error has occurred. It generally indicates that something unexpected has gone
+        wrong on the server. This is used for a standard server side exception for
+        a persistent error on the server side.
+    - required:
+      - status
+    - type: object
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+          - description: A container for the error details
