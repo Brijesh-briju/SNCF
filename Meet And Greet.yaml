@@ -1436,6 +1436,32 @@ definitions:
           $ref: '#/definitions/pickup_date'
         dropoff_date:
           $ref: '#/definitions/dropoff_date'
+  partner_abg_location_code:
+    description: 'Partner specific location codes.  Example: For SNCF partner this
+      object refers to train station codes.'
+    type: object
+    properties:
+      abg_location_codes:
+        title: ABG Location codes
+        type: array
+        items:
+          $ref: '#/definitions/abg_location_code'
+      partner_location_codes:
+        $ref: '#/definitions/partner_location_codes'
+  request_testing:
+    allOf:
+    - $ref: '#/definitions/partner_abg_location_code'
+    - description: Partner/ABG specific travel preferences.
+    - title: Requested travel preference
+    - required:
+      - dropoff_date
+      - pickup_date
+    - type: object
+    - properties:
+        pickup_date:
+          $ref: '#/definitions/pickup_date'
+        dropoff_date:
+          $ref: '#/definitions/dropoff_date'
 parameters:
   client_id:
     name: client_id
