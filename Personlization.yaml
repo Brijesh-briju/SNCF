@@ -3123,19 +3123,6 @@ definitions:
           partner_discount:
             program: Carte Jeune
         driver: secondary
-  recommendations:
-    description: The rental vehicle availability offerings including the rates, discounts
-      and benefits
-    type: array
-    items:
-      properties:
-        name:
-          description: Value proposition offering name.
-          type: string
-        brand:
-          $ref: '#/definitions/brand'
-        vehicle:
-          $ref: '#/definitions/vehicle'
   personalization_v1_response:
     description: The following demonstrates an example of a successful response for
       the personalization endpoint.
@@ -3186,6 +3173,19 @@ definitions:
         vehicle:
           category:
             vehicle_class_code: C
+  recommendations:
+    description: The rental vehicle availability offerings including the rates, discounts
+      and benefits
+    type: array
+    items:
+      properties:
+        name:
+          description: Value proposition offering name.
+          type: string
+        brand:
+          $ref: '#/definitions/brand'
+        vehicle:
+          $ref: '#/definitions/vehical'
 parameters:
   client_id:
     name: client_id
