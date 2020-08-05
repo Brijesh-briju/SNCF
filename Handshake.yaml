@@ -952,19 +952,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   hours:
     title: Hours Slots
     description: Working and holidays working hour slots.
@@ -1179,6 +1166,32 @@ definitions:
         details:
           description: Description of the success status
           type: string
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  day_of_week:
+    title: Day of week
+    description: Day of week
+    enum:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    type: string
+    example: Monday
 parameters:
   context_id:
     name: context_id
