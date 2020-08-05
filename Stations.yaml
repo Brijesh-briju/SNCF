@@ -3067,47 +3067,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  meet_greet:
-    title: Meet and Greet
-    description: Meet and Greet Details.
-    type: object
-    properties:
-      enabled:
-        title: Enabled
-        description: Meet and Greet is enabled or not.
-        type: boolean
-        example: true
-      revised:
-        allOf:
-        - $ref: '#/definitions/revised'
-        - title: Revised booking dates
-        - description: This object contains the revised pickup and dropoff dates of
-            reservation.
-        - properties:
-            pickup_date: {}
-            dropoff_date: {}
-            pickup_address: {}
-            dropoff_address: {}
-      reservation_lead_time:
-        description: Advance time in hour required for meet and greet.
-        type: string
-      vehicle_class_codes:
-        description: Vehicle type allowed for meet and greet.
-        type: array
-        items:
-          $ref: '#/definitions/class_code'
-        example:
-        - A
-        - B
-        - C
-        - D
-        - H
-      parking_remarks:
-        description: Parking place for meet and geet vehicle.
-        type: string
-      key_pickup_remarks:
-        description: Key pickup place for meet and geet vehicle.
-        type: string
   revised:
     description: This object contains the revised pickup and dropoff dates of reservation.
     required:
@@ -3123,53 +3082,6 @@ definitions:
         $ref: '#/definitions/address'
       dropoff_address:
         $ref: '#/definitions/address'
-  location:
-    title: Location Details
-    description: Rental car address information of the product location.
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      code:
-        $ref: '#/definitions/location_code'
-      name:
-        allOf:
-        - $ref: '#/definitions/name'
-        - title: Location name
-        - description: Name of the location.
-        example: Boston Logan Intl Airport
-      hours:
-        title: Operation hours
-        description: Operating hours of the product location.
-        type: string
-        example: Sun-Sat 0:00 AM - 12:00 AM and 0:00 AM - 12:00 AM
-      airport_location:
-        title: Airport location
-        description: Indicates whether the product location is an airport.
-        type: boolean
-        example: true
-      key_drop:
-        title: Keydrop
-        description: 24 Hours key drop facility available or not.
-        type: boolean
-        example: true
-      type:
-        allOf:
-        - $ref: '#/definitions/type'
-        - title: Location type
-        - description: Type of location
-        example: Train Station/Airport/etc. - TO BE VERIFIED AGAINST LDB/OMEGA/ECOM
-          SERVICE
-      calendar:
-        $ref: '#/definitions/calender'
-      meet_greet:
-        $ref: '#/definitions/meet_greet'
-      address:
-        $ref: '#/definitions/address'
-      telephone:
-        description: Phone number of the product location.
-        type: string
-        example: 617-568-6600
   calender:
     title: Calendar details
     description: Partner or ABG specific working and holiday related details.
@@ -3242,19 +3154,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/flight_class'
         example: business
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   hours:
     title: Hours Slots
     description: Working and holidays working hour slots.
@@ -3783,15 +3682,6 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
-  stations:
-    description: ""
-    type: array
-    items:
-      properties:
-        partner_location:
-          $ref: '#/definitions/location'
-        car_rental_locations:
-          $ref: '#/definitions/location'
   modify_station_v1_response:
     description: The following demonstrates an example of a successful response for
       the modify station lookup endpoint.
@@ -4505,6 +4395,144 @@ definitions:
           - C
           - D
           - H
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  day_of_week:
+    title: Day of week
+    description: Day of week
+    enum:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    type: string
+    example: Monday
+  location:
+    title: Location Details
+    description: Rental car address information of the product location.
+    type: object
+    properties:
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+      code:
+        allOf:
+        - $ref: '#/definitions/location_code'
+      name:
+        allOf:
+        - $ref: '#/definitions/name'
+        - title: Location name
+        - description: Name of the location.
+        example: Boston Logan Intl Airport
+      hours:
+        title: Operation hours
+        description: Operating hours of the product location.
+        type: string
+        example: Sun-Sat 0:00 AM - 12:00 AM and 0:00 AM - 12:00 AM
+      airport_location:
+        title: Airport location
+        description: Indicates whether the product location is an airport.
+        type: boolean
+        example: true
+      key_drop:
+        title: Keydrop
+        description: 24 Hours key drop facility available or not.
+        type: boolean
+        example: true
+      type:
+        allOf:
+        - $ref: '#/definitions/type'
+        - title: Location type
+        - description: Type of location
+        example: Train Station/Airport/etc. - TO BE VERIFIED AGAINST LDB/OMEGA/ECOM
+          SERVICE
+      calendar:
+        allOf:
+        - $ref: '#/definitions/calender'
+      meet_greet:
+        allOf:
+        - $ref: '#/definitions/meet_greet'
+      address:
+        allOf:
+        - $ref: '#/definitions/address'
+      telephone:
+        description: Phone number of the product location.
+        type: string
+        example: 617-568-6600
+  stations:
+    description: ""
+    type: array
+    items:
+      properties:
+        partner_location:
+          allOf:
+          - $ref: '#/definitions/location'
+        car_rental_locations:
+          allOf:
+          - $ref: '#/definitions/location'
+  meet_greet:
+    title: Meet and Greet
+    description: Meet and Greet Details.
+    type: object
+    properties:
+      enabled:
+        title: Enabled
+        description: Meet and Greet is enabled or not.
+        type: boolean
+        example: true
+      revised:
+        allOf:
+        - $ref: '#/definitions/revised'
+        - title: Revised booking dates
+        - description: This object contains the revised pickup and dropoff dates of
+            reservation.
+        - properties:
+            pickup_date:
+              allOf:
+              - $ref: '#/definitions/pickup_date'
+            dropoff_date:
+              allOf:
+              - $ref: '#/definitions/dropoff_date'
+            pickup_address:
+              allOf:
+              - $ref: '#/definitions/address'
+            dropoff_address:
+              allOf:
+              - $ref: '#/definitions/address'
+      reservation_lead_time:
+        description: Advance time in hour required for meet and greet.
+        type: string
+      vehicle_class_codes:
+        description: Vehicle type allowed for meet and greet.
+        type: array
+        items:
+          $ref: '#/definitions/class_code'
+        example:
+        - A
+        - B
+        - C
+        - D
+        - H
+      parking_remarks:
+        description: Parking place for meet and geet vehicle.
+        type: string
+      key_pickup_remarks:
+        description: Key pickup place for meet and geet vehicle.
+        type: string
 parameters:
   brand:
     name: brand
