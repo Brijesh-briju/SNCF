@@ -1156,19 +1156,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   hours:
     title: Hours Slots
     description: Working and holidays working hour slots.
@@ -1188,31 +1175,6 @@ definitions:
           - title: Closing hour
           - description: Closing hour slot in ISO 8601 format.
           example: 780
-  free_options:
-    title: Free options
-    description: Eligible free ancillary products and benefits offered.
-    type: object
-    properties:
-      eligible_extras:
-        title: Eligible extras
-        description: Eligible ancillary products for selection.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-        properties:
-          quantity:
-            allOf:
-            - $ref: '#/definitions/quantity'
-            - title: Eligible extras quantity
-            - description: The total number of ancillary products.
-      eligible_codes:
-        title: Extra codes
-        description: Eligible ancillary product codes.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-      meet_and_greet:
-        title: Meet and Greet
   domain:
     description: ""
     type: object
@@ -1242,41 +1204,6 @@ definitions:
         - description: "End date for the data range in ISO 8601 representation.\r\n\
             \    "
         example: 2019-06-30T23:59:59.000Z
-  commercial_discount:
-    title: Commercial discount
-    description: "The commercial rental vehicle brand rewards program code (also known\
-      \ as discount code). The discounts applied to the rate of the reservation.'\r\
-      \n"
-    required:
-    - brand
-    - code
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      code:
-        $ref: '#/definitions/code'
-      percent:
-        title: Discount percentage
-        description: The discount percentage applied to the reservation.
-        type: integer
-      free_options:
-        allOf:
-        - $ref: '#/definitions/free_options'
-        - title: Free options
-        - description: 'Eligible free ancillary products and benefits offered.  '
-      pickup_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Pickup date range
-        - description: ' Pickup date range for the eligibility of promotional discounts. '
-      dropoff_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Dropoff date range
-        - description: 'Dropoff date range for eligibility of the promotional discounts. '
-      reservation_date_range:
-        $ref: '#/definitions/date_range'
   partner:
     title: Partner information
     description: Travel partner information.
@@ -1584,6 +1511,100 @@ definitions:
     description: ISO 8601 representation of the date time.
     type: string
     example: 2015-07-04T21:00:00.000Z
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  day_of_week:
+    title: Day of week
+    description: Day of week
+    enum:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    type: string
+    example: Monday
+  free_options:
+    title: Free options
+    description: Eligible free ancillary products and benefits offered.
+    type: object
+    properties:
+      eligible_extras:
+        title: Eligible extras
+        description: Eligible ancillary products for selection.
+        type: array
+        items:
+          $ref: '#/definitions/product_code'
+        properties:
+          quantity:
+            allOf:
+            - $ref: '#/definitions/quantity'
+            - title: Eligible extras quantity
+            - description: The total number of ancillary products.
+      eligible_codes:
+        title: Extra codes
+        description: Eligible ancillary product codes.
+        type: array
+        items:
+          $ref: '#/definitions/product_code'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - title: Meet and Greet
+  meet_and_greet:
+    title: Meet and Greet
+    description: Indicates the free meet and greet feature for the brand.
+    type: boolean
+    example: true
+  commercial_discount:
+    title: Commercial discount
+    description: "The commercial rental vehicle brand rewards program code (also known\
+      \ as discount code). The discounts applied to the rate of the reservation.'\r\
+      \n"
+    required:
+    - brand
+    - code
+    type: object
+    properties:
+      brand:
+        $ref: '#/definitions/brand'
+      code:
+        $ref: '#/definitions/code'
+      percent:
+        title: Discount percentage
+        description: The discount percentage applied to the reservation.
+        type: integer
+      free_options:
+        allOf:
+        - $ref: '#/definitions/free_options'
+        - title: Free options
+        - description: 'Eligible free ancillary products and benefits offered.  '
+      pickup_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Pickup date range
+        - description: ' Pickup date range for the eligibility of promotional discounts. '
+      dropoff_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Dropoff date range
+        - description: 'Dropoff date range for eligibility of the promotional discounts. '
+      reservation_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
 parameters:
   brand:
     name: brand
