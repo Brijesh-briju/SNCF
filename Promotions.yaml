@@ -473,19 +473,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   hours:
     title: Hours Slots
     description: Working and holidays working hour slots.
@@ -505,31 +492,6 @@ definitions:
           - title: Closing hour
           - description: Closing hour slot in ISO 8601 format.
           example: 780
-  free_options:
-    title: Free options
-    description: Eligible free ancillary products and benefits offered.
-    type: object
-    properties:
-      eligible_extras:
-        title: Eligible extras
-        description: Eligible ancillary products for selection.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-        properties:
-          quantity:
-            allOf:
-            - $ref: '#/definitions/quantity'
-            - title: Eligible extras quantity
-            - description: The total number of ancillary products.
-      eligible_codes:
-        title: Extra codes
-        description: Eligible ancillary product codes.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-      meet_and_greet:
-        title: Meet and Greet
   domain:
     type: object
     properties:
@@ -558,41 +520,6 @@ definitions:
         - description: "End date for the data range in ISO 8601 representation.\r\n\
             \    "
         example: 2019-06-30T23:59:59.000Z
-  commercial_discount:
-    title: Commercial discount
-    description: "The commercial rental vehicle brand rewards program code (also known\
-      \ as discount code). The discounts applied to the rate of the reservation.'\r\
-      \n"
-    required:
-    - brand
-    - code
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      code:
-        $ref: '#/definitions/code'
-      percent:
-        title: Discount percentage
-        description: The discount percentage applied to the reservation.
-        type: integer
-      free_options:
-        allOf:
-        - $ref: '#/definitions/free_options'
-        - title: Free options
-        - description: 'Eligible free ancillary products and benefits offered.  '
-      pickup_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Pickup date range
-        - description: ' Pickup date range for the eligibility of promotional discounts. '
-      dropoff_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Dropoff date range
-        - description: 'Dropoff date range for eligibility of the promotional discounts. '
-      reservation_date_range:
-        $ref: '#/definitions/date_range'
   language:
     allOf:
     - $ref: '#/definitions/code'
@@ -796,6 +723,505 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/commercial_discount'
+  day_of_week:
+    title: Day of week
+    description: Day of week
+    enum:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    type: string
+    example: Monday
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  commercial_discount:
+    title: Commercial discount
+    description: "The commercial rental vehicle brand rewards program code (also known\
+      \ as discount code). The discounts applied to the rate of the reservation.'\r\
+      \n"
+    required:
+    - brand
+    - code
+    type: object
+    properties:
+      brand:
+        $ref: '#/definitions/brand'
+      code:
+        $ref: '#/definitions/code'
+      percent:
+        title: Discount percentage
+        description: The discount percentage applied to the reservation.
+        type: integer
+      free_options:
+        allOf:
+        - $ref: '#/definitions/free_options'
+        - title: Free options
+        - description: 'Eligible free ancillary products and benefits offered.  '
+      pickup_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Pickup date range
+        - description: ' Pickup date range for the eligibility of promotional discounts. '
+      dropoff_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Dropoff date range
+        - description: 'Dropoff date range for eligibility of the promotional discounts. '
+      reservation_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+  meet_and_greet:
+    title: Meet and Greet
+    description: Indicates the free meet and greet feature for the brand.
+    type: boolean
+    example: true
+  free_options:
+    title: Free options
+    description: Eligible free ancillary products and benefits offered.
+    type: object
+    properties:
+      eligible_extras:
+        title: Eligible extras
+        description: Eligible ancillary products for selection.
+        type: array
+        items:
+          $ref: '#/definitions/product_code'
+        properties:
+          quantity:
+            allOf:
+            - $ref: '#/definitions/quantity'
+            - title: Eligible extras quantity
+            - description: The total number of ancillary products.
+      eligible_codes:
+        title: Extra codes
+        description: Eligible ancillary product codes.
+        type: array
+        items:
+          $ref: '#/definitions/product_code'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - title: Meet and Greet
+  meet_greet:
+    title: Meet and Greet
+    description: Meet and Greet Details.
+    type: object
+    properties:
+      enabled:
+        title: Enabled
+        description: Meet and Greet is enabled or not.
+        type: boolean
+        example: true
+      revised:
+        allOf:
+        - $ref: '#/definitions/revised'
+        - title: Revised booking dates
+        - description: This object contains the revised pickup and dropoff dates of
+            reservation.
+        - properties:
+            pickup_date:
+              allOf:
+              - $ref: '#/definitions/pickup_date'
+            dropoff_date:
+              allOf:
+              - $ref: '#/definitions/dropoff_date'
+            pickup_address:
+              allOf:
+              - $ref: '#/definitions/address'
+            dropoff_address:
+              allOf:
+              - $ref: '#/definitions/address'
+      reservation_lead_time:
+        description: Advance time in hour required for meet and greet.
+        type: string
+      vehicle_class_codes:
+        description: Vehicle type allowed for meet and greet.
+        type: array
+        items:
+          $ref: '#/definitions/class_code'
+        example:
+        - A
+        - B
+        - C
+        - D
+        - H
+      parking_remarks:
+        description: Parking place for meet and geet vehicle.
+        type: string
+      key_pickup_remarks:
+        description: Key pickup place for meet and geet vehicle.
+        type: string
+  pickup_date:
+    allOf:
+    - $ref: '#/definitions/date_time'
+    - title: Pickup date
+    - description: ISO 8601 date and time of pickup.
+    example: 2017-11-15T18:00:00.000Z
+  dropoff_date:
+    allOf:
+    - $ref: '#/definitions/date_time'
+    - title: Dropoff date
+    - description: ISO 8601 date and time of dropoff.
+    example: 2017-11-15T18:00:00.000Z
+  address:
+    title: Address
+    description: Address information that you would like to associate to the user
+      that is requesting the rental vehicle reservation, including geographic coordinates
+      (if applicable)
+    required:
+    - city
+    - country_code
+    - lat
+    - long
+    type: object
+    properties:
+      address_line_1:
+        description: Address (line 1) of the user.
+        type: string
+      address_line_2:
+        description: Address (line 2) of the user.
+        type: string
+      address_line_3:
+        description: Address (line 3) of the user.
+        type: string
+      city:
+        allOf:
+        - $ref: '#/definitions/city'
+        - description: City name of the user.
+      state_name:
+        description: State name of the user (if applicable).
+        type: string
+      postal_code:
+        description: Numeric or alphanumeric postal code of the user, which varies
+          by country (02128 or CT3).
+        type: string
+      country_code:
+        allOf:
+        - $ref: '#/definitions/country_code'
+        - description: 2-letter ISO 3166 country code of the user.
+      lat:
+        allOf:
+        - $ref: '#/definitions/coordinate'
+        - description: Geographic latitude of the location.
+      long:
+        allOf:
+        - $ref: '#/definitions/coordinate'
+        - description: Geographic longitude of the location.
+  country_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Country Code
+      description: ' 2-character ISO 3166 country code that drives the rate, currency
+        and default language.'
+      maxLength: 2
+      minLength: 2
+      enum:
+      - AF
+      - AL
+      - DZ
+      - AS
+      - AD
+      - AO
+      - AI
+      - AG
+      - AR
+      - AM
+      - AW
+      - AU
+      - AT
+      - AZ
+      - BS
+      - BH
+      - BD
+      - BB
+      - BY
+      - BE
+      - BZ
+      - BJ
+      - BM
+      - BT
+      - BO
+      - BA
+      - BW
+      - BR
+      - BN
+      - BG
+      - BF
+      - BI
+      - KH
+      - CM
+      - CA
+      - CV
+      - KY
+      - CF
+      - TD
+      - CL
+      - CN
+      - CO
+      - KM
+      - CG
+      - CD
+      - CK
+      - CR
+      - HR
+      - CU
+      - CY
+      - CZ
+      - DK
+      - DJ
+      - DM
+      - DO
+      - EC
+      - EG
+      - SV
+      - GQ
+      - ER
+      - EE
+      - ET
+      - FO
+      - FJ
+      - FI
+      - FR
+      - GF
+      - PF
+      - GA
+      - GM
+      - GE
+      - DE
+      - GH
+      - GI
+      - GR
+      - GL
+      - GD
+      - GP
+      - GU
+      - GT
+      - GG
+      - GN
+      - GW
+      - GY
+      - HT
+      - VA
+      - HN
+      - HK
+      - HU
+      - IS
+      - IN
+      - ID
+      - IR
+      - IQ
+      - IE
+      - IM
+      - IL
+      - IT
+      - CI
+      - JM
+      - JP
+      - JE
+      - JO
+      - KZ
+      - KE
+      - KI
+      - KR
+      - XK
+      - KW
+      - KG
+      - LA
+      - LV
+      - LB
+      - LS
+      - LR
+      - LY
+      - LI
+      - LT
+      - LU
+      - MO
+      - MK
+      - MG
+      - MW
+      - MY
+      - MV
+      - ML
+      - MT
+      - MH
+      - MQ
+      - MR
+      - MU
+      - YT
+      - MX
+      - FM
+      - MD
+      - MC
+      - MN
+      - MS
+      - MA
+      - MZ
+      - MM
+      - NA
+      - NR
+      - NP
+      - NL
+      - NC
+      - NZ
+      - NI
+      - NE
+      - NG
+      - NF
+      - MP
+      - "NO"
+      - OM
+      - PK
+      - PA
+      - PG
+      - PY
+      - PE
+      - PH
+      - PL
+      - PT
+      - PR
+      - QA
+      - ME
+      - RS
+      - RE
+      - RO
+      - RU
+      - RW
+      - KN
+      - WS
+      - SM
+      - ST
+      - SA
+      - SN
+      - CS
+      - SC
+      - SL
+      - SG
+      - SK
+      - SI
+      - SB
+      - SO
+      - ZA
+      - ES
+      - LK
+      - MF
+      - AN
+      - VC
+      - LC
+      - SD
+      - SR
+      - SZ
+      - SE
+      - CH
+      - SY
+      - TW
+      - TZ
+      - TH
+      - TG
+      - TO
+      - VG
+      - TT
+      - TN
+      - TR
+      - TM
+      - TC
+      - UG
+      - UA
+      - AE
+      - GB
+      - US
+      - UY
+      - UZ
+      - VU
+      - VE
+      - VN
+      - VI
+      - YE
+      - ZM
+      - ZW
+    example: US
+  city:
+    description: City name of the user.
+    type: string
+  coordinate:
+    description: Latitude and longitude values
+    pattern: ^-?[0-9]{1,3}(?:\.[0-9]{1,10})?$
+    type: string
+    example: -74.187506
+  class_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Vehicle class code
+      description: The vehicle class code used to identify individual cars and trucks
+        according to size, axle numbers and type.
+      enum:
+      - A
+      - B
+      - C
+      - D
+      - E
+      - F
+      - G
+      - H
+      - I
+      - J
+      - K
+      - L
+      - M
+      - "N"
+      - O
+      - P
+      - S
+      - V
+      - W
+      - X
+      - Z
+      - XA
+      - XB
+      - XC
+      - XD
+      - XE
+      - XF
+      - XG
+      - XH
+      - XK
+      - XL
+      - XP
+      - XS
+      - XV
+      - XW
+      - XX
+      - XZ
+      example: E
+  revised:
+    description: This object contains the revised pickup and dropoff dates of reservation.
+    required:
+    - pickup_date
+    - dropoff_date
+    type: object
+    properties:
+      pickup_date:
+        $ref: '#/definitions/pickup_date'
+      dropoff_date:
+        $ref: '#/definitions/dropoff_date'
+      pickup_address:
+        $ref: '#/definitions/address'
+      dropoff_address:
+        $ref: '#/definitions/address'
 parameters:
   partner_code:
     name: partner_code
