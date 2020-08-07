@@ -1344,43 +1344,6 @@ definitions:
         title: Central lock
         description: Flag to indicate the central locking feature of ABG car.
         type: boolean
-  vehical_category:
-    title: Vehicle Product Details
-    description: Identifying information and details about the rental vehicle.
-    type: object
-    properties:
-      name:
-        title: Name
-        description: The name of the vehicle.
-        type: string
-        example: Volvo XC 60
-      make:
-        title: Make
-        description: Make of the vehicle.
-        type: string
-        example: Volvo
-      model:
-        title: Make model
-        description: Model of the vehicle.
-        type: string
-        example: XC60
-      sipp_code:
-        $ref: '#/definitions/sipp_code'
-      vehicle_class_code:
-        $ref: '#/definitions/class_code'
-      vehicle_class_name:
-        title: Vehicle class name
-        description: The name of the vehicle class.
-        type: string
-        example: Economy
-      vehicle_transmission:
-        $ref: '#/definitions/transmission'
-      image_url:
-        allOf:
-        - $ref: '#/definitions/url'
-        - title: Image url
-        - description: Image URL of vehicle.
-        - example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
   luggage_capacity:
     type: object
     properties:
@@ -1392,27 +1355,6 @@ definitions:
         description: The number of small suitcases that can be accommodated in the
           rental vehicle.
         type: string
-  vehical_capacity:
-    title: Vehicle Capacity
-    description: Rental vehicle passenger seat and luggage capacity information.
-    type: object
-    properties:
-      doors:
-        description: The number of vehicle doors.
-        type: string
-        example: "4"
-      seats:
-        description: The number of passenger seats in the rental vehicle.
-        type: string
-        example: "5"
-      mpg:
-        description: Miles per gallon (MPG) of the vehicle.
-        type: string
-        example: 27/35
-      luggage_capacity:
-        $ref: '#/definitions/luggage_capacity'
-      fuel_type:
-        $ref: '#/definitions/fule_type'
   totals:
     title: Totals
     description: The total reservation rate, taxes and fees for the entirety of the
@@ -1541,24 +1483,6 @@ definitions:
         description: Indicates whether taxes are included in the cost (in total_owed).
         type: boolean
         example: true
-  vehical:
-    title: Rental Vehicle Information
-    description: Identifying information about the vehicle, including vehicle category
-      (make/model), features, luggage capacity and the total cost.
-    type: object
-    properties:
-      category:
-        $ref: '#/definitions/vehical_category'
-      features:
-        $ref: '#/definitions/vehical_features'
-      capacity:
-        $ref: '#/definitions/vehical_capacity'
-      brand:
-        allOf:
-        - $ref: '#/definitions/brand'
-        example: Avis
-      rate_totals:
-        $ref: '#/definitions/rate_totals'
   car_rental:
     title: Car Rental Journey
     description: Car rental information including the pickup, dropoff and journey
@@ -1709,67 +1633,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/code'
         - description: This contains the detailed description of the disclaimer.
-  reservation:
-    description: Confirmation information of the availability request for the rental
-      vehicle reservation, including the rate, distance limitations, and rental extras
-      (such as GPS). This object contains the combination of objects from availability
-      and reservation. Certain objects like vehicle, confirmation, Meet and Greet,
-      etc features will be available only in the reservation APIs.
-    required:
-    - pickup_location
-    - dropoff_location
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      confirmation:
-        $ref: '#/definitions/confirmation'
-      distance:
-        $ref: '#/definitions/distance'
-      pickup_location:
-        $ref: '#/definitions/pickup_location'
-      dropoff_location:
-        $ref: '#/definitions/dropoff_location'
-      rate_totals:
-        $ref: '#/definitions/rate_totals'
-      insurance:
-        type: array
-        items:
-          $ref: '#/definitions/insurance'
-      extras:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/extra'
-      terms:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/term'
-      disclaimers:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/disclaimer'
-      meet_and_greet:
-        allOf:
-        - $ref: '#/definitions/meet_and_greet'
-        - description: Meet and Greet Details. This object will be present only in
-            case of reservation context like Creation, Modification or Viewing the
-            meet_and_greet reservations.
-      passenger:
-        title: Rental Vehicle Reservation Passenger
-        description: ' Passenger''s contact information. Here passenger refers to
-          the person who created the car rental reservation. This object will be present
-          only for the reservation context.'
-        properties:
-          contact:
-            allOf:
-            - $ref: '#/definitions/contact'
-            - title: Contact details
-            - description: Passenger's contact details
-      vehicle:
-        $ref: '#/definitions/vehical'
   contact:
     description: The personal and contact information of the reservation holder. Only
       7-bit ASCII characters are accepted for the first and last name.
@@ -1805,11 +1668,14 @@ definitions:
     type: object
     properties:
       brand:
-        $ref: '#/definitions/brand'
+        allOf:
+        - $ref: '#/definitions/brand'
       iata_number:
-        $ref: '#/definitions/iata_number'
+        allOf:
+        - $ref: '#/definitions/iata_number'
       rate_qualifiers:
-        $ref: '#/definitions/rate_qualifiers'
+        allOf:
+        - $ref: '#/definitions/rate_qualifiers'
   class_code:
     allOf:
     - $ref: '#/definitions/code'
@@ -2309,27 +2175,6 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
-  multibrand_rateshop_response:
-    title: 200 Car Availability Best Buy Response
-    description: The following demonstrates an example of a successful response for
-      the Car Availability endpoint.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      vehicles:
-        description: ""
-        minItems: 1
-        type: array
-        items:
-          $ref: '#/definitions/vehical'
-      reservation:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/reservation'
   multi_brand_rate_shop_v1_request:
     title: Root Type for multi_brand_rate_shop_v1_request
     description: ""
@@ -2424,14 +2269,237 @@ definitions:
           membership:
             program_id: AD
             code: M21R322
+  extra:
+    title: Rental Extras
+    description: The ancillary products, special equipment, and other extras selected
+      as part of reservation.
+    required:
+    - type
+    type: object
+    properties:
+      type:
+        allOf:
+        - $ref: '#/definitions/product_type'
+      code:
+        allOf:
+        - $ref: '#/definitions/product_code'
+      quantity:
+        allOf:
+        - $ref: '#/definitions/quantity'
+        - minimum: 0
+        - description: The number of ancillary products to add to the reservation.
+            For example, if a value of 2 is specified for quantity, and a code of
+            CSS, then two child safety seats will be added to the reservation.
+      amount:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Extra product amount
+          description: The price of the ancillary product.
+        example: 19.99
+      total_owed:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Total amount of the extra product
+          description: The total price of the ancillary product for the entirety of
+            the reservation period.
+        example: 19.99
+  product_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Extras code
+    - description: The rental ancillary code used to identify and add rental vehicle
+        equipment and features to the reservation (such as GPS).
+    - enum:
+      - ADD
+      - ADR
+      - AFO
+      - ATC
+      - BBS
+      - BKF
+      - BKR
+      - BXL
+      - BXM
+      - BXS
+      - CBS
+      - CCO
+      - CCP
+      - CFS
+      - CHG
+      - CIS
+      - CNP
+      - CSD
+      - CSS
+      - DCF
+      - DEC
+      - DIE
+      - DIS
+      - EPU
+      - ESP
+      - FRD
+      - FSK
+      - GEL
+      - GPS
+      - GSO
+      - HDL
+      - ICW
+      - INC
+      - IP5
+      - IXB
+      - MPG
+      - NAV
+      - NSF
+      - PAC
+      - RSN
+      - SKI
+      - SKR
+      - SNC
+      - SNW
+      - STA
+      - TAB
+      - TCT
+      - TPR
+      - TRO
+      - VCD
+      - WFI
+      - XMR
+      - BAT
+      - CSB
+    example: GPS
+  product_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Extras type
+    - description: The type of ancillary product specified in the request. If a code
+        of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
+        will be returned in the response.
+    - enum:
+      - COUNTER_PROD
+      - SPEC_EQUIP
+      - UPSELL
+    example: COUNTER_PROD
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  day_of_week:
+    allOf:
+    - title: Day of week
+    - description: Day of week
+    - enum:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    - type: string
+    example: Monday
+  vehical:
+    title: Rental Vehicle Information
+    description: Identifying information about the vehicle, including vehicle category
+      (make/model), features, luggage capacity and the total cost.
+    type: object
+    properties:
+      category:
+        allOf:
+        - $ref: '#/definitions/vehical_category'
+      features:
+        allOf:
+        - $ref: '#/definitions/vehical_features'
+      capacity:
+        allOf:
+        - $ref: '#/definitions/vehical_capacity'
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+        example: Avis
+      rate_totals:
+        allOf:
+        - $ref: '#/definitions/rate_totals'
+  vehical_capacity:
+    title: Vehicle Capacity
+    description: Rental vehicle passenger seat and luggage capacity information.
+    type: object
+    properties:
+      doors:
+        description: The number of vehicle doors.
+        type: string
+        example: "4"
+      seats:
+        description: The number of passenger seats in the rental vehicle.
+        type: string
+        example: "5"
+      mpg:
+        description: Miles per gallon (MPG) of the vehicle.
+        type: string
+        example: 27/35
+      luggage_capacity:
+        allOf:
+        - $ref: '#/definitions/luggage_capacity'
+      fuel_type:
+        allOf:
+        - $ref: '#/definitions/fule_type'
+  vehical_category:
+    title: Vehicle Product Details
+    description: Identifying information and details about the rental vehicle.
+    type: object
+    properties:
+      name:
+        title: Name
+        description: The name of the vehicle.
+        type: string
+        example: Volvo XC 60
+      make:
+        title: Make
+        description: Make of the vehicle.
+        type: string
+        example: Volvo
+      model:
+        title: Make model
+        description: Model of the vehicle.
+        type: string
+        example: XC60
+      sipp_code:
+        allOf:
+        - $ref: '#/definitions/sipp_code'
+      vehicle_class_code:
+        allOf:
+        - $ref: '#/definitions/class_code'
+      vehicle_class_name:
+        title: Vehicle class name
+        description: The name of the vehicle class.
+        type: string
+        example: Economy
+      vehicle_transmission:
+        allOf:
+        - $ref: '#/definitions/transmission'
+      image_url:
+        allOf:
+        - $ref: '#/definitions/url'
+        - title: Image url
+        - description: Image URL of vehicle.
+        - example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
   multi_brand_rate_shop_v1_response:
     description: ""
     type: object
     properties:
       multibrand_rateshop_response:
-        $ref: '#/definitions/multibrand_rateshop_response'
+        allOf:
+        - $ref: '#/definitions/multibrand_rateshop_response'
       multibrand_rateshop_partial_response:
-        $ref: '#/definitions/multibrand_rateshop_partial_response'
+        allOf:
+        - $ref: '#/definitions/multibrand_rateshop_partial_response'
     example:
       status:
         request_time: 2019-03-25T12:01:54Z
@@ -2839,9 +2907,11 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/status'
+        allOf:
+        - $ref: '#/definitions/status'
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       vehicles:
         title: Vehicles
         description: An array of vehicles which contains the metadata and rates of
@@ -2849,11 +2919,13 @@ definitions:
         minItems: 1
         type: array
         items:
-          $ref: '#/definitions/vehical'
+          allOf:
+          - $ref: '#/definitions/vehical'
       reservation:
         type: array
         items:
-          $ref: '#/definitions/reservation'
+          allOf:
+          - $ref: '#/definitions/reservation'
   multibrand_rateshop_request:
     title: Best Buy Request
     description: The following demonstrates an example of a multi brand rate shop
@@ -2861,15 +2933,18 @@ definitions:
     type: object
     properties:
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       car_rental:
-        $ref: '#/definitions/car_rental'
+        allOf:
+        - $ref: '#/definitions/car_rental'
       products:
         description: This contains the set of passenger and brand related rate qualifiers
           which determine the rates of ABG cars.
         type: array
         items:
-          $ref: '#/definitions/product'
+          allOf:
+          - $ref: '#/definitions/product'
     example:
       transaction:
         id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
@@ -2934,142 +3009,101 @@ definitions:
           membership:
             program_id: AD
             code: M21R322
-  extra:
-    title: Rental Extras
-    description: The ancillary products, special equipment, and other extras selected
-      as part of reservation.
-    required:
-    - type
+  multibrand_rateshop_response:
+    title: 200 Car Availability Best Buy Response
+    description: The following demonstrates an example of a successful response for
+      the Car Availability endpoint.
     type: object
     properties:
-      type:
+      status:
         allOf:
-        - $ref: '#/definitions/product_type'
-      code:
+        - $ref: '#/definitions/status'
+      transaction:
         allOf:
-        - $ref: '#/definitions/product_code'
-      quantity:
-        allOf:
-        - $ref: '#/definitions/quantity'
-        - minimum: 0
-        - description: The number of ancillary products to add to the reservation.
-            For example, if a value of 2 is specified for quantity, and a code of
-            CSS, then two child safety seats will be added to the reservation.
-      amount:
-        allOf:
-        - $ref: '#/definitions/amount'
-        - title: Extra product amount
-          description: The price of the ancillary product.
-        example: 19.99
-      total_owed:
-        allOf:
-        - $ref: '#/definitions/amount'
-        - title: Total amount of the extra product
-          description: The total price of the ancillary product for the entirety of
-            the reservation period.
-        example: 19.99
-  product_code:
-    allOf:
-    - $ref: '#/definitions/code'
-    - title: Extras code
-    - description: The rental ancillary code used to identify and add rental vehicle
-        equipment and features to the reservation (such as GPS).
-    - enum:
-      - ADD
-      - ADR
-      - AFO
-      - ATC
-      - BBS
-      - BKF
-      - BKR
-      - BXL
-      - BXM
-      - BXS
-      - CBS
-      - CCO
-      - CCP
-      - CFS
-      - CHG
-      - CIS
-      - CNP
-      - CSD
-      - CSS
-      - DCF
-      - DEC
-      - DIE
-      - DIS
-      - EPU
-      - ESP
-      - FRD
-      - FSK
-      - GEL
-      - GPS
-      - GSO
-      - HDL
-      - ICW
-      - INC
-      - IP5
-      - IXB
-      - MPG
-      - NAV
-      - NSF
-      - PAC
-      - RSN
-      - SKI
-      - SKR
-      - SNC
-      - SNW
-      - STA
-      - TAB
-      - TCT
-      - TPR
-      - TRO
-      - VCD
-      - WFI
-      - XMR
-      - BAT
-      - CSB
-    example: GPS
-  product_type:
-    allOf:
-    - $ref: '#/definitions/type'
-    - title: Extras type
-    - description: The type of ancillary product specified in the request. If a code
-        of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
-        will be returned in the response.
-    - enum:
-      - COUNTER_PROD
-      - SPEC_EQUIP
-      - UPSELL
-    example: COUNTER_PROD
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
+        - $ref: '#/definitions/transaction'
+      vehicles:
+        description: ""
+        minItems: 1
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/vehical'
+      reservation:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/reservation'
+  reservation:
+    description: Confirmation information of the availability request for the rental
+      vehicle reservation, including the rate, distance limitations, and rental extras
+      (such as GPS). This object contains the combination of objects from availability
+      and reservation. Certain objects like vehicle, confirmation, Meet and Greet,
+      etc features will be available only in the reservation APIs.
     required:
-    - day_of_week
+    - pickup_location
+    - dropoff_location
     type: object
     properties:
-      day_of_week:
+      brand:
         allOf:
-        - $ref: '#/definitions/day_of_week'
-      hours:
+        - $ref: '#/definitions/brand'
+      confirmation:
         allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
-  day_of_week:
-    allOf:
-    - title: Day of week
-    - description: Day of week
-    - enum:
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
-      - Sunday
-    - type: string
-    example: Monday
+        - $ref: '#/definitions/confirmation'
+      distance:
+        allOf:
+        - $ref: '#/definitions/distance'
+      pickup_location:
+        allOf:
+        - $ref: '#/definitions/pickup_location'
+      dropoff_location:
+        allOf:
+        - $ref: '#/definitions/dropoff_location'
+      rate_totals:
+        allOf:
+        - $ref: '#/definitions/rate_totals'
+      insurance:
+        type: array
+        items:
+          $ref: '#/definitions/insurance'
+      extras:
+        description: ""
+        type: array
+        items:
+          $ref: '#/definitions/extra'
+      terms:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/term'
+      disclaimers:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/disclaimer'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - description: Meet and Greet Details. This object will be present only in
+            case of reservation context like Creation, Modification or Viewing the
+            meet_and_greet reservations.
+      passenger:
+        title: Rental Vehicle Reservation Passenger
+        description: ' Passenger''s contact information. Here passenger refers to
+          the person who created the car rental reservation. This object will be present
+          only for the reservation context.'
+        properties:
+          contact:
+            allOf:
+            - $ref: '#/definitions/contact'
+            - title: Contact details
+            - description: Passenger's contact details
+      vehicle:
+        allOf:
+        - $ref: '#/definitions/vehical'
 responses:
   multi_brand_rate_shop_v1_request:
     description: ""
