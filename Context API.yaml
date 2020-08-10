@@ -532,33 +532,6 @@ definitions:
       request.
     type: string
     example: 391117cf-4470-4353-8b51-f00c3c098943
-  transaction:
-    title: Transaction
-    description: Transaction details that may be used by your application to identify
-      a request.
-    type: object
-    properties:
-      id:
-        $ref: '#/definitions/transaction_id'
-      system_id:
-        title: Internal correlation  identifier
-        description: A unique identifier generated internally by the application to
-          identify the payload and troubleshoot.
-        type: string
-        example: i9332ffa-5250-11e9-8647-d663bd873d78
-  discount:
-    title: Brand Discounts
-    description: The rental vehicle brand rewards program code (also known as discount
-      code) to be applied to the rate of the reservation.
-    required:
-    - code
-    type: object
-    properties:
-      code:
-        $ref: '#/definitions/discount_code'
-  extra:
-    description: ""
-    type: object
   type:
     type: string
   train_class:
@@ -593,24 +566,6 @@ definitions:
         details:
           description: Description of the error
           type: string
-  error_status:
-    title: Error status
-    description: A container for the error details
-    required:
-    - request_time
-    - errors
-    - request_errors
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      request_errors:
-        description: The number of errors that occurred
-        type: integer
-      errors:
-        $ref: '#/definitions/error_details'
   error_response:
     required:
     - status
@@ -620,70 +575,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  passenger:
-    title: Passengers Details
-    description: Passenger(s) attributes like loyalty, discount and age.
-    required:
-    - driver
-    - rate_qualifiers
-    type: object
-    properties:
-      rate_qualifiers:
-        allOf:
-        - $ref: '#/definitions/rate_qualifiers'
-        - title: Rate Qualifiers
-      driver:
-        $ref: '#/definitions/driver'
-  coupon:
-    title: Coupon
-    description: Coupon infomation for reservation discounts and benefits.
-    required:
-    - code
-    - coupon_amount
-    - quantity
-    - type
-    type: object
-    properties:
-      code:
-        allOf:
-        - $ref: '#/definitions/code'
-        - title: Coupon code
-        - description: The coupon code to be applied to the reservation rate.
-        example: MUZZ014
-      type:
-        $ref: '#/definitions/coupon_type'
-      description:
-        title: Coupon description
-        description: Description of the coupon code that was specified in the request.
-        type: string
-        example: 25USD Off with Rental of CSS/Paperless Coupon
-      quantity:
-        allOf:
-        - $ref: '#/definitions/quantity'
-        - title: Quantity
-        - description: The number of coupon codes to apply to the reservation.
-        example: 1
-      coupon_applied:
-        title: Coupon applied flag
-        description: Indicates that a coupon code is valid and was successfully applied
-          for the reservation.
-        type: boolean
-        example: false
-      coupon_amount:
-        allOf:
-        - $ref: '#/definitions/amount'
-        - title: Coupon amount
-        - description: The amount of the coupon discount applied to the cost of the
-            reservation.
-        example: 0
-      coupon_extras:
-        title: Coupon extras
-        description: The ancillary products tied to the coupon. For example, if the
-          coupon code specified in the request applies to the cost of a child safety
-          seat, then CSS will be returned in this field.
-        type: array
-        items:
-          $ref: '#/definitions/extra'
   membership:
     title: Frequent Traveler Programs (FTPs)
     description: The Frequent Traveler Program (FTP) to be applied to the reservation.
@@ -721,33 +612,6 @@ definitions:
           by partner integration.
         type: string
         example: VIP
-  rate_qualifiers:
-    title: Reservation rate qualifiers
-    description: The information determines/influences the rate of the reservation
-      in the localized currency.
-    type: object
-    properties:
-      discount:
-        $ref: '#/definitions/discount'
-      loyalty:
-        $ref: '#/definitions/loyalty'
-      coupon:
-        $ref: '#/definitions/coupon'
-      membership:
-        $ref: '#/definitions/membership'
-      age:
-        $ref: '#/definitions/age'
-      date_of_birth:
-        allOf:
-        - $ref: '#/definitions/date'
-        - title: Date of Birth
-        - description: Driver’s date of birth. This might influence the rates. Will
-            be superseded by “age” parameter or date of birth found in the profile
-            provided in “membership_code”
-      partner_loyalty:
-        $ref: '#/definitions/partner_loyalty'
-      partner_discount:
-        $ref: '#/definitions/partner_discount'
   arrival_train:
     title: Arrival Train
     description: Arrival Train information including the arrival datetime, location
@@ -789,63 +653,6 @@ definitions:
         - title: Fare Class
         - description: Booking Fare class.
         example: first
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
-  car_rental:
-    title: Car Rental Journey
-    description: Car rental information including the pickup, dropoff and journey
-      type.
-    required:
-    - dropoff_date
-    - dropoff_location
-    - pickup_date
-    - pickup_location
-    type: object
-    properties:
-      pickup_date:
-        allOf:
-        - $ref: '#/definitions/pickup_date'
-        - title: Rental Car Pickup Date
-        - description: ISO 8601 date and time of pickup in UTC.
-      pickup_location:
-        allOf:
-        - $ref: '#/definitions/pickup_location'
-        - title: Pickup Location
-        - description: Rental car pickup location code. These are specific to ABG
-            location codes.
-        example: UX9
-      dropoff_date:
-        allOf:
-        - $ref: '#/definitions/dropoff_date'
-        - title: Rental Car Dropoff Date
-        - description: ISO 8601 date and time of drop-off in UTC.
-      dropoff_location:
-        allOf:
-        - $ref: '#/definitions/dropoff_location'
-        - title: Dropoff Location
-        - description: Rental car dropoff location code. These are specific to ABG
-            location codes.
-      point_of_sale:
-        allOf:
-        - $ref: '#/definitions/country_code'
-        - title: Point of Sale
-        - description: 2-character ISO 3166 country code that drives the rate, currency
-            and default language.
-      age:
-        $ref: '#/definitions/age'
-      membership:
-        $ref: '#/definitions/membership'
   train_journey:
     title: Train journey
     description: Train journey information including the arrival, departure and journey
@@ -983,22 +790,6 @@ definitions:
           minItems: 1
           type: array
           items: {}
-  offer_preferences:
-    description: Offer preferences that drives the recommendation engine to provide
-      contextual offers.
-    required:
-    - personalization
-    type: object
-    properties:
-      personalization:
-        $ref: '#/definitions/personalization'
-  domain:
-    type: object
-    properties:
-      language:
-        $ref: '#/definitions/language'
-      channel:
-        $ref: '#/definitions/channel'
   coupon_type:
     allOf:
     - $ref: '#/definitions/type'
@@ -1056,20 +847,6 @@ definitions:
     - description: location code
       minLength: 3
     example: LHR
-  success_status:
-    title: Success status
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
   status:
     allOf:
     - $ref: '#/definitions/success_status'
@@ -1351,17 +1128,6 @@ definitions:
       - ZM
       - ZW
     example: US
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -1434,48 +1200,52 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
-  offers_request:
-    description: The availabiliy request with location and rate qualifiers to retrieve
-      Avis Budget Group vehicle availability and discounted offers.
-    type: object
-    properties:
-      transaction:
-        $ref: '#/definitions/transaction'
-      domain:
-        $ref: '#/definitions/domain'
-      offer_preferences:
-        $ref: '#/definitions/offer_preferences'
-      journey_preference:
-        $ref: '#/definitions/journey_preference'
-      passengers:
-        $ref: '#/definitions/passenger'
-  context_response:
-    description: Token generated for the search context with a time bound flag. This
-      will be further used by the distribution channels like WhiteLabel or Mircosites
-      to retreieve the search context.
+  car_rental:
+    title: Car Rental Journey
+    description: Car rental information including the pickup, dropoff and journey
+      type.
     required:
-    - status
-    - transaction
+    - dropoff_date
+    - dropoff_location
+    - pickup_date
+    - pickup_location
     type: object
     properties:
-      status:
-        $ref: '#/definitions/status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      context:
-        $ref: '#/definitions/context'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "201"
-          message: Success
-          details: The context was successfully created.
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-      context:
-        id: 227a19346-43e1-11e9-95ce-e6a7a0e31net
+      pickup_date:
+        allOf:
+        - $ref: '#/definitions/pickup_date'
+        - title: Rental Car Pickup Date
+        - description: ISO 8601 date and time of pickup in UTC.
+      pickup_location:
+        allOf:
+        - $ref: '#/definitions/pickup_location'
+        - title: Pickup Location
+        - description: Rental car pickup location code. These are specific to ABG
+            location codes.
+        example: UX9
+      dropoff_date:
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
+        - title: Rental Car Dropoff Date
+        - description: ISO 8601 date and time of drop-off in UTC.
+      dropoff_location:
+        allOf:
+        - $ref: '#/definitions/dropoff_location'
+        - title: Dropoff Location
+        - description: Rental car dropoff location code. These are specific to ABG
+            location codes.
+      point_of_sale:
+        allOf:
+        - $ref: '#/definitions/country_code'
+        - title: Point of Sale
+        - description: 2-character ISO 3166 country code that drives the rate, currency
+            and default language.
+      age:
+        allOf:
+        - $ref: '#/definitions/age'
+      membership:
+        allOf:
+        - $ref: '#/definitions/membership'
   context_request:
     title: Search Context
     description: Search context to be persisted in the context store with a time bound
@@ -1485,7 +1255,8 @@ definitions:
     type: object
     properties:
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       request:
         allOf:
         - $ref: '#/definitions/offers_request'
@@ -1535,6 +1306,385 @@ definitions:
             partner_discount:
               program: Carte Jeune
           driver: primary
+  context_response:
+    description: Token generated for the search context with a time bound flag. This
+      will be further used by the distribution channels like WhiteLabel or Mircosites
+      to retreieve the search context.
+    required:
+    - status
+    - transaction
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      context:
+        allOf:
+        - $ref: '#/definitions/context'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "201"
+          message: Success
+          details: The context was successfully created.
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+      context:
+        id: 227a19346-43e1-11e9-95ce-e6a7a0e31net
+  coupon:
+    title: Coupon
+    description: Coupon infomation for reservation discounts and benefits.
+    required:
+    - code
+    - coupon_amount
+    - quantity
+    - type
+    type: object
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/code'
+        - title: Coupon code
+        - description: The coupon code to be applied to the reservation rate.
+        example: MUZZ014
+      type:
+        $ref: '#/definitions/coupon_type'
+      description:
+        title: Coupon description
+        description: Description of the coupon code that was specified in the request.
+        type: string
+        example: 25USD Off with Rental of CSS/Paperless Coupon
+      quantity:
+        allOf:
+        - $ref: '#/definitions/quantity'
+        - title: Quantity
+        - description: The number of coupon codes to apply to the reservation.
+        example: 1
+      coupon_applied:
+        title: Coupon applied flag
+        description: Indicates that a coupon code is valid and was successfully applied
+          for the reservation.
+        type: boolean
+        example: false
+      coupon_amount:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Coupon amount
+        - description: The amount of the coupon discount applied to the cost of the
+            reservation.
+        example: 0
+      coupon_extras:
+        title: Coupon extras
+        description: The ancillary products tied to the coupon. For example, if the
+          coupon code specified in the request applies to the cost of a child safety
+          seat, then CSS will be returned in this field.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/extra'
+  discount:
+    title: Brand Discounts
+    description: The rental vehicle brand rewards program code (also known as discount
+      code) to be applied to the rate of the reservation.
+    required:
+    - code
+    type: object
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/discount_code'
+  domain:
+    type: object
+    properties:
+      language:
+        allOf:
+        - $ref: '#/definitions/language'
+      channel:
+        allOf:
+        - $ref: '#/definitions/channel'
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  error_status:
+    title: Error status
+    description: A container for the error details
+    required:
+    - request_time
+    - errors
+    - request_errors
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      request_errors:
+        description: The number of errors that occurred
+        type: integer
+      errors:
+        allOf:
+        - $ref: '#/definitions/error_details'
+  product_type:
+    description: ""
+    type: object
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Extras type
+    - description: The type of ancillary product specified in the request. If a code
+        of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
+        will be returned in the response.
+    - enum:
+      - COUNTER_PROD
+      - SPEC_EQUIP
+      - UPSELL
+    example: COUNTER_PROD
+  product_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Extras code
+    - description: The rental ancillary code used to identify and add rental vehicle
+        equipment and features to the reservation (such as GPS).
+    - enum:
+      - ADD
+      - ADR
+      - AFO
+      - ATC
+      - BBS
+      - BKF
+      - BKR
+      - BXL
+      - BXM
+      - BXS
+      - CBS
+      - CCO
+      - CCP
+      - CFS
+      - CHG
+      - CIS
+      - CNP
+      - CSD
+      - CSS
+      - DCF
+      - DEC
+      - DIE
+      - DIS
+      - EPU
+      - ESP
+      - FRD
+      - FSK
+      - GEL
+      - GPS
+      - GSO
+      - HDL
+      - ICW
+      - INC
+      - IP5
+      - IXB
+      - MPG
+      - NAV
+      - NSF
+      - PAC
+      - RSN
+      - SKI
+      - SKR
+      - SNC
+      - SNW
+      - STA
+      - TAB
+      - TCT
+      - TPR
+      - TRO
+      - VCD
+      - WFI
+      - XMR
+      - BAT
+      - CSB
+    example: GPS
+  extra:
+    title: Rental Extras
+    description: The ancillary products, special equipment, and other extras selected
+      as part of reservation.
+    required:
+    - type
+    type: object
+    properties:
+      type:
+        allOf:
+        - $ref: '#/definitions/product_type'
+      code:
+        allOf:
+        - $ref: '#/definitions/product_code'
+      quantity:
+        allOf:
+        - $ref: '#/definitions/quantity'
+        - minimum: 0
+        - description: The number of ancillary products to add to the reservation.
+            For example, if a value of 2 is specified for quantity, and a code of
+            CSS, then two child safety seats will be added to the reservation.
+      amount:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Extra product amount
+          description: The price of the ancillary product.
+        example: 19.99
+      total_owed:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Total amount of the extra product
+          description: The total price of the ancillary product for the entirety of
+            the reservation period.
+        example: 19.99
+  offer_preferences:
+    description: Offer preferences that drives the recommendation engine to provide
+      contextual offers.
+    required:
+    - personalization
+    type: object
+    properties:
+      personalization:
+        allOf:
+        - $ref: '#/definitions/personalization'
+  offers_request:
+    description: The availabiliy request with location and rate qualifiers to retrieve
+      Avis Budget Group vehicle availability and discounted offers.
+    type: object
+    properties:
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      offer_preferences:
+        allOf:
+        - $ref: '#/definitions/offer_preferences'
+      journey_preference:
+        allOf:
+        - $ref: '#/definitions/journey_preference'
+      passengers:
+        allOf:
+        - $ref: '#/definitions/passenger'
+  passenger:
+    title: Passengers Details
+    description: Passenger(s) attributes like loyalty, discount and age.
+    required:
+    - driver
+    - rate_qualifiers
+    type: object
+    properties:
+      rate_qualifiers:
+        allOf:
+        - $ref: '#/definitions/rate_qualifiers'
+        - title: Rate Qualifiers
+      driver:
+        allOf:
+        - $ref: '#/definitions/driver'
+  rate_qualifiers:
+    title: Reservation rate qualifiers
+    description: The information determines/influences the rate of the reservation
+      in the localized currency.
+    type: object
+    properties:
+      discount:
+        allOf:
+        - $ref: '#/definitions/discount'
+      loyalty:
+        allOf:
+        - $ref: '#/definitions/loyalty'
+      coupon:
+        allOf:
+        - $ref: '#/definitions/coupon'
+      membership:
+        allOf:
+        - $ref: '#/definitions/membership'
+      age:
+        allOf:
+        - $ref: '#/definitions/age'
+      date_of_birth:
+        allOf:
+        - $ref: '#/definitions/date'
+        - title: Date of Birth
+        - description: Driver’s date of birth. This might influence the rates. Will
+            be superseded by “age” parameter or date of birth found in the profile
+            provided in “membership_code”
+      partner_loyalty:
+        allOf:
+        - $ref: '#/definitions/partner_loyalty'
+      partner_discount:
+        allOf:
+        - $ref: '#/definitions/partner_discount'
+  success_status:
+    title: Success status
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        allOf:
+        - $ref: '#/definitions/success_details'
+  transaction:
+    title: Transaction
+    description: Transaction details that may be used by your application to identify
+      a request.
+    type: object
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/transaction_id'
+      system_id:
+        title: Internal correlation  identifier
+        description: A unique identifier generated internally by the application to
+          identify the payload and troubleshoot.
+        type: string
+        example: i9332ffa-5250-11e9-8647-d663bd873d78
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  day_of_week:
+    allOf:
+    - title: Day of week
+    - description: Day of week
+    - enum:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    - type: string
+    example: Monday
 responses:
   context_request:
     description: ""
