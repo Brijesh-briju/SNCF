@@ -761,9 +761,6 @@ definitions:
           identify the payload and troubleshoot.
         type: string
         example: i9332ffa-5250-11e9-8647-d663bd873d78
-  extra:
-    description: ""
-    type: object
   type:
     type: string
   train_class:
@@ -812,24 +809,6 @@ definitions:
         details:
           description: Description of the error
           type: string
-  error_status:
-    title: Error status
-    description: A container for the error details
-    required:
-    - request_time
-    - errors
-    - request_errors
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      request_errors:
-        description: The number of errors that occurred
-        type: integer
-      errors:
-        $ref: '#/definitions/error_details'
   error_response:
     required:
     - status
@@ -968,110 +947,6 @@ definitions:
         - $ref: '#/definitions/pay_later'
         - title: Pay Later
         - description: The Pay Later cost for the entirety of the rental.
-  vehical_features:
-    title: Vehicle Features
-    description: Vehicle equipment and available features (such as bluetooth connectivity).
-    type: object
-    properties:
-      abs:
-        title: Anti-lock Braking System
-        description: Indicates whether the anti-lock braking system (ABS) is present
-          in the ABG car or not.
-        type: boolean
-        example: true
-      air_bag:
-        title: Air bag
-        description: Indicates whether the airbag restrainst system is present in
-          the ABG car or not.
-        type: boolean
-        example: true
-      air_conditioned:
-        title: Air conditioned
-        description: Indicates that the rental vehicle is air conditioned or not.
-        type: boolean
-        example: true
-      bluetooth_equipped:
-        title: Bluetooth
-        description: Indicates that the rental vehicle is equipped with bluetooth
-          connectivity.
-        type: boolean
-        example: true
-      smoke_free:
-        title: Smokefree
-        description: Indicates that the rental vehicle is a smoke-free vehicle.
-        type: boolean
-        example: true
-      connected_car:
-        title: Connected car
-        description: Indicates that the rental vehicle is equipped with Connected
-          Car technology (which generally includes Internet access and a wireless
-          local area network).
-        type: boolean
-        example: true
-      drivetrain:
-        $ref: '#/definitions/drivetrain'
-      radio:
-        title: Radio
-        description: Indicates the availability of radio af/fm feature in the vehicle.
-        type: boolean
-        example: true
-      music:
-        title: Music system
-        description: Indicates the availability of music system in the vehicle.
-        type: boolean
-        example: true
-      cruise:
-        title: Cruise control
-        description: This flag indicates whether ABG vehicle has cruise (speed control
-          system)  or not.
-        type: boolean
-        example: true
-      gps:
-        title: GPS
-        description: Availability of inbuilt Geo positioning system (GPS) in the vehicle.
-        type: boolean
-        example: true
-      central_lock:
-        title: Central lock
-        description: Flag to indicate the central locking feature of ABG car.
-        type: boolean
-  vehical_category:
-    title: Vehicle Product Details
-    description: Identifying information and details about the rental vehicle.
-    type: object
-    properties:
-      name:
-        title: Name
-        description: The name of the vehicle.
-        type: string
-        example: Volvo XC 60
-      make:
-        title: Make
-        description: Make of the vehicle.
-        type: string
-        example: Volvo
-      model:
-        title: Make model
-        description: Model of the vehicle.
-        type: string
-        example: XC60
-      sipp_code:
-        $ref: '#/definitions/sipp_code'
-      vehicle_class_code:
-        $ref: '#/definitions/class_code'
-      vehicle_class_name:
-        title: Vehicle class name
-        description: The name of the vehicle class.
-        type: string
-        example: Economy
-      vehicle_transmission:
-        $ref: '#/definitions/transmission'
-      image_url:
-        allOf:
-        - $ref: '#/definitions/url'
-        - title: Image url
-        - description: Image URL of vehicle.
-        - example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
   luggage_capacity:
     type: object
     properties:
@@ -1083,27 +958,6 @@ definitions:
         description: The number of small suitcases that can be accommodated in the
           rental vehicle.
         type: string
-  vehical_capacity:
-    title: Vehicle Capacity
-    description: Rental vehicle passenger seat and luggage capacity information.
-    type: object
-    properties:
-      doors:
-        description: The number of vehicle doors.
-        type: string
-        example: "4"
-      seats:
-        description: The number of passenger seats in the rental vehicle.
-        type: string
-        example: "5"
-      mpg:
-        description: Miles per gallon (MPG) of the vehicle.
-        type: string
-        example: 27/35
-      luggage_capacity:
-        $ref: '#/definitions/luggage_capacity'
-      fuel_type:
-        $ref: '#/definitions/fule_type'
   totals:
     title: Totals
     description: The total reservation rate, taxes and fees for the entirety of the
@@ -1159,22 +1013,6 @@ definitions:
         - $ref: '#/definitions/amount'
         - description: Total discount to be applied to the total cost in reservation_total.
         example: 7
-  rate_totals:
-    title: Rates and Totals
-    description: The fees, rates, and discounts applied to the reservation, with a
-      breakdown of the reservation total.
-    required:
-    - rate
-    type: object
-    properties:
-      rate:
-        $ref: '#/definitions/rate'
-      pay_now:
-        $ref: '#/definitions/pay_now'
-      pay_later:
-        $ref: '#/definitions/pay_later'
-      totals:
-        $ref: '#/definitions/totals'
   arrival_train:
     title: Arrival Train
     description: Arrival Train information including the arrival datetime, location
@@ -1269,81 +1107,6 @@ definitions:
         description: Indicates whether taxes are included in the cost (in total_owed).
         type: boolean
         example: true
-  vehical:
-    title: Rental Vehicle Information
-    description: Identifying information about the vehicle, including vehicle category
-      (make/model), features, luggage capacity and the total cost.
-    type: object
-    properties:
-      category:
-        $ref: '#/definitions/vehical_category'
-      features:
-        $ref: '#/definitions/vehical_features'
-      capacity:
-        $ref: '#/definitions/vehical_capacity'
-      brand:
-        allOf:
-        - $ref: '#/definitions/brand'
-        example: Avis
-      rate_totals:
-        $ref: '#/definitions/rate_totals'
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/week_day'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
-  car_rental:
-    title: Car Rental Journey
-    description: Car rental information including the pickup, dropoff and journey
-      type.
-    required:
-    - dropoff_date
-    - dropoff_location
-    - pickup_date
-    - pickup_location
-    type: object
-    properties:
-      pickup_date:
-        allOf:
-        - $ref: '#/definitions/pickup_date'
-        - title: Rental Car Pickup Date
-        - description: ISO 8601 date and time of pickup in UTC.
-      pickup_location:
-        allOf:
-        - $ref: '#/definitions/pickup_location'
-        - title: Pickup Location
-        - description: Rental car pickup location code. These are specific to ABG
-            location codes.
-        example: UX9
-      dropoff_date:
-        allOf:
-        - $ref: '#/definitions/dropoff_date'
-        - title: Rental Car Dropoff Date
-        - description: ISO 8601 date and time of drop-off in UTC.
-      dropoff_location:
-        allOf:
-        - $ref: '#/definitions/dropoff_location'
-        - title: Dropoff Location
-        - description: Rental car dropoff location code. These are specific to ABG
-            location codes.
-      point_of_sale:
-        allOf:
-        - $ref: '#/definitions/country_code'
-        - title: Point of Sale
-        - description: 2-character ISO 3166 country code that drives the rate, currency
-            and default language.
-      age:
-        $ref: '#/definitions/age'
-      membership:
-        $ref: '#/definitions/membership'
   train_journey:
     title: Train journey
     description: Train journey information including the arrival, departure and journey
@@ -1481,24 +1244,6 @@ definitions:
           minItems: 1
           type: array
           items: {}
-  confirmation:
-    title: Reservation confirmation object
-    description: ""
-    required:
-    - pickup_date
-    - number
-    - dropoff_date
-    type: object
-    properties:
-      number:
-        allOf:
-        - $ref: '#/definitions/code'
-        - title: Confirmation number
-        - description: Confirmation number
-      pickup_date:
-        $ref: '#/definitions/pickup_date'
-      dropoff_date:
-        $ref: '#/definitions/dropoff_date'
   distance:
     title: Reservation Distance Limitations
     description: Information about rental vehicle reservation distance options and
@@ -1529,26 +1274,6 @@ definitions:
         - description: The cost per distance unit if the free distance in distance_covered
             is exceeded.
         example: 0.15
-  term:
-    title: Terms and Condition
-    description: Terms and Condition.
-    required:
-    - type
-    - endpoint
-    type: object
-    properties:
-      type:
-        $ref: '#/definitions/term_type'
-      method:
-        $ref: '#/definitions/rest_method'
-      brand:
-        $ref: '#/definitions/brand'
-      endpoint:
-        allOf:
-        - $ref: '#/definitions/url'
-        - title: Endpoint
-        - description: Endpoint to obtain the terms and condition.
-        example: https://stage.abgapiservices.com/terms/v1/location/avis/US/EWR/en_US
   disclaimer:
     title: Disclaimer
     description: This contains the addtional information related to the requested
@@ -1568,67 +1293,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/code'
         - description: This contains the detailed description of the disclaimer.
-  reservation:
-    description: Confirmation information of the availability request for the rental
-      vehicle reservation, including the rate, distance limitations, and rental extras
-      (such as GPS). This object contains the combination of objects from availability
-      and reservation. Certain objects like vehicle, confirmation, Meet and Greet,
-      etc features will be available only in the reservation APIs.
-    required:
-    - pickup_location
-    - dropoff_location
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      confirmation:
-        $ref: '#/definitions/confirmation'
-      distance:
-        $ref: '#/definitions/distance'
-      pickup_location:
-        $ref: '#/definitions/pickup_location'
-      dropoff_location:
-        $ref: '#/definitions/dropoff_location'
-      rate_totals:
-        $ref: '#/definitions/rate_totals'
-      insurance:
-        type: array
-        items:
-          $ref: '#/definitions/insurance'
-      extras:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/extra'
-      terms:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/term'
-      disclaimers:
-        description: ""
-        type: array
-        items:
-          $ref: '#/definitions/disclaimer'
-      meet_and_greet:
-        allOf:
-        - $ref: '#/definitions/meet_and_greet'
-        - description: Meet and Greet Details. This object will be present only in
-            case of reservation context like Creation, Modification or Viewing the
-            meet_and_greet reservations.
-      passenger:
-        title: Rental Vehicle Reservation Passenger
-        description: ' Passenger''s contact information. Here passenger refers to
-          the person who created the car rental reservation. This object will be present
-          only for the reservation context.'
-        properties:
-          contact:
-            allOf:
-            - $ref: '#/definitions/contact'
-            - title: Contact details
-            - description: Passenger's contact details
-      vehicle:
-        $ref: '#/definitions/vehical'
   contact:
     description: The personal and contact information of the reservation holder. Only
       7-bit ASCII characters are accepted for the first and last name.
@@ -1762,20 +1426,6 @@ definitions:
       minLength: 4
       pattern: ^[A-Z]{4}$
       example: CMDR
-  success_status:
-    title: Success status
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
   status:
     allOf:
     - $ref: '#/definitions/success_status'
@@ -2035,17 +1685,6 @@ definitions:
       - Reservation
       - Offer
     example: Location
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -2118,6 +1757,242 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
+  day_of_week:
+    allOf:
+    - title: Day of week
+    - description: Day of week
+    - enum:
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+      - Sunday
+    - type: string
+    example: Monday
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
+  extra:
+    title: Rental Extras
+    description: The ancillary products, special equipment, and other extras selected
+      as part of reservation.
+    required:
+    - type
+    type: object
+    properties:
+      type:
+        allOf:
+        - $ref: '#/definitions/product_type'
+      code:
+        allOf:
+        - $ref: '#/definitions/product_code'
+      quantity:
+        allOf:
+        - $ref: '#/definitions/quantity'
+        - minimum: 0
+        - description: The number of ancillary products to add to the reservation.
+            For example, if a value of 2 is specified for quantity, and a code of
+            CSS, then two child safety seats will be added to the reservation.
+      amount:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Extra product amount
+          description: The price of the ancillary product.
+        example: 19.99
+      total_owed:
+        allOf:
+        - $ref: '#/definitions/amount'
+        - title: Total amount of the extra product
+          description: The total price of the ancillary product for the entirety of
+            the reservation period.
+        example: 19.99
+  product_type:
+    allOf:
+    - $ref: '#/definitions/type'
+    - title: Extras type
+    - description: The type of ancillary product specified in the request. If a code
+        of child safety seat (CSS) is specified in the request, then a value of SPEC_EQUIP
+        will be returned in the response.
+    - enum:
+      - COUNTER_PROD
+      - SPEC_EQUIP
+      - UPSELL
+    example: COUNTER_PROD
+  product_code:
+    allOf:
+    - $ref: '#/definitions/code'
+    - title: Extras code
+    - description: The rental ancillary code used to identify and add rental vehicle
+        equipment and features to the reservation (such as GPS).
+    - enum:
+      - ADD
+      - ADR
+      - AFO
+      - ATC
+      - BBS
+      - BKF
+      - BKR
+      - BXL
+      - BXM
+      - BXS
+      - CBS
+      - CCO
+      - CCP
+      - CFS
+      - CHG
+      - CIS
+      - CNP
+      - CSD
+      - CSS
+      - DCF
+      - DEC
+      - DIE
+      - DIS
+      - EPU
+      - ESP
+      - FRD
+      - FSK
+      - GEL
+      - GPS
+      - GSO
+      - HDL
+      - ICW
+      - INC
+      - IP5
+      - IXB
+      - MPG
+      - NAV
+      - NSF
+      - PAC
+      - RSN
+      - SKI
+      - SKR
+      - SNC
+      - SNW
+      - STA
+      - TAB
+      - TCT
+      - TPR
+      - TRO
+      - VCD
+      - WFI
+      - XMR
+      - BAT
+      - CSB
+    example: GPS
+  quantity:
+    type: number
+    example: 1
+  car_rental:
+    title: Car Rental Journey
+    description: Car rental information including the pickup, dropoff and journey
+      type.
+    required:
+    - dropoff_date
+    - dropoff_location
+    - pickup_date
+    - pickup_location
+    type: object
+    properties:
+      pickup_date:
+        allOf:
+        - $ref: '#/definitions/pickup_date'
+        - title: Rental Car Pickup Date
+        - description: ISO 8601 date and time of pickup in UTC.
+      pickup_location:
+        allOf:
+        - $ref: '#/definitions/pickup_location'
+        - title: Pickup Location
+        - description: Rental car pickup location code. These are specific to ABG
+            location codes.
+        example: UX9
+      dropoff_date:
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
+        - title: Rental Car Dropoff Date
+        - description: ISO 8601 date and time of drop-off in UTC.
+      dropoff_location:
+        allOf:
+        - $ref: '#/definitions/dropoff_location'
+        - title: Dropoff Location
+        - description: Rental car dropoff location code. These are specific to ABG
+            location codes.
+      point_of_sale:
+        allOf:
+        - $ref: '#/definitions/country_code'
+        - title: Point of Sale
+        - description: 2-character ISO 3166 country code that drives the rate, currency
+            and default language.
+      age:
+        allOf:
+        - $ref: '#/definitions/age'
+      membership:
+        allOf:
+        - $ref: '#/definitions/membership'
+  confirmation:
+    title: Reservation confirmation object
+    description: ""
+    required:
+    - pickup_date
+    - number
+    - dropoff_date
+    type: object
+    properties:
+      number:
+        allOf:
+        - $ref: '#/definitions/code'
+        - title: Confirmation number
+        - description: Confirmation number
+      pickup_date:
+        allOf:
+        - $ref: '#/definitions/pickup_date'
+      dropoff_date:
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  error_status:
+    title: Error status
+    description: A container for the error details
+    required:
+    - request_time
+    - errors
+    - request_errors
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      request_errors:
+        description: The number of errors that occurred
+        type: integer
+      errors:
+        allOf:
+        - $ref: '#/definitions/error_details'
   partner_view_reservation_response:
     description: The following demonstrates an example of a successful response for
       the Partner view Reservation endpoint.
@@ -2128,15 +2003,20 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/success_status'
+        allOf:
+        - $ref: '#/definitions/success_status'
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       context:
-        $ref: '#/definitions/context'
+        allOf:
+        - $ref: '#/definitions/context'
       journey_preference:
-        $ref: '#/definitions/journey_preference'
+        allOf:
+        - $ref: '#/definitions/journey_preference'
       reservation:
-        $ref: '#/definitions/reservation'
+        allOf:
+        - $ref: '#/definitions/reservation'
     example:
       status:
         request_time: 2018-10-25T12:01:54Z
@@ -2328,6 +2208,289 @@ definitions:
           type: COUNTER_PROD
           amount: 7
           total_owed: 35
+  rate_totals:
+    title: Rates and Totals
+    description: The fees, rates, and discounts applied to the reservation, with a
+      breakdown of the reservation total.
+    required:
+    - rate
+    type: object
+    properties:
+      rate:
+        allOf:
+        - $ref: '#/definitions/rate'
+      pay_now:
+        allOf:
+        - $ref: '#/definitions/pay_now'
+      pay_later:
+        allOf:
+        - $ref: '#/definitions/pay_later'
+      totals:
+        allOf:
+        - $ref: '#/definitions/totals'
+  reservation:
+    description: Confirmation information of the availability request for the rental
+      vehicle reservation, including the rate, distance limitations, and rental extras
+      (such as GPS). This object contains the combination of objects from availability
+      and reservation. Certain objects like vehicle, confirmation, Meet and Greet,
+      etc features will be available only in the reservation APIs.
+    required:
+    - pickup_location
+    - dropoff_location
+    type: object
+    properties:
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+      confirmation:
+        allOf:
+        - $ref: '#/definitions/confirmation'
+      distance:
+        allOf:
+        - $ref: '#/definitions/distance'
+      pickup_location:
+        allOf:
+        - $ref: '#/definitions/pickup_location'
+      dropoff_location:
+        allOf:
+        - $ref: '#/definitions/dropoff_location'
+      rate_totals:
+        allOf:
+        - $ref: '#/definitions/rate_totals'
+      insurance:
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/insurance'
+      extras:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/extra'
+      terms:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/term'
+      disclaimers:
+        description: ""
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/disclaimer'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - description: Meet and Greet Details. This object will be present only in
+            case of reservation context like Creation, Modification or Viewing the
+            meet_and_greet reservations.
+      passenger:
+        title: Rental Vehicle Reservation Passenger
+        description: ' Passenger''s contact information. Here passenger refers to
+          the person who created the car rental reservation. This object will be present
+          only for the reservation context.'
+        properties:
+          contact:
+            allOf:
+            - $ref: '#/definitions/contact'
+            - title: Contact details
+            - description: Passenger's contact details
+      vehicle:
+        allOf:
+        - $ref: '#/definitions/vehical'
+  success_status:
+    title: Success status
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        allOf:
+        - $ref: '#/definitions/success_details'
+  term:
+    title: Terms and Condition
+    description: Terms and Condition.
+    required:
+    - type
+    - endpoint
+    type: object
+    properties:
+      type:
+        allOf:
+        - $ref: '#/definitions/term_type'
+      method:
+        allOf:
+        - $ref: '#/definitions/rest_method'
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+      endpoint:
+        allOf:
+        - $ref: '#/definitions/url'
+        - title: Endpoint
+        - description: Endpoint to obtain the terms and condition.
+        example: https://stage.abgapiservices.com/terms/v1/location/avis/US/EWR/en_US
+  vehical:
+    title: Rental Vehicle Information
+    description: Identifying information about the vehicle, including vehicle category
+      (make/model), features, luggage capacity and the total cost.
+    type: object
+    properties:
+      category:
+        allOf:
+        - $ref: '#/definitions/vehical_category'
+      features:
+        allOf:
+        - $ref: '#/definitions/vehical_features'
+      capacity:
+        allOf:
+        - $ref: '#/definitions/vehical_capacity'
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+        example: Avis
+      rate_totals:
+        allOf:
+        - $ref: '#/definitions/rate_totals'
+  vehical_capacity:
+    title: Vehicle Capacity
+    description: Rental vehicle passenger seat and luggage capacity information.
+    type: object
+    properties:
+      doors:
+        description: The number of vehicle doors.
+        type: string
+        example: "4"
+      seats:
+        description: The number of passenger seats in the rental vehicle.
+        type: string
+        example: "5"
+      mpg:
+        description: Miles per gallon (MPG) of the vehicle.
+        type: string
+        example: 27/35
+      luggage_capacity:
+        allOf:
+        - $ref: '#/definitions/luggage_capacity'
+      fuel_type:
+        allOf:
+        - $ref: '#/definitions/fule_type'
+  vehical_category:
+    title: Vehicle Product Details
+    description: Identifying information and details about the rental vehicle.
+    type: object
+    properties:
+      name:
+        title: Name
+        description: The name of the vehicle.
+        type: string
+        example: Volvo XC 60
+      make:
+        title: Make
+        description: Make of the vehicle.
+        type: string
+        example: Volvo
+      model:
+        title: Make model
+        description: Model of the vehicle.
+        type: string
+        example: XC60
+      sipp_code:
+        allOf:
+        - $ref: '#/definitions/sipp_code'
+      vehicle_class_code:
+        allOf:
+        - $ref: '#/definitions/class_code'
+      vehicle_class_name:
+        title: Vehicle class name
+        description: The name of the vehicle class.
+        type: string
+        example: Economy
+      vehicle_transmission:
+        allOf:
+        - $ref: '#/definitions/transmission'
+      image_url:
+        allOf:
+        - $ref: '#/definitions/url'
+        - title: Image url
+        - description: Image URL of vehicle.
+        - example: https://images.abgcarrental/fleet/2017-ford-fiesta-se-sedan-silver.png
+  vehical_features:
+    title: Vehicle Features
+    description: Vehicle equipment and available features (such as bluetooth connectivity).
+    type: object
+    properties:
+      abs:
+        title: Anti-lock Braking System
+        description: Indicates whether the anti-lock braking system (ABS) is present
+          in the ABG car or not.
+        type: boolean
+        example: true
+      air_bag:
+        title: Air bag
+        description: Indicates whether the airbag restrainst system is present in
+          the ABG car or not.
+        type: boolean
+        example: true
+      air_conditioned:
+        title: Air conditioned
+        description: Indicates that the rental vehicle is air conditioned or not.
+        type: boolean
+        example: true
+      bluetooth_equipped:
+        title: Bluetooth
+        description: Indicates that the rental vehicle is equipped with bluetooth
+          connectivity.
+        type: boolean
+        example: true
+      smoke_free:
+        title: Smokefree
+        description: Indicates that the rental vehicle is a smoke-free vehicle.
+        type: boolean
+        example: true
+      connected_car:
+        title: Connected car
+        description: Indicates that the rental vehicle is equipped with Connected
+          Car technology (which generally includes Internet access and a wireless
+          local area network).
+        type: boolean
+        example: true
+      drivetrain:
+        allOf:
+        - $ref: '#/definitions/drivetrain'
+      radio:
+        title: Radio
+        description: Indicates the availability of radio af/fm feature in the vehicle.
+        type: boolean
+        example: true
+      music:
+        title: Music system
+        description: Indicates the availability of music system in the vehicle.
+        type: boolean
+        example: true
+      cruise:
+        title: Cruise control
+        description: This flag indicates whether ABG vehicle has cruise (speed control
+          system)  or not.
+        type: boolean
+        example: true
+      gps:
+        title: GPS
+        description: Availability of inbuilt Geo positioning system (GPS) in the vehicle.
+        type: boolean
+        example: true
+      central_lock:
+        title: Central lock
+        description: Flag to indicate the central locking feature of ABG car.
+        type: boolean
 parameters:
   brand:
     name: brand
