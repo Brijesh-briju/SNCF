@@ -413,20 +413,6 @@ definitions:
       request.
     type: string
     example: 391117cf-4470-4353-8b51-f00c3c098943
-  transaction:
-    title: Transaction
-    description: Transaction details that may be used by your application to identify
-      a request.
-    type: object
-    properties:
-      id:
-        $ref: '#/definitions/transaction_id'
-      system_id:
-        title: Internal correlation  identifier
-        description: A unique identifier generated internally by the application to
-          identify the payload and troubleshoot.
-        type: string
-        example: i9332ffa-5250-11e9-8647-d663bd873d78
   error_details:
     description: ' The following describes the elements that can appear in the response
       body of an error.'
@@ -446,24 +432,6 @@ definitions:
         details:
           description: Description of the error
           type: string
-  error_status:
-    title: Error status
-    description: A container for the error details
-    required:
-    - request_time
-    - errors
-    - request_errors
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      request_errors:
-        description: The number of errors that occurred
-        type: integer
-      errors:
-        $ref: '#/definitions/error_details'
   error_response:
     required:
     - status
@@ -492,13 +460,6 @@ definitions:
           - title: Closing hour
           - description: Closing hour slot in ISO 8601 format.
           example: 780
-  domain:
-    type: object
-    properties:
-      language:
-        $ref: '#/definitions/language'
-      channel:
-        $ref: '#/definitions/channel'
   date_range:
     title: Date Range
     description: Date Range Intervals.
@@ -623,17 +584,6 @@ definitions:
     description: ISO 8601 representation of the date time.
     type: string
     example: 2015-07-04T21:00:00.000Z
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -706,23 +656,6 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
-  promotions_v1_response:
-    title: Loyalty Discount details
-    description: Seasonal and promotional discounts for a partner on ABG brands.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      domain:
-        $ref: '#/definitions/domain'
-      promotion_discounts:
-        title: Promotional discounts
-        description: Avis Budget Group seasonal discounts available for the partner.
-        type: array
-        items:
-          $ref: '#/definitions/commercial_discount'
   day_of_week:
     title: Day of week
     description: Day of week
@@ -736,87 +669,11 @@ definitions:
     - Sunday
     type: string
     example: Monday
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/day_of_week'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
-  commercial_discount:
-    title: Commercial discount
-    description: "The commercial rental vehicle brand rewards program code (also known\
-      \ as discount code). The discounts applied to the rate of the reservation.'\r\
-      \n"
-    required:
-    - brand
-    - code
-    type: object
-    properties:
-      brand:
-        $ref: '#/definitions/brand'
-      code:
-        $ref: '#/definitions/code'
-      percent:
-        title: Discount percentage
-        description: The discount percentage applied to the reservation.
-        type: integer
-      free_options:
-        allOf:
-        - $ref: '#/definitions/free_options'
-        - title: Free options
-        - description: 'Eligible free ancillary products and benefits offered.  '
-      pickup_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Pickup date range
-        - description: ' Pickup date range for the eligibility of promotional discounts. '
-      dropoff_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
-        - title: Dropoff date range
-        - description: 'Dropoff date range for eligibility of the promotional discounts. '
-      reservation_date_range:
-        allOf:
-        - $ref: '#/definitions/date_range'
   meet_and_greet:
     title: Meet and Greet
     description: Indicates the free meet and greet feature for the brand.
     type: boolean
     example: true
-  free_options:
-    title: Free options
-    description: Eligible free ancillary products and benefits offered.
-    type: object
-    properties:
-      eligible_extras:
-        title: Eligible extras
-        description: Eligible ancillary products for selection.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-        properties:
-          quantity:
-            allOf:
-            - $ref: '#/definitions/quantity'
-            - title: Eligible extras quantity
-            - description: The total number of ancillary products.
-      eligible_codes:
-        title: Extra codes
-        description: Eligible ancillary product codes.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-      meet_and_greet:
-        allOf:
-        - $ref: '#/definitions/meet_and_greet'
-        - title: Meet and Greet
   meet_greet:
     title: Meet and Greet
     description: Meet and Greet Details.
@@ -1207,6 +1064,134 @@ definitions:
       - XX
       - XZ
       example: E
+  commercial_discount:
+    title: Commercial discount
+    description: "The commercial rental vehicle brand rewards program code (also known\
+      \ as discount code). The discounts applied to the rate of the reservation.'\r\
+      \n"
+    required:
+    - brand
+    - code
+    type: object
+    properties:
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+      code:
+        allOf:
+        - $ref: '#/definitions/code'
+      percent:
+        title: Discount percentage
+        description: The discount percentage applied to the reservation.
+        type: integer
+      free_options:
+        allOf:
+        - $ref: '#/definitions/free_options'
+        - title: Free options
+        - description: 'Eligible free ancillary products and benefits offered.  '
+      pickup_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Pickup date range
+        - description: ' Pickup date range for the eligibility of promotional discounts. '
+      dropoff_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+        - title: Dropoff date range
+        - description: 'Dropoff date range for eligibility of the promotional discounts. '
+      reservation_date_range:
+        allOf:
+        - $ref: '#/definitions/date_range'
+  domain:
+    type: object
+    properties:
+      language:
+        allOf:
+        - $ref: '#/definitions/language'
+      channel:
+        allOf:
+        - $ref: '#/definitions/channel'
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  error_status:
+    title: Error status
+    description: A container for the error details
+    required:
+    - request_time
+    - errors
+    - request_errors
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      request_errors:
+        description: The number of errors that occurred
+        type: integer
+      errors:
+        allOf:
+        - $ref: '#/definitions/error_details'
+  free_options:
+    title: Free options
+    description: Eligible free ancillary products and benefits offered.
+    type: object
+    properties:
+      eligible_extras:
+        title: Eligible extras
+        description: Eligible ancillary products for selection.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/product_code'
+        properties:
+          quantity:
+            allOf:
+            - $ref: '#/definitions/quantity'
+            - title: Eligible extras quantity
+            - description: The total number of ancillary products.
+      eligible_codes:
+        title: Extra codes
+        description: Eligible ancillary product codes.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/product_code'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - title: Meet and Greet
+  promotions_v1_response:
+    title: Loyalty Discount details
+    description: Seasonal and promotional discounts for a partner on ABG brands.
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      promotion_discounts:
+        title: Promotional discounts
+        description: Avis Budget Group seasonal discounts available for the partner.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/commercial_discount'
   revised:
     description: This object contains the revised pickup and dropoff dates of reservation.
     required:
@@ -1215,13 +1200,46 @@ definitions:
     type: object
     properties:
       pickup_date:
-        $ref: '#/definitions/pickup_date'
+        allOf:
+        - $ref: '#/definitions/pickup_date'
       dropoff_date:
-        $ref: '#/definitions/dropoff_date'
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
       pickup_address:
-        $ref: '#/definitions/address'
+        allOf:
+        - $ref: '#/definitions/address'
       dropoff_address:
-        $ref: '#/definitions/address'
+        allOf:
+        - $ref: '#/definitions/address'
+  transaction:
+    title: Transaction
+    description: Transaction details that may be used by your application to identify
+      a request.
+    type: object
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/transaction_id'
+      system_id:
+        title: Internal correlation  identifier
+        description: A unique identifier generated internally by the application to
+          identify the payload and troubleshoot.
+        type: string
+        example: i9332ffa-5250-11e9-8647-d663bd873d78
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
 parameters:
   partner_code:
     name: partner_code
