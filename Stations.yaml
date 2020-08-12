@@ -3005,20 +3005,6 @@ definitions:
       request.
     type: string
     example: 391117cf-4470-4353-8b51-f00c3c098943
-  transaction:
-    title: Transaction
-    description: Transaction details that may be used by your application to identify
-      a request.
-    type: object
-    properties:
-      id:
-        $ref: '#/definitions/transaction_id'
-      system_id:
-        title: Internal correlation  identifier
-        description: A unique identifier generated internally by the application to
-          identify the payload and troubleshoot.
-        type: string
-        example: i9332ffa-5250-11e9-8647-d663bd873d78
   type:
     type: string
   error_details:
@@ -3040,24 +3026,6 @@ definitions:
         details:
           description: Description of the error
           type: string
-  error_status:
-    title: Error status
-    description: A container for the error details
-    required:
-    - request_time
-    - errors
-    - request_errors
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      request_errors:
-        description: The number of errors that occurred
-        type: integer
-      errors:
-        $ref: '#/definitions/error_details'
   error_response:
     required:
     - status
@@ -3067,35 +3035,6 @@ definitions:
         allOf:
         - $ref: '#/definitions/error_status'
         - description: A container for the error details
-  revised:
-    description: This object contains the revised pickup and dropoff dates of reservation.
-    required:
-    - pickup_date
-    - dropoff_date
-    type: object
-    properties:
-      pickup_date:
-        $ref: '#/definitions/pickup_date'
-      dropoff_date:
-        $ref: '#/definitions/dropoff_date'
-      pickup_address:
-        $ref: '#/definitions/address'
-      dropoff_address:
-        $ref: '#/definitions/address'
-  calender:
-    title: Calendar details
-    description: Partner or ABG specific working and holiday related details.
-    required:
-    - holidays
-    - week_days
-    type: object
-    properties:
-      week_days:
-        $ref: '#/definitions/week_day'
-      holidays:
-        type: array
-        items:
-          $ref: '#/definitions/holiday'
   holiday:
     title: Holiday
     description: This contains the partner or ABG specific calendar details which
@@ -3173,26 +3112,6 @@ definitions:
           - title: Closing hour
           - description: Closing hour slot in ISO 8601 format.
           example: 780
-  domain:
-    type: object
-    properties:
-      language:
-        $ref: '#/definitions/language'
-      channel:
-        $ref: '#/definitions/channel'
-  partner:
-    title: Partner information
-    description: Travel partner information.
-    required:
-    - code
-    type: object
-    properties:
-      code:
-        $ref: '#/definitions/partner_code'
-      name:
-        $ref: '#/definitions/partner_name'
-      iata_number:
-        $ref: '#/definitions/iata_number'
   class_code:
     allOf:
     - $ref: '#/definitions/code'
@@ -3332,20 +3251,6 @@ definitions:
     - description: The organization or entity name registered and obtained through
         partner onboarding process.
     example: SNCF
-  success_status:
-    title: Success status
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
   status:
     allOf:
     - $ref: '#/definitions/success_status'
@@ -3599,17 +3504,6 @@ definitions:
       - ZM
       - ZW
     example: US
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -3682,132 +3576,131 @@ definitions:
           allOf:
           - $ref: '#/definitions/status'
           - description: A container for the error details
-  modify_station_v1_response:
-    description: The following demonstrates an example of a successful response for
-      the modify station lookup endpoint.
-    required:
-    - status
+  day_of_week:
+    title: Day of week
+    description: Day of week
+    enum:
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    - Sunday
+    type: string
+    example: Monday
+  location:
+    title: Location Details
+    description: Rental car address information of the product location.
     type: object
     properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "200"
-          message: Success
-          details: Station was successfully updated.
-      transaction:
-        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-  modify_station_v1_request:
-    description: The following demonstrates an example of a request for the modify
-      station lookup endpoint
+      brand:
+        allOf:
+        - $ref: '#/definitions/brand'
+      code:
+        allOf:
+        - $ref: '#/definitions/location_code'
+      name:
+        allOf:
+        - $ref: '#/definitions/name'
+        - title: Location name
+        - description: Name of the location.
+        example: Boston Logan Intl Airport
+      hours:
+        title: Operation hours
+        description: Operating hours of the product location.
+        type: string
+        example: Sun-Sat 0:00 AM - 12:00 AM and 0:00 AM - 12:00 AM
+      airport_location:
+        title: Airport location
+        description: Indicates whether the product location is an airport.
+        type: boolean
+        example: true
+      key_drop:
+        title: Keydrop
+        description: 24 Hours key drop facility available or not.
+        type: boolean
+        example: true
+      type:
+        allOf:
+        - $ref: '#/definitions/type'
+        - title: Location type
+        - description: Type of location
+        example: Train Station/Airport/etc. - TO BE VERIFIED AGAINST LDB/OMEGA/ECOM
+          SERVICE
+      calendar:
+        allOf:
+        - $ref: '#/definitions/calender'
+      meet_greet:
+        allOf:
+        - $ref: '#/definitions/meet_greet'
+      address:
+        allOf:
+        - $ref: '#/definitions/address'
+      telephone:
+        description: Phone number of the product location.
+        type: string
+        example: 617-568-6600
+  stations:
+    description: ""
+    type: array
+    items:
+      properties:
+        partner_location:
+          allOf:
+          - $ref: '#/definitions/location'
+        car_rental_locations:
+          allOf:
+          - $ref: '#/definitions/location'
+  meet_greet:
+    title: Meet and Greet
+    description: Meet and Greet Details.
     type: object
     properties:
-      transaction:
-        $ref: '#/definitions/transaction'
-      partner:
-        $ref: '#/definitions/partner'
-      partner_location:
-        $ref: '#/definitions/location'
-      car_rental_locations:
+      enabled:
+        title: Enabled
+        description: Meet and Greet is enabled or not.
+        type: boolean
+        example: true
+      revised:
+        allOf:
+        - $ref: '#/definitions/revised'
+        - title: Revised booking dates
+        - description: This object contains the revised pickup and dropoff dates of
+            reservation.
+        - properties:
+            pickup_date:
+              allOf:
+              - $ref: '#/definitions/pickup_date'
+            dropoff_date:
+              allOf:
+              - $ref: '#/definitions/dropoff_date'
+            pickup_address:
+              allOf:
+              - $ref: '#/definitions/address'
+            dropoff_address:
+              allOf:
+              - $ref: '#/definitions/address'
+      reservation_lead_time:
+        description: Advance time in hour required for meet and greet.
+        type: string
+      vehicle_class_codes:
+        description: Vehicle type allowed for meet and greet.
         type: array
         items:
-          $ref: '#/definitions/location'
-    example:
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-      partner:
-        code: SNCF
-      domain:
-        language: EN
-        channel: website
-      partner_location:
-        code: FRLYS
-        name: Charles De Gaulle
-        calendar:
-          week_days:
-          - day_of_week: Monday
-            hours:
-            - open: 09:00
-              close: 13:00
-            - open: 14:00
-              close: 17:00
-          - day_of_week: Tuesday
-            hours:
-            - open: 09:00
-              close: 17:00
-          - day_of_week: Wednesday
-            hours:
-            - open: 09:00
-              close: 17:00
-          - day_of_week: Thursday
-            hours:
-            - open: 09:00
-              close: 17:00
-          - day_of_week: Friday
-            hours:
-            - open: 09:00
-              close: 17:00
-          - day_of_week: Saturday
-            hours:
-            - open: 09:00
-              close: 17:00
-          - day_of_week: Sunday
-            hours:
-            - open: 09:00
-              close: 17:00
-          holidays:
-          - name: Christmas Eve
-            start_date: 2019-12-25
-            end_date: 2019-12-25
-            hours:
-            - open: 09:00
-              close: 12:00
-        meet_greet:
-          enabled: true
-          parking_remarks: ""
-          key_pickup_remarks: ""
-        address:
-          address_line_1: Airport
-          address_line_2: Na
-          address_line_3: Na
-          city: Paris
-          state_name: Roissy-en-France
-          postal_code: "95700"
-          country_code: FR
-          lat: "40.690022"
-          long: -74.187506
-        telephone: (+33) 973-961-4300
-      car_rental_locations:
-      - brand: Avis
-        code: B12
-        name: Roissy Charles De Gaulle
-        meet_greet:
-          enabled: true
-          reservation_lead_time: "24"
-          vehicle_class_codes:
-          - A
-          - B
-          - C
-          - D
-          - H
-      - brand: Budget
-        code: E02
-        name: Roissy Charles De Gaulle
-        meet_greet:
-          enabled: false
-          reservation_lead_time: "24"
-          vehicle_class_codes:
-          - A
-          - B
-          - C
-          - D
-          - H
+          $ref: '#/definitions/class_code'
+        example:
+        - A
+        - B
+        - C
+        - D
+        - H
+      parking_remarks:
+        description: Parking place for meet and geet vehicle.
+        type: string
+      key_pickup_remarks:
+        description: Key pickup place for meet and geet vehicle.
+        type: string
   get_station_v1_response:
     description: The following demonstrates an example of a successful response for
       the get station lookup endpoint.
@@ -3816,15 +3709,20 @@ definitions:
     type: object
     properties:
       status:
-        $ref: '#/definitions/success_status'
+        allOf:
+        - $ref: '#/definitions/success_status'
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       domain:
-        $ref: '#/definitions/domain'
+        allOf:
+        - $ref: '#/definitions/domain'
       partner:
-        $ref: '#/definitions/partner'
+        allOf:
+        - $ref: '#/definitions/partner'
       stations:
-        $ref: '#/definitions/stations'
+        allOf:
+        - $ref: '#/definitions/stations'
     example:
       status:
         request_time: 2018-10-25T12:01:54Z
@@ -4029,21 +3927,238 @@ definitions:
             lat: "40.690022"
             long: -74.187506
           telephone: (1) 973-961-4300
+  create_station_v1_request:
+    description: The following demonstrates an example of a request for the create
+      station lookup endpoint.
+    type: object
+    properties:
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      partner:
+        allOf:
+        - $ref: '#/definitions/partner'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      partner_location:
+        allOf:
+        - $ref: '#/definitions/location'
+      car_rental_locations:
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/location'
+    example:
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+      partner:
+        code: SNCF
+      domain:
+        language: EN
+        channel: website
+      partner_location:
+        name: Charles De Gaulle
+        code: FRLYS
+        calendar:
+          week_days:
+          - day_of_week: Monday
+            hours:
+            - open: 09:00
+              close: 13:00
+            - open: 14:00
+              close: 17:00
+          - day_of_week: Tuesday
+            hours:
+            - open: 09:00
+              close: 17:00
+          - day_of_week: Wednesday
+            hours:
+            - open: 09:00
+              close: 17:00
+          - day_of_week: Thursday
+            hours:
+            - open: 09:00
+              close: 17:00
+          - day_of_week: Friday
+            hours:
+            - open: 09:00
+              close: 17:00
+          - day_of_week: Saturday
+            hours:
+            - open: 09:00
+              close: 17:00
+          - day_of_week: Sunday
+            hours:
+            - open: 09:00
+              close: 17:00
+          holidays:
+          - name: Christmas Eve
+            start_date: 2019-12-25
+            end_date: 2019-12-25
+            hours:
+            - open: 09:00
+              close: 12:00
+        meet_greet:
+          enabled: true
+          parking_remarks: ""
+          key_pickup_remarks: ""
+        address:
+          address_line_1: Airport
+          address_line_2: Na
+          address_line_3: Na
+          city: Paris
+          state_name: Roissy-en-France
+          postal_code: "95700"
+          country_code: FR
+          lat: "40.690022"
+          long: -74.187506
+        telephone: (+33) 973-961-4300
+      car_rental_locations:
+      - brand: Avis
+        code: B12
+        name: Roissy Charles De Gaulle
+        meet_greet:
+          enabled: true
+          reservation_lead_time: "24"
+          vehicle_class_codes:
+          - A
+          - B
+          - C
+          - D
+          - H
+      - brand: Budget
+        code: E02
+        name: Roissy Charles De Gaulle
+        meet_greet:
+          enabled: false
+          reservation_lead_time: "24"
+          vehicle_class_codes:
+          - A
+          - B
+          - C
+          - D
+          - H
+  calender:
+    title: Calendar details
+    description: Partner or ABG specific working and holiday related details.
+    required:
+    - holidays
+    - week_days
+    type: object
+    properties:
+      week_days:
+        allOf:
+        - $ref: '#/definitions/week_day'
+      holidays:
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/holiday'
+  create_station_v1_response:
+    description: The following demonstrates an example of a successful response for
+      the create station lookup endpoint.
+    required:
+    - status
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "201"
+          message: Success
+          details: Station was successfully created.
+      transaction:
+        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+  delete_station_v1_response:
+    description: The following demonstrates an example of a successful response for
+      the delete station lookup endpoint.
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "200"
+          message: Success
+          details: Station was successfully deleted.
+      transaction:
+        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+  domain:
+    type: object
+    properties:
+      language:
+        allOf:
+        - $ref: '#/definitions/language'
+      channel:
+        allOf:
+        - $ref: '#/definitions/channel'
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  error_status:
+    title: Error status
+    description: A container for the error details
+    required:
+    - request_time
+    - errors
+    - request_errors
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      request_errors:
+        description: The number of errors that occurred
+        type: integer
+      errors:
+        allOf:
+        - $ref: '#/definitions/error_details'
   get_all_station_v1_response:
     description: The following demonstrates an example of a successful response for
       the get all stations lookup endpoint.
     type: object
     properties:
       status:
-        $ref: '#/definitions/success_status'
+        allOf:
+        - $ref: '#/definitions/success_status'
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       domain:
-        $ref: '#/definitions/domain'
+        allOf:
+        - $ref: '#/definitions/domain'
       partner:
-        $ref: '#/definitions/partner'
+        allOf:
+        - $ref: '#/definitions/partner'
       stations:
-        $ref: '#/definitions/stations'
+        allOf:
+        - $ref: '#/definitions/stations'
     example:
       status:
         request_time: 2018-10-25T12:01:54Z
@@ -4248,63 +4363,25 @@ definitions:
             lat: "40.690022"
             long: -74.187506
           telephone: (1) 973-961-4300
-  delete_station_v1_response:
-    description: The following demonstrates an example of a successful response for
-      the delete station lookup endpoint.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "200"
-          message: Success
-          details: Station was successfully deleted.
-      transaction:
-        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-  create_station_v1_response:
-    description: The following demonstrates an example of a successful response for
-      the create station lookup endpoint.
-    required:
-    - status
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "201"
-          message: Success
-          details: Station was successfully created.
-      transaction:
-        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-  create_station_v1_request:
-    description: The following demonstrates an example of a request for the create
-      station lookup endpoint.
+  modify_station_v1_request:
+    description: The following demonstrates an example of a request for the modify
+      station lookup endpoint
     type: object
     properties:
       transaction:
-        $ref: '#/definitions/transaction'
+        allOf:
+        - $ref: '#/definitions/transaction'
       partner:
-        $ref: '#/definitions/partner'
-      domain:
-        $ref: '#/definitions/domain'
+        allOf:
+        - $ref: '#/definitions/partner'
       partner_location:
-        $ref: '#/definitions/location'
+        allOf:
+        - $ref: '#/definitions/location'
       car_rental_locations:
         type: array
         items:
-          $ref: '#/definitions/location'
+          allOf:
+          - $ref: '#/definitions/location'
     example:
       transaction:
         id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
@@ -4314,8 +4391,8 @@ definitions:
         language: EN
         channel: website
       partner_location:
-        name: Charles De Gaulle
         code: FRLYS
+        name: Charles De Gaulle
         calendar:
           week_days:
           - day_of_week: Monday
@@ -4395,6 +4472,94 @@ definitions:
           - C
           - D
           - H
+  modify_station_v1_response:
+    description: The following demonstrates an example of a successful response for
+      the modify station lookup endpoint.
+    required:
+    - status
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "200"
+          message: Success
+          details: Station was successfully updated.
+      transaction:
+        id: B66a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+  partner:
+    title: Partner information
+    description: Travel partner information.
+    required:
+    - code
+    type: object
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/partner_code'
+      name:
+        allOf:
+        - $ref: '#/definitions/partner_name'
+      iata_number:
+        allOf:
+        - $ref: '#/definitions/iata_number'
+  revised:
+    description: This object contains the revised pickup and dropoff dates of reservation.
+    required:
+    - pickup_date
+    - dropoff_date
+    type: object
+    properties:
+      pickup_date:
+        allOf:
+        - $ref: '#/definitions/pickup_date'
+      dropoff_date:
+        allOf:
+        - $ref: '#/definitions/dropoff_date'
+      pickup_address:
+        allOf:
+        - $ref: '#/definitions/address'
+      dropoff_address:
+        allOf:
+        - $ref: '#/definitions/address'
+  success_status:
+    title: Success status
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        allOf:
+        - $ref: '#/definitions/success_details'
+  transaction:
+    title: Transaction
+    description: Transaction details that may be used by your application to identify
+      a request.
+    type: object
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/transaction_id'
+      system_id:
+        title: Internal correlation  identifier
+        description: A unique identifier generated internally by the application to
+          identify the payload and troubleshoot.
+        type: string
+        example: i9332ffa-5250-11e9-8647-d663bd873d78
   week_day:
     title: Working day
     description: Working and holidays day details.
@@ -4403,136 +4568,12 @@ definitions:
     type: object
     properties:
       day_of_week:
-        $ref: '#/definitions/day_of_week'
+        allOf:
+        - $ref: '#/definitions/day_of_week'
       hours:
         allOf:
         - $ref: '#/definitions/hours'
         - description: working hours.
-  day_of_week:
-    title: Day of week
-    description: Day of week
-    enum:
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
-    - Sunday
-    type: string
-    example: Monday
-  location:
-    title: Location Details
-    description: Rental car address information of the product location.
-    type: object
-    properties:
-      brand:
-        allOf:
-        - $ref: '#/definitions/brand'
-      code:
-        allOf:
-        - $ref: '#/definitions/location_code'
-      name:
-        allOf:
-        - $ref: '#/definitions/name'
-        - title: Location name
-        - description: Name of the location.
-        example: Boston Logan Intl Airport
-      hours:
-        title: Operation hours
-        description: Operating hours of the product location.
-        type: string
-        example: Sun-Sat 0:00 AM - 12:00 AM and 0:00 AM - 12:00 AM
-      airport_location:
-        title: Airport location
-        description: Indicates whether the product location is an airport.
-        type: boolean
-        example: true
-      key_drop:
-        title: Keydrop
-        description: 24 Hours key drop facility available or not.
-        type: boolean
-        example: true
-      type:
-        allOf:
-        - $ref: '#/definitions/type'
-        - title: Location type
-        - description: Type of location
-        example: Train Station/Airport/etc. - TO BE VERIFIED AGAINST LDB/OMEGA/ECOM
-          SERVICE
-      calendar:
-        allOf:
-        - $ref: '#/definitions/calender'
-      meet_greet:
-        allOf:
-        - $ref: '#/definitions/meet_greet'
-      address:
-        allOf:
-        - $ref: '#/definitions/address'
-      telephone:
-        description: Phone number of the product location.
-        type: string
-        example: 617-568-6600
-  stations:
-    description: ""
-    type: array
-    items:
-      properties:
-        partner_location:
-          allOf:
-          - $ref: '#/definitions/location'
-        car_rental_locations:
-          allOf:
-          - $ref: '#/definitions/location'
-  meet_greet:
-    title: Meet and Greet
-    description: Meet and Greet Details.
-    type: object
-    properties:
-      enabled:
-        title: Enabled
-        description: Meet and Greet is enabled or not.
-        type: boolean
-        example: true
-      revised:
-        allOf:
-        - $ref: '#/definitions/revised'
-        - title: Revised booking dates
-        - description: This object contains the revised pickup and dropoff dates of
-            reservation.
-        - properties:
-            pickup_date:
-              allOf:
-              - $ref: '#/definitions/pickup_date'
-            dropoff_date:
-              allOf:
-              - $ref: '#/definitions/dropoff_date'
-            pickup_address:
-              allOf:
-              - $ref: '#/definitions/address'
-            dropoff_address:
-              allOf:
-              - $ref: '#/definitions/address'
-      reservation_lead_time:
-        description: Advance time in hour required for meet and greet.
-        type: string
-      vehicle_class_codes:
-        description: Vehicle type allowed for meet and greet.
-        type: array
-        items:
-          $ref: '#/definitions/class_code'
-        example:
-        - A
-        - B
-        - C
-        - D
-        - H
-      parking_remarks:
-        description: Parking place for meet and geet vehicle.
-        type: string
-      key_pickup_remarks:
-        description: Key pickup place for meet and geet vehicle.
-        type: string
 parameters:
   brand:
     name: brand
