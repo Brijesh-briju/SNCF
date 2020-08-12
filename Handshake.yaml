@@ -892,20 +892,6 @@ definitions:
       request.
     type: string
     example: 391117cf-4470-4353-8b51-f00c3c098943
-  transaction:
-    title: Transaction
-    description: Transaction details that may be used by your application to identify
-      a request.
-    type: object
-    properties:
-      id:
-        $ref: '#/definitions/transaction_id'
-      system_id:
-        title: Internal correlation  identifier
-        description: A unique identifier generated internally by the application to
-          identify the payload and troubleshoot.
-        type: string
-        example: i9332ffa-5250-11e9-8647-d663bd873d78
   error_details:
     description: ' The following describes the elements that can appear in the response
       body of an error.'
@@ -925,24 +911,6 @@ definitions:
         details:
           description: Description of the error
           type: string
-  error_status:
-    title: Error status
-    description: A container for the error details
-    required:
-    - request_time
-    - errors
-    - request_errors
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      request_errors:
-        description: The number of errors that occurred
-        type: integer
-      errors:
-        $ref: '#/definitions/error_details'
   error_response:
     required:
     - status
@@ -993,17 +961,6 @@ definitions:
     description: ISO 8601 representation of the date time.
     type: string
     example: 2015-07-04T21:00:00.000Z
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -1080,38 +1037,6 @@ definitions:
     title: Schemaless context document
     description: Contain the schemaless context document.
     type: object
-  handshake_get_v1_response:
-    title: Get context details for partners
-    description: API is used to get persistent data for partners. API response structure
-      is generic as it is a pass-through API. Clients are responsible for data validation.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      context_document:
-        $ref: '#/definitions/context_document'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "200"
-          message: Success
-          details: The context was successfully retrieved.
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-      context_document: {}
-  handshake_post_v1_request:
-    description: API is used to store persistent data for partners. API request structure
-      is generic as it is a pass-through API. Clients are responsible for data validation.
-    type: object
-    properties:
-      transaction:
-        $ref: '#/definitions/transaction'
-      context_document:
-        $ref: '#/definitions/context_document'
   handshake_post_v1_response:
     title: Store context details for partners
     description: '''API is used to store persistent data for partners. API response
@@ -1137,19 +1062,6 @@ definitions:
         system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
       context:
         id: 227a19346-43e1-11e9-95ce-e6a7a0e31net
-  success_status:
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
   success_details:
     title: Success details
     description: Success response metadata for all the rest APIs.
@@ -1166,19 +1078,6 @@ definitions:
         details:
           description: Description of the success status
           type: string
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/day_of_week'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   day_of_week:
     title: Day of week
     description: Day of week
@@ -1192,6 +1091,117 @@ definitions:
     - Sunday
     type: string
     example: Monday
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  error_status:
+    title: Error status
+    description: A container for the error details
+    required:
+    - request_time
+    - errors
+    - request_errors
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      request_errors:
+        description: The number of errors that occurred
+        type: integer
+      errors:
+        allOf:
+        - $ref: '#/definitions/error_details'
+  handshake_get_v1_response:
+    title: Get context details for partners
+    description: API is used to get persistent data for partners. API response structure
+      is generic as it is a pass-through API. Clients are responsible for data validation.
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      context_document:
+        allOf:
+        - $ref: '#/definitions/context_document'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "200"
+          message: Success
+          details: The context was successfully retrieved.
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+      context_document: {}
+  handshake_post_v1_request:
+    description: API is used to store persistent data for partners. API request structure
+      is generic as it is a pass-through API. Clients are responsible for data validation.
+    type: object
+    properties:
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      context_document:
+        allOf:
+        - $ref: '#/definitions/context_document'
+  success_status:
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        allOf:
+        - $ref: '#/definitions/success_details'
+  transaction:
+    title: Transaction
+    description: Transaction details that may be used by your application to identify
+      a request.
+    type: object
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/transaction_id'
+      system_id:
+        title: Internal correlation  identifier
+        description: A unique identifier generated internally by the application to
+          identify the payload and troubleshoot.
+        type: string
+        example: i9332ffa-5250-11e9-8647-d663bd873d78
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
 parameters:
   context_id:
     name: context_id
