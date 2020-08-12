@@ -1071,20 +1071,6 @@ definitions:
         details:
           description: Description of the success status
           type: string
-  success_status:
-    title: Success status
-    description: Success Status object
-    required:
-    - request_time
-    - success
-    type: object
-    properties:
-      request_time:
-        allOf:
-        - $ref: '#/definitions/date_time'
-        - description: The time stamp of the request
-      success:
-        $ref: '#/definitions/success_details'
   status:
     allOf:
     - $ref: '#/definitions/success_status'
@@ -1096,20 +1082,6 @@ definitions:
       request.
     type: string
     example: 391117cf-4470-4353-8b51-f00c3c098943
-  transaction:
-    title: Transaction
-    description: Transaction details that may be used by your application to identify
-      a request.
-    type: object
-    properties:
-      id:
-        $ref: '#/definitions/transaction_id'
-      system_id:
-        title: Internal correlation  identifier
-        description: A unique identifier generated internally by the application to
-          identify the payload and troubleshoot.
-        type: string
-        example: i9332ffa-5250-11e9-8647-d663bd873d78
   error_details:
     description: ' The following describes the elements that can appear in the response
       body of an error.'
@@ -1175,14 +1147,6 @@ definitions:
           - title: Closing hour
           - description: Closing hour slot in ISO 8601 format.
           example: 780
-  domain:
-    description: ""
-    type: object
-    properties:
-      language:
-        $ref: '#/definitions/language'
-      channel:
-        $ref: '#/definitions/channel'
   date_range:
     title: Date Range
     description: Date Range Intervals.
@@ -1204,236 +1168,6 @@ definitions:
         - description: "End date for the data range in ISO 8601 representation.\r\n\
             \    "
         example: 2019-06-30T23:59:59.000Z
-  partner:
-    title: Partner information
-    description: Travel partner information.
-    required:
-    - code
-    type: object
-    properties:
-      code:
-        $ref: '#/definitions/partner_code'
-      name:
-        $ref: '#/definitions/partner_name'
-      iata_number:
-        $ref: '#/definitions/iata_number'
-  partner_program_v1_request:
-    description: Commercially agreed partner loyalties and discounts to be sent in
-      the request.
-    type: object
-    properties:
-      transaction:
-        $ref: '#/definitions/transaction'
-      partner:
-        $ref: '#/definitions/partner'
-      domain:
-        $ref: '#/definitions/domain'
-      loyalty_discounts:
-        $ref: '#/definitions/loyalty_discounts'
-    example:
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-      partner:
-        code: SNCF
-      domain:
-        language: EN
-        channel: website
-      loyalty_discounts:
-      - rate_qualifiers:
-          partner_loyalty:
-            program: Voyageur
-          partner_discount:
-            program: Carte Jeune
-        driver: primary
-      - rate_qualifiers:
-          partner_loyalty:
-            program: GRAND VOYAGEUR LE CLUB
-          partner_discount:
-            program: Carte Jeune
-        driver: secondary
-  partner_program_v1_response:
-    description: All the available Discounts and free extra product details for Avis
-      Budget Group vehicles which are applicable to passengers loyalty cards.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      domain:
-        $ref: '#/definitions/domain'
-      loyalty_discounts:
-        $ref: '#/definitions/loyalty_discounts'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "200"
-          message: Success
-          details: Loyalty details are successfully retrieved.
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-      domain:
-        language: EN
-      loyalty_discounts:
-      - rate_qualifiers:
-          partner_loyalty:
-            program: Voyageur
-          partner_discount:
-            program: San carte
-        mapped_discounts:
-        - brand: Avis
-          code: X5212064
-          percent: 15
-          free_options:
-            eligible_extras:
-              quantity: 1
-            eligible_codes:
-            - ADD
-            - GPS
-            - BBS
-            - CBS
-            - CSS
-            - SKR
-            - SNC
-        - brand: Budget
-          code: L824502
-          percent: 10
-          free_options:
-            eligible_extras:
-              quantity: 0
-        best_discount: true
-      - rate_qualifiers:
-          partner_loyalty:
-            program: GRAND VOYAGEUR LE CLUB
-          partner_discount:
-            program: Carte Jeune
-        mapped_discounts:
-        - brand: Avis
-          code: X5212067
-          percent: 10
-          free_options:
-            eligible_extras:
-              quantity: 1
-            eligible_codes:
-            - ADD
-            - GPS
-            - BBS
-            - CBS
-            - CSS
-            - SKR
-            - SNC
-        - brand: Budget
-          code: L824502
-          percent: 10
-          free_options:
-            eligible_extras:
-              quantity: 0
-  partner_v1_response:
-    title: Loyalty tier lookup information
-    description: Partner loyalty and discount cards with associated ABG discounts
-      codes and free options.
-    type: object
-    properties:
-      status:
-        $ref: '#/definitions/success_status'
-      transaction:
-        $ref: '#/definitions/transaction'
-      domain:
-        $ref: '#/definitions/domain'
-      loyalty_discounts:
-        $ref: '#/definitions/loyalty_discounts'
-    example:
-      status:
-        request_time: 2018-10-25T12:01:54Z
-        success:
-        - code: "200"
-          message: Success
-          details: Loyalty details are successfully retrieved.
-      transaction:
-        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
-        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
-      domain:
-        language: EN
-      loyalty_discounts:
-      - rate_qualifiers:
-          partner_loyalty:
-            program: SANS CARTE
-          partner_discount:
-            program: SANS CARTE
-        mapped_discounts:
-        - brand: Avis
-          code: X5212058
-          percent: 10
-          free_options:
-            eligible_extras:
-              quantity: 0
-        - brand: Budget
-          code: L824502
-          percent: 10
-          free_options:
-            eligible_extras:
-              quantity: 0
-      - rate_qualifiers:
-          partner_loyalty:
-            program: VOYAGEUR
-          partner_discount:
-            program: SANS CARTE
-        mapped_discounts:
-        - brand: Avis
-          code: X5212059
-          percent: 15
-          free_options:
-            eligible_extras:
-              quantity: 1
-            eligible_codes:
-            - ADD
-            - GPS
-            - BBS
-            - CBS
-            - CSS
-            - SKR
-            - SNC
-        - brand: Budget
-          code: L824502
-          percent: 15
-          free_options:
-            eligible_extras:
-              quantity: 0
-  loyalty_discounts:
-    title: Loyalty lookup
-    description: General loyalty lookup information. Acts as a passenger context on
-      request. The response includes Mapped ABG discounts and best discount.
-    type: array
-    items:
-      properties:
-        rate_qualifiers:
-          $ref: '#/definitions/brand'
-        mapped_discounts:
-          title: Mapped discounts
-          description: Mapped Avis Budget Group discounts along with their free options.
-          type: array
-          items:
-            $ref: '#/definitions/commercial_discount'
-        best_discount:
-          title: Best discoun
-          description: Represent the best discount with the provided passenger(s)
-            information when there is more than one passenger.
-          type: boolean
-        driver:
-          $ref: '#/definitions/driver'
-  error_400:
-    allOf:
-    - $ref: '#/definitions/error_response'
-    - description: ' 400 Bad Request is returned when the request could not be understood
-        by the server. 400 includes missing required values, invalid data types, minimum/maximum
-        values, ranges and format.'
-    - required:
-      - status
-    - properties:
-        status:
-          $ref: '#/definitions/status'
   error_404:
     allOf:
     - $ref: '#/definitions/error_response'
@@ -1511,19 +1245,6 @@ definitions:
     description: ISO 8601 representation of the date time.
     type: string
     example: 2015-07-04T21:00:00.000Z
-  week_day:
-    title: Working day
-    description: Working and holidays day details.
-    required:
-    - day_of_week
-    type: object
-    properties:
-      day_of_week:
-        $ref: '#/definitions/day_of_week'
-      hours:
-        allOf:
-        - $ref: '#/definitions/hours'
-        - description: working hours.
   day_of_week:
     title: Day of week
     description: Day of week
@@ -1537,33 +1258,6 @@ definitions:
     - Sunday
     type: string
     example: Monday
-  free_options:
-    title: Free options
-    description: Eligible free ancillary products and benefits offered.
-    type: object
-    properties:
-      eligible_extras:
-        title: Eligible extras
-        description: Eligible ancillary products for selection.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-        properties:
-          quantity:
-            allOf:
-            - $ref: '#/definitions/quantity'
-            - title: Eligible extras quantity
-            - description: The total number of ancillary products.
-      eligible_codes:
-        title: Extra codes
-        description: Eligible ancillary product codes.
-        type: array
-        items:
-          $ref: '#/definitions/product_code'
-      meet_and_greet:
-        allOf:
-        - $ref: '#/definitions/meet_and_greet'
-        - title: Meet and Greet
   meet_and_greet:
     title: Meet and Greet
     description: Indicates the free meet and greet feature for the brand.
@@ -1580,9 +1274,11 @@ definitions:
     type: object
     properties:
       brand:
-        $ref: '#/definitions/brand'
+        allOf:
+        - $ref: '#/definitions/brand'
       code:
-        $ref: '#/definitions/code'
+        allOf:
+        - $ref: '#/definitions/code'
       percent:
         title: Discount percentage
         description: The discount percentage applied to the reservation.
@@ -1605,6 +1301,338 @@ definitions:
       reservation_date_range:
         allOf:
         - $ref: '#/definitions/date_range'
+  domain:
+    description: ""
+    type: object
+    properties:
+      language:
+        allOf:
+        - $ref: '#/definitions/language'
+      channel:
+        allOf:
+        - $ref: '#/definitions/channel'
+  error_400:
+    allOf:
+    - $ref: '#/definitions/error_response'
+    - description: ' 400 Bad Request is returned when the request could not be understood
+        by the server. 400 includes missing required values, invalid data types, minimum/maximum
+        values, ranges and format.'
+    - required:
+      - status
+    - properties:
+        status:
+          allOf:
+          - $ref: '#/definitions/status'
+  free_options:
+    title: Free options
+    description: Eligible free ancillary products and benefits offered.
+    type: object
+    properties:
+      eligible_extras:
+        title: Eligible extras
+        description: Eligible ancillary products for selection.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/product_code'
+        properties:
+          quantity:
+            allOf:
+            - $ref: '#/definitions/quantity'
+            - title: Eligible extras quantity
+            - description: The total number of ancillary products.
+      eligible_codes:
+        title: Extra codes
+        description: Eligible ancillary product codes.
+        type: array
+        items:
+          allOf:
+          - $ref: '#/definitions/product_code'
+      meet_and_greet:
+        allOf:
+        - $ref: '#/definitions/meet_and_greet'
+        - title: Meet and Greet
+  loyalty_discounts:
+    title: Loyalty lookup
+    description: General loyalty lookup information. Acts as a passenger context on
+      request. The response includes Mapped ABG discounts and best discount.
+    type: array
+    items:
+      properties:
+        rate_qualifiers:
+          allOf:
+          - $ref: '#/definitions/brand'
+        mapped_discounts:
+          title: Mapped discounts
+          description: Mapped Avis Budget Group discounts along with their free options.
+          type: array
+          items:
+            allOf:
+            - $ref: '#/definitions/commercial_discount'
+        best_discount:
+          title: Best discoun
+          description: Represent the best discount with the provided passenger(s)
+            information when there is more than one passenger.
+          type: boolean
+        driver:
+          allOf:
+          - $ref: '#/definitions/driver'
+  partner:
+    title: Partner information
+    description: Travel partner information.
+    required:
+    - code
+    type: object
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/partner_code'
+      name:
+        allOf:
+        - $ref: '#/definitions/partner_name'
+      iata_number:
+        allOf:
+        - $ref: '#/definitions/iata_number'
+  partner_program_v1_request:
+    description: Commercially agreed partner loyalties and discounts to be sent in
+      the request.
+    type: object
+    properties:
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      partner:
+        allOf:
+        - $ref: '#/definitions/partner'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      loyalty_discounts:
+        allOf:
+        - $ref: '#/definitions/loyalty_discounts'
+    example:
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+      partner:
+        code: SNCF
+      domain:
+        language: EN
+        channel: website
+      loyalty_discounts:
+      - rate_qualifiers:
+          partner_loyalty:
+            program: Voyageur
+          partner_discount:
+            program: Carte Jeune
+        driver: primary
+      - rate_qualifiers:
+          partner_loyalty:
+            program: GRAND VOYAGEUR LE CLUB
+          partner_discount:
+            program: Carte Jeune
+        driver: secondary
+  partner_program_v1_response:
+    description: All the available Discounts and free extra product details for Avis
+      Budget Group vehicles which are applicable to passengers loyalty cards.
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      loyalty_discounts:
+        allOf:
+        - $ref: '#/definitions/loyalty_discounts'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "200"
+          message: Success
+          details: Loyalty details are successfully retrieved.
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+      domain:
+        language: EN
+      loyalty_discounts:
+      - rate_qualifiers:
+          partner_loyalty:
+            program: Voyageur
+          partner_discount:
+            program: San carte
+        mapped_discounts:
+        - brand: Avis
+          code: X5212064
+          percent: 15
+          free_options:
+            eligible_extras:
+              quantity: 1
+            eligible_codes:
+            - ADD
+            - GPS
+            - BBS
+            - CBS
+            - CSS
+            - SKR
+            - SNC
+        - brand: Budget
+          code: L824502
+          percent: 10
+          free_options:
+            eligible_extras:
+              quantity: 0
+        best_discount: true
+      - rate_qualifiers:
+          partner_loyalty:
+            program: GRAND VOYAGEUR LE CLUB
+          partner_discount:
+            program: Carte Jeune
+        mapped_discounts:
+        - brand: Avis
+          code: X5212067
+          percent: 10
+          free_options:
+            eligible_extras:
+              quantity: 1
+            eligible_codes:
+            - ADD
+            - GPS
+            - BBS
+            - CBS
+            - CSS
+            - SKR
+            - SNC
+        - brand: Budget
+          code: L824502
+          percent: 10
+          free_options:
+            eligible_extras:
+              quantity: 0
+  partner_v1_response:
+    title: Loyalty tier lookup information
+    description: Partner loyalty and discount cards with associated ABG discounts
+      codes and free options.
+    type: object
+    properties:
+      status:
+        allOf:
+        - $ref: '#/definitions/success_status'
+      transaction:
+        allOf:
+        - $ref: '#/definitions/transaction'
+      domain:
+        allOf:
+        - $ref: '#/definitions/domain'
+      loyalty_discounts:
+        allOf:
+        - $ref: '#/definitions/loyalty_discounts'
+    example:
+      status:
+        request_time: 2018-10-25T12:01:54Z
+        success:
+        - code: "200"
+          message: Success
+          details: Loyalty details are successfully retrieved.
+      transaction:
+        id: 227a1700-43e1-11e9-95ce-e6a7a0e31bec
+        system_id: C56a1700-43e1-11e9-95ce-e6a7a0e31bec
+      domain:
+        language: EN
+      loyalty_discounts:
+      - rate_qualifiers:
+          partner_loyalty:
+            program: SANS CARTE
+          partner_discount:
+            program: SANS CARTE
+        mapped_discounts:
+        - brand: Avis
+          code: X5212058
+          percent: 10
+          free_options:
+            eligible_extras:
+              quantity: 0
+        - brand: Budget
+          code: L824502
+          percent: 10
+          free_options:
+            eligible_extras:
+              quantity: 0
+      - rate_qualifiers:
+          partner_loyalty:
+            program: VOYAGEUR
+          partner_discount:
+            program: SANS CARTE
+        mapped_discounts:
+        - brand: Avis
+          code: X5212059
+          percent: 15
+          free_options:
+            eligible_extras:
+              quantity: 1
+            eligible_codes:
+            - ADD
+            - GPS
+            - BBS
+            - CBS
+            - CSS
+            - SKR
+            - SNC
+        - brand: Budget
+          code: L824502
+          percent: 15
+          free_options:
+            eligible_extras:
+              quantity: 0
+  success_status:
+    title: Success status
+    description: Success Status object
+    required:
+    - request_time
+    - success
+    type: object
+    properties:
+      request_time:
+        allOf:
+        - $ref: '#/definitions/date_time'
+        - description: The time stamp of the request
+      success:
+        allOf:
+        - $ref: '#/definitions/success_details'
+  transaction:
+    title: Transaction
+    description: Transaction details that may be used by your application to identify
+      a request.
+    type: object
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/transaction_id'
+      system_id:
+        title: Internal correlation  identifier
+        description: A unique identifier generated internally by the application to
+          identify the payload and troubleshoot.
+        type: string
+        example: i9332ffa-5250-11e9-8647-d663bd873d78
+  week_day:
+    title: Working day
+    description: Working and holidays day details.
+    required:
+    - day_of_week
+    type: object
+    properties:
+      day_of_week:
+        allOf:
+        - $ref: '#/definitions/day_of_week'
+      hours:
+        allOf:
+        - $ref: '#/definitions/hours'
+        - description: working hours.
 parameters:
   brand:
     name: brand
